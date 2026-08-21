@@ -1,29 +1,25 @@
-'use server'
+"use server"
 
+import { headers } from "next/headers"
 import { z } from "zod"
-import { Resend } from 'resend'
-import { QuoteRequestEmail } from '@/emails/quote-request'
-
-const apiKey = process.env.RESEND_API_KEY
-console.log('Debug - Environment check:')
-console.log('- Resend API Key present:', !!apiKey)
-console.log('- API Key length:', apiKey?.length)
-console.log('- First 4 chars:', apiKey?.substring(0, 4))
-
-const resend = new Resend(apiKey)
+import { Resend } from "resend"
+import { QuoteRequestEmail } from "@/emails/quote-request"
+import { ALLOWED_SERVICES } from "@/lib/quote"
+import { isRateLimited } from "@/lib/rate-limit"
 
 const formSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  phone: z.string().min(1, "Phone number is required"),
-  email: z.string().email("Invalid email address"),
-  services: z.array(z.string()).min(1, "Please select at least one service"),
-  eventType: z.string().min(1, "Event type is required"),
-  eventDate: z.string().min(1, "Event date is required"),
-  location: z.string().min(1, "Location is required"),
-  guestCount: z.string().min(1, "Guest count is required"),
-  referralSource: z.string().min(1, "Please let us know how you heard about us"),
-  additionalDetails: z.string().optional(),
+  firstName: z.string().trim().min(1, "First name is required").max(80),
+  lastName: z.string().trim().min(1, "Last name is required").max(80),
+  phone: z.string().trim().min(7, "Phone number is required").max(30),
+  email: z.string().trim().email("Invalid email address").max(254),
+  services: z.array(z.enum(ALLOWED_SERVICES)).min(1, "Please select at least one service").max(ALLOWED_SERVICES.length),
+  eventType: z.string().trim().min(1, "Event type is required").max(120),
+  eventDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid event date"),
+  location: z.string().trim().min(1, "Location is required").max(200),
+  guestCount: z.string().regex(/^[1-9]\d{0,4}$/, "Guest count must be between 1 and 99999"),
+  referralSource: z.string().trim().max(200).optional().default(""),
+  additionalDetails: z.string().trim().max(2000).optional(),
+  website: z.string().optional(),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -33,92 +29,63 @@ type FormState = {
   success?: boolean
 }
 
-type EmailError = {
-  name?: string
-  message?: string
-  stack?: string
-  data?: Record<string, unknown>
-}
-
-export async function submitQuoteForm(prevState: FormState, formData: FormData): Promise<FormState> {
-  try {
-    const validatedFields = formSchema.safeParse(formData)
-
-    if (!validatedFields.success) {
-      return { error: "Invalid form data", success: false }
-    }
-
-    const data = validatedFields.data
-
-    try {
-      await resend.emails.send({
-        from: 'Pinkys Up <onboarding@resend.dev>',
-        to: ['pereira.brenda61@gmail.com'],
-        subject: `New Quote Request from ${data.firstName} ${data.lastName}`,
-        html: QuoteRequestEmail(data),
-        replyTo: data.email,
-      })
-
-      return { success: true }
-    } catch (error) {
-      const emailError: EmailError = error instanceof Error ? {
-        name: error.name,
-        message: error.message,
-        stack: error.stack,
-      } : {
-        message: 'Unknown error occurred'
-      }
-      console.error('Detailed email error:', emailError)
-      return { error: emailError.message || "Failed to send email", success: false }
-    }
-  } catch (error) {
-    console.error('Error processing form:', error)
-    return { error: "Failed to process form", success: false }
+function getClientKey(headerList: Headers) {
+  const forwarded = headerList.get("x-forwarded-for")
+  if (forwarded) {
+    return forwarded.split(",")[0]?.trim() || "unknown"
   }
+
+  return headerList.get("x-real-ip") ?? "unknown"
 }
 
-export async function sendEmail(data: FormData): Promise<{ error?: string; success?: boolean }> {
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    throw new Error("Email service is not configured")
+  }
+
+  return new Resend(apiKey)
+}
+
+export async function submitQuoteForm(
+  _prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
   try {
-    const validatedFields = formSchema.safeParse(data)
+    const headerList = await headers()
+    if (isRateLimited(getClientKey(headerList))) {
+      return { error: "Too many requests. Please try again later.", success: false }
+    }
+
+    const validatedFields = formSchema.safeParse(formData)
 
     if (!validatedFields.success) {
       return { error: "Please fill out all required fields", success: false }
     }
 
-    const validatedData = validatedFields.data
+    const { website, ...data } = validatedFields.data
 
-    try {
-      await resend.emails.send({
-        from: 'Pinkys Up <onboarding@resend.dev>',
-        to: ['pereira.brenda61@gmail.com'],
-        subject: `New Quote Request from ${validatedData.firstName} ${validatedData.lastName}`,
-        text: `
-          Name: ${validatedData.firstName} ${validatedData.lastName}
-          Email: ${validatedData.email}
-          Phone: ${validatedData.phone}
-          Services: ${validatedData.services.join(', ')}
-          Event Type: ${validatedData.eventType}
-          Event Date: ${validatedData.eventDate}
-          Location: ${validatedData.location}
-          Guest Count: ${validatedData.guestCount}
-          Referral Source: ${validatedData.referralSource}
-          Additional Details: ${validatedData.additionalDetails || 'None provided'}
-        `,
-      });
+    if (website?.trim()) {
       return { success: true }
-    } catch (error) {
-      const emailError: EmailError = error instanceof Error ? {
-        name: error.name,
-        message: error.message,
-        stack: error.stack,
-      } : {
-        message: 'Unknown error occurred'
-      }
-      console.error('Detailed email error:', emailError)
-      return { error: emailError.message || "Failed to send email", success: false }
     }
+
+    const to = process.env.QUOTE_NOTIFICATION_EMAIL ?? "pereira.brenda61@gmail.com"
+    const from = process.env.RESEND_FROM_EMAIL ?? "Pinkys Up <onboarding@resend.dev>"
+
+    await getResend().emails.send({
+      from,
+      to: [to],
+      subject: `New Quote Request from ${data.firstName} ${data.lastName}`,
+      html: QuoteRequestEmail(data),
+      replyTo: data.email,
+    })
+
+    return { success: true }
   } catch (error) {
-    console.error('Error processing form:', error)
-    return { error: "Failed to process form", success: false }
+    console.error("Error processing quote form")
+    if (error instanceof Error && error.message === "Email service is not configured") {
+      return { error: "Unable to send your request right now. Please try again later.", success: false }
+    }
+    return { error: "Failed to send your request. Please try again.", success: false }
   }
 }

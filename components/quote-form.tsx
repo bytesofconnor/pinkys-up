@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { submitQuoteForm } from '@/app/actions'
+import { type AllowedService } from '@/lib/quote'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -24,7 +25,8 @@ export function QuoteForm() {
     location: '',
     referralSource: '',
     additionalDetails: '',
-    services: [] as string[]
+    website: '',
+    services: [] as AllowedService[]
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -75,7 +77,8 @@ export function QuoteForm() {
           location: '',
           guestCount: '',
           referralSource: '',
-          additionalDetails: ''
+          additionalDetails: '',
+          website: ''
         });
         setErrors({});
         setSubmitted(true);
@@ -106,6 +109,18 @@ export function QuoteForm() {
             An unexpected error occurred
           </motion.div>
         )}
+        <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+          <label htmlFor="website">Website</label>
+          <input
+            id="website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData.website}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, website: e.target.value })}
+          />
+        </div>
         {submitted ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -151,8 +166,8 @@ export function QuoteForm() {
               Keep an eye on your email for our response!
             </motion.div>
           </motion.div>
-        ) : null}
-
+        ) : (
+        <>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <Label htmlFor="firstName">First Name</Label>
@@ -161,6 +176,7 @@ export function QuoteForm() {
               name="firstName"
               value={formData.firstName}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, firstName: e.target.value })}
+              maxLength={80}
               required
             />
             {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
@@ -173,6 +189,7 @@ export function QuoteForm() {
               name="lastName"
               value={formData.lastName}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lastName: e.target.value })}
+              maxLength={80}
               required
             />
             {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
@@ -188,6 +205,7 @@ export function QuoteForm() {
               type="email"
               value={formData.email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
+              maxLength={254}
               required
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -201,6 +219,7 @@ export function QuoteForm() {
               type="tel"
               value={formData.phone}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
+              maxLength={30}
               required
             />
             {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -215,7 +234,7 @@ export function QuoteForm() {
                 checked={formData.services.includes('bar')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'bar'] });
+                    setFormData({ ...formData, services: [...formData.services, 'bar' as const] });
                   } else {
                     setFormData({ ...formData, services: formData.services.filter((service) => service !== 'bar') });
                   }
@@ -228,7 +247,7 @@ export function QuoteForm() {
                 checked={formData.services.includes('mixologist')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'mixologist'] });
+                    setFormData({ ...formData, services: [...formData.services, 'mixologist' as const] });
                   } else {
                     setFormData({ ...formData, services: formData.services.filter((service) => service !== 'mixologist') });
                   }
@@ -241,7 +260,7 @@ export function QuoteForm() {
                 checked={formData.services.includes('glassware')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'glassware'] });
+                    setFormData({ ...formData, services: [...formData.services, 'glassware' as const] });
                   } else {
                     setFormData({ ...formData, services: formData.services.filter((service) => service !== 'glassware') });
                   }
@@ -254,7 +273,7 @@ export function QuoteForm() {
                 checked={formData.services.includes('custom')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'custom'] });
+                    setFormData({ ...formData, services: [...formData.services, 'custom' as const] });
                   } else {
                     setFormData({ ...formData, services: formData.services.filter((service) => service !== 'custom') });
                   }
@@ -267,7 +286,7 @@ export function QuoteForm() {
                 checked={formData.services.includes('dj')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'dj'] });
+                    setFormData({ ...formData, services: [...formData.services, 'dj' as const] });
                   } else {
                     setFormData({ ...formData, services: formData.services.filter((service) => service !== 'dj') });
                   }
@@ -286,6 +305,7 @@ export function QuoteForm() {
               name="eventType"
               value={formData.eventType}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, eventType: e.target.value })}
+              maxLength={120}
               required
             />
             {errors.eventType && <p className="text-red-500 text-sm mt-1">{errors.eventType}</p>}
@@ -314,6 +334,8 @@ export function QuoteForm() {
               type="number"
               value={formData.guestCount}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, guestCount: e.target.value })}
+              min={1}
+              max={99999}
               required
             />
             {errors.guestCount && <p className="text-red-500 text-sm mt-1">{errors.guestCount}</p>}
@@ -326,6 +348,7 @@ export function QuoteForm() {
               name="location"
               value={formData.location}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, location: e.target.value })}
+              maxLength={200}
               required
             />
             {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
@@ -339,6 +362,7 @@ export function QuoteForm() {
             name="referralSource"
             value={formData.referralSource}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, referralSource: e.target.value })}
+            maxLength={200}
           />
         </div>
 
@@ -349,6 +373,7 @@ export function QuoteForm() {
             name="additionalDetails"
             value={formData.additionalDetails}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, additionalDetails: e.target.value })}
+            maxLength={2000}
           />
         </div>
 
@@ -359,6 +384,8 @@ export function QuoteForm() {
         >
           <SubmitButton className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-md" />
         </motion.div>
+        </>
+        )}
       </form>
     </motion.div>
   )

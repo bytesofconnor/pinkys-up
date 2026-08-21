@@ -1,15 +1,17 @@
+import { escapeHtml, escapeHtmlWithBreaks } from "@/lib/html"
+
 interface QuoteEmailProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  eventDate: string;
-  eventType: string;
-  guestCount: string;
-  location: string;
-  services: string[];
-  referralSource: string;
-  additionalDetails?: string;
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  eventDate: string
+  eventType: string
+  guestCount: string
+  location: string
+  services: string[]
+  referralSource: string
+  additionalDetails?: string
 }
 
 export function QuoteRequestEmail({
@@ -48,43 +50,47 @@ export function QuoteRequestEmail({
           
           <div class="section">
             <div class="label">Client Name:</div>
-            <div class="value">${firstName} ${lastName}</div>
+            <div class="value">${escapeHtml(firstName)} ${escapeHtml(lastName)}</div>
           </div>
 
           <div class="section">
             <div class="label">Contact Information:</div>
-            <div class="value">Email: ${email}</div>
-            <div class="value">Phone: ${phone}</div>
+            <div class="value">Email: ${escapeHtml(email)}</div>
+            <div class="value">Phone: ${escapeHtml(phone)}</div>
           </div>
 
           <div class="section">
             <div class="label">Event Details:</div>
-            <div class="value">Type: ${eventType}</div>
-            <div class="value">Date: ${eventDate}</div>
-            <div class="value">Location: ${location}</div>
-            <div class="value">Guest Count: ${guestCount}</div>
+            <div class="value">Type: ${escapeHtml(eventType)}</div>
+            <div class="value">Date: ${escapeHtml(eventDate)}</div>
+            <div class="value">Location: ${escapeHtml(location)}</div>
+            <div class="value">Guest Count: ${escapeHtml(guestCount)}</div>
           </div>
 
           <div class="section">
             <div class="label">Services Requested:</div>
             <div class="services">
-              ${services.map(service => `<span class="service-tag">${service}</span>`).join(' ')}
+              ${services.map((service) => `<span class="service-tag">${escapeHtml(service)}</span>`).join(" ")}
             </div>
           </div>
 
           <div class="section">
             <div class="label">How they found us:</div>
-            <div class="value">${referralSource}</div>
+            <div class="value">${escapeHtml(referralSource)}</div>
           </div>
 
-          ${additionalDetails ? `
+          ${
+            additionalDetails
+              ? `
             <div class="section">
               <div class="label">Additional Details:</div>
-              <div class="value">${additionalDetails}</div>
+              <div class="value">${escapeHtmlWithBreaks(additionalDetails)}</div>
             </div>
-          ` : ''}
+          `
+              : ""
+          }
         </div>
       </body>
     </html>
-  `;
+  `
 }

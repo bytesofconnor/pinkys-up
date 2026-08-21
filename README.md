@@ -12,7 +12,7 @@ PINKYS UP DC is a premium mobile mocktail catering service based in Washington, 
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Styling**: Tailwind CSS with custom UI components
 - **Animations**: Framer Motion
 - **Form Handling**: Server Actions with Zod validation
@@ -36,6 +36,8 @@ PINKYS UP DC is a premium mobile mocktail catering service based in Washington, 
    Create a `.env` file in the root directory with:
    ```
    RESEND_API_KEY=your_resend_api_key
+   QUOTE_NOTIFICATION_EMAIL=your_notification_email
+   RESEND_FROM_EMAIL=Pinkys Up <onboarding@resend.dev>
    ```
 
 4. Run the development server:
@@ -48,6 +50,8 @@ PINKYS UP DC is a premium mobile mocktail catering service based in Washington, 
 ## 📝 Environment Variables
 
 - `RESEND_API_KEY`: Required for email functionality (quote form submissions)
+- `QUOTE_NOTIFICATION_EMAIL`: Inbox that receives quote requests
+- `RESEND_FROM_EMAIL`: Optional From address (defaults to Resend's onboarding sender)
 
 ## 🎨 Design System
 
