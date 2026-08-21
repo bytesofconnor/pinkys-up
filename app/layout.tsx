@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "PINKYS UP - Mobile Bar Service",
     description: "Full-service beverage catering company providing exceptional experiences",
-    url: "https://pinkysup.com",
+    url: "https://www.pinkysup.social",
     siteName: "PINKYS UP",
     locale: "en_US",
     type: "website",
