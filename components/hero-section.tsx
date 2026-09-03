@@ -25,6 +25,14 @@ export function HeroSection() {
           transition={{ duration: 0.8 }}
           className="mx-auto max-w-3xl rounded-3xl border border-white/20 bg-black/32 px-6 py-10 text-center shadow-xl backdrop-blur-md sm:px-10 sm:py-12"
         >
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.7 }}
+            className="mb-4 text-xs uppercase tracking-[0.35em] text-white/90"
+          >
+            Washington, DC · Minneapolis
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

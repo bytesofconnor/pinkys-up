@@ -7,21 +7,23 @@ import { UpcomingEvents } from "@/components/upcoming-events"
 import { Button } from "@/components/ui/button"
 import {
   formatHeroDate,
+  getEventRegistrationHref,
   getNextEvent,
-  getNextRegisterableEvent,
   getUpcomingEvents,
 } from "@/lib/events"
 
 export const metadata: Metadata = {
   title: "Events | PINKYS UP DC",
-  description: "Free and accessible community wellness experiences from Pinky's Up.",
+  description: "Free community wellness experiences in Washington, DC and Minneapolis from Pinky's Up.",
 }
 
 export default function EventsPage() {
   const upcomingEvents = getUpcomingEvents()
   const nextEvent = getNextEvent()
-  const registerableEvent = getNextRegisterableEvent()
-  const registerHref = registerableEvent?.registrationUrl ?? "/events"
+  const registerHref = nextEvent ? getEventRegistrationHref(nextEvent) : "/events"
+  const registerLabel = nextEvent?.registrationUrl
+    ? "Register"
+    : "Register via WhatsApp"
 
   return (
     <div className="bg-gradient-to-br from-pink-50 via-white to-purple-50">
@@ -38,7 +40,9 @@ export default function EventsPage() {
                 className="mb-4 text-sm uppercase tracking-[0.35em] text-white"
                 style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85)" }}
               >
-                {nextEvent.startsAt ? formatHeroDate(nextEvent.startsAt) : "Date TBD"}
+                {nextEvent.startsAt
+                  ? formatHeroDate(nextEvent.startsAt, nextEvent.timeZone)
+                  : "Date TBD"}
               </p>
               <h1
                 className="mb-10 font-display text-5xl leading-[1.15] text-[#ffd0e4] sm:text-6xl md:text-7xl"
@@ -50,20 +54,15 @@ export default function EventsPage() {
                 <EventCountdown target={nextEvent.startsAt} />
               ) : null}
               <div className="mt-10">
-                {registerableEvent?.registrationUrl ? (
-                  <Link href={registerHref} target="_blank" rel="noopener noreferrer">
-                    <Button
-                      size="lg"
-                      className="bg-[#be185d] px-10 py-6 text-base font-semibold uppercase tracking-[0.2em] text-white hover:bg-[#9d174d]"
-                    >
-                      Register
-                    </Button>
-                  </Link>
-                ) : (
-                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white">
-                    Registration TBD
-                  </p>
-                )}
+                <Link href={registerHref} target="_blank" rel="noopener noreferrer">
+                  <Button
+                    size="lg"
+                    className="bg-[#be185d] px-10 py-6 text-base font-semibold uppercase tracking-[0.2em] text-white hover:bg-[#9d174d]"
+                  >
+                    {registerLabel}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </Button>
+                </Link>
               </div>
             </>
           ) : (
@@ -83,7 +82,7 @@ export default function EventsPage() {
           <SectionHeading
             eyebrow="Upcoming Wellness Events"
             title="Find Your Next Way to Connect."
-            description="Free and accessible community experiences designed to help us move, connect, and explore wellness together."
+            description="Free community experiences in Washington, DC and Minneapolis — come move, connect, and explore wellness together."
           />
         </div>
         <UpcomingEvents events={upcomingEvents} />

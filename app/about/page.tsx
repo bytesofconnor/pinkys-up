@@ -30,7 +30,7 @@ export default function AboutPage() {
               Sometimes it means moving your body. Sometimes it means slowing down, connecting with others, trying something new, or simply creating space to feel good.
             </p>
             <p>
-              Our community wellness events are designed to explore movement, mobility, flexibility, confidence, connection, and intentional self-care—all in welcoming spaces throughout the community.
+              Our community wellness events are designed to explore movement, mobility, flexibility, confidence, connection, and intentional self-care—in welcoming spaces in Washington, DC and Minneapolis.
             </p>
             <p className="font-medium text-gray-800">
               Come as you are. Move how you can. Find what feels good.
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-xl mb-4 text-gray-800"
               >
-                Welcome to DC&apos;s chicest mobile mocktail experience! Our stunning bar cart brings sophistication and style to alcohol-free celebrations, one perfectly crafted drink at a time.
+                Welcome to the chicest mobile mocktail experience in DC and Minneapolis. Our bar cart brings sophistication and style to alcohol-free celebrations, one perfectly crafted drink at a time.
               </motion.p>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}

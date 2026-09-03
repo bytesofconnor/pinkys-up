@@ -20,8 +20,8 @@ const instrument = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: "PINKYS UP DC",
-  description: "Elevate your event with our signature mocktails",
-  keywords: ["mobile bar", "beverage catering", "wedding bar service", "corporate events", "Minneapolis", "Minnesota", "cocktail service"],
+  description: "Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.",
+  keywords: ["mobile bar", "beverage catering", "wedding bar service", "corporate events", "Washington DC", "Minneapolis", "Minnesota", "mocktails"],
   authors: [{ name: "PINKYS UP" }],
   openGraph: {
     title: "PINKYS UP - Mobile Bar Service",

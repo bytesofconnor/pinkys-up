@@ -20,7 +20,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Community"
             title="Find Your Next Way to Connect."
-            description="Free and accessible gatherings to move, meet people, and explore wellness together."
+            description="Free gatherings in Washington, DC and Minneapolis — come move, meet people, and explore wellness together."
           />
         </div>
         <UpcomingEvents events={upcomingEvents.slice(0, 2)} />

@@ -53,11 +53,11 @@ export function FounderSection() {
                       Elevating Moments by Brenda
                     </h2>
                     <p className="text-lg text-gray-600 mb-6">
-                      Hey there! I&apos;m Brenda, the founder of PINKYS UP DC. My journey into the world of mocktails began with a simple
+                      Hey there! I&apos;m Brenda, the founder of PINKYS UP. My journey into the world of mocktails began with a simple
                       realization - everyone deserves to feel included and celebrated, regardless of their relationship with alcohol.
                     </p>
                     <p className="text-lg text-gray-600">
-                      Today, I&apos;m proud to bring DC&apos;s most sophisticated non-alcoholic beverage experience to your events. 
+                      Today, I&apos;m proud to bring that experience to Washington, DC and Minneapolis.
                       Let&apos;s create unforgettable moments together! 🌟
                     </p>
                   </motion.div>
