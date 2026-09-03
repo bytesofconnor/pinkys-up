@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
@@ -12,6 +12,7 @@ interface Mocktail {
 }
 
 export function MarqueeText() {
+  const reduceMotion = useReducedMotion()
   const mocktails: Mocktail[] = [
     {
       name: "The Filibuster Fizz",
@@ -43,13 +44,13 @@ export function MarqueeText() {
   const duplicatedMocktails = [...mocktails, ...mocktails, ...mocktails]
 
   return (
-    <div className="overflow-hidden whitespace-nowrap flex-1 mr-8">
+    <div className="mr-4 flex-1 overflow-hidden whitespace-nowrap" aria-hidden="true">
       <motion.div
-        initial={{ x: "-100%" }}
-        animate={{ x: "0%" }}
+        initial={reduceMotion ? { x: 0 } : { x: "-100%" }}
+        animate={reduceMotion ? { x: 0 } : { x: "0%" }}
         transition={{
-          duration: 120,
-          repeat: Infinity,
+          duration: reduceMotion ? 0 : 120,
+          repeat: reduceMotion ? 0 : Infinity,
           ease: "linear",
         }}
         className="inline-block whitespace-nowrap"

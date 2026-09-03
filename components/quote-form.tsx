@@ -150,7 +150,7 @@ export function QuoteForm() {
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+              <h3 className="mb-2 font-display text-2xl text-[#be185d]">
                 Thank You for Choosing PINKYS UP!
               </h3>
               <p className="text-gray-600 text-lg">

@@ -30,14 +30,14 @@ export function FounderSection() {
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <div className="relative w-48 h-48 md:w-64 md:h-64">
-                      <div className="absolute -inset-1 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full blur opacity-0 group-hover:opacity-75 transition-all duration-500" />
-                      <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/20">
+                    <div className="relative h-48 w-48 md:h-64 md:w-64">
+                      <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 blur-md opacity-55 transition-all duration-500 group-hover:opacity-90 group-hover:blur-lg" />
+                      <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-white/30">
                         <Image
-                          src="/brenda-capital.JPEG"
-                          alt="Brenda Pereira Vargas - Founder of PINKYS UP DC"
+                          src="/brendap.jpg"
+                          alt="Brenda Pereira Vargas, founder of Pinky's Up"
                           fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="origin-[50%_45%] scale-[1.28] object-cover object-[48%_64%] transition-transform duration-700 group-hover:scale-[1.34]"
                         />
                       </div>
                     </div>
@@ -49,7 +49,9 @@ export function FounderSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
-                    <h2 className="text-3xl font-bold mb-4">Elevating Moments by Brenda✨</h2>
+                    <h2 className="mb-4 font-display text-3xl text-gray-900 md:text-4xl">
+                      Elevating Moments by Brenda
+                    </h2>
                     <p className="text-lg text-gray-600 mb-6">
                       Hey there! I&apos;m Brenda, the founder of PINKYS UP DC. My journey into the world of mocktails began with a simple
                       realization - everyone deserves to feel included and celebrated, regardless of their relationship with alcohol.

@@ -2,15 +2,42 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { SiteHeader } from "@/components/site-header"
 import { Button } from "@/components/ui/button"
+import { CalendlyEmbed } from "@/components/calendly-embed"
+import { SectionHeading } from "@/components/section-heading"
 import { motion } from "framer-motion"
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
-      <SiteHeader />
-      <div className="container max-w-6xl py-32">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+      <div className="container max-w-6xl py-16 md:py-24">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-24"
+        >
+          <div className="mb-8">
+            <SectionHeading
+              as="h1"
+              align="left"
+              title="Wellness Looks Different for Everyone."
+            />
+          </div>
+          <div className="max-w-4xl space-y-5 text-lg text-gray-700">
+            <p>At Pinky&apos;s Up, we believe wellness doesn&apos;t have to look one way.</p>
+            <p>
+              Sometimes it means moving your body. Sometimes it means slowing down, connecting with others, trying something new, or simply creating space to feel good.
+            </p>
+            <p>
+              Our community wellness events are designed to explore movement, mobility, flexibility, confidence, connection, and intentional self-care—all in welcoming spaces throughout the community.
+            </p>
+            <p className="font-medium text-gray-800">
+              Come as you are. Move how you can. Find what feels good.
+            </p>
+          </div>
+        </motion.section>
+
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -20,14 +47,14 @@ export default function AboutPage() {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-br from-pink-400/30 to-purple-400/30 rounded-[32px] blur opacity-0 group-hover:opacity-75 transition-all duration-500" />
             <div className="relative backdrop-blur-md bg-white/30 p-8 rounded-[32px] border border-white/20">
-              <motion.h1 
+              <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-5xl font-bold mb-6 bg-gradient-to-br from-pink-600 to-purple-700 bg-clip-text text-transparent"
+                className="mb-6 font-display text-4xl leading-tight text-gray-900 md:text-5xl"
               >
                 Raise Your Glass, Not Your Proof! ✨
-              </motion.h1>
+              </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -65,29 +92,18 @@ export default function AboutPage() {
           </motion.div>
         </motion.div>
 
-        <div className="space-y-24 max-w-3xl mx-auto">
+        <div className="space-y-16 max-w-3xl mx-auto">
           {[
             {
               step: "Step One.",
-              title: "Drop Us a Line! ✨",
-              description: "Tell us about your dream event! Fill out our quick form below and we'll get back to you faster than you can say 'make mine a mocktail'!",
+              title: "Submit a Quote",
+              description: "Tell us about your celebration, gathering, or mocktail experience. We'll follow up with availability and next steps.",
               hasButton: true
             },
             {
               step: "Step Two.",
-              title: "Let's Get Creative! 🎨",
-              description: "We'll work our magic to create a custom mocktail menu that perfectly matches your vibe. From sophisticated sips to playful pours, we'll design a drink experience that'll have your guests talking for weeks!",
-            },
-            {
-              step: "Step Three.",
-              title: "Time to Shine! 🌟",
-              description: "Our gorgeous mobile bar will roll up ready to serve joy in every glass. You focus on having fun - we'll handle everything else with style and sparkle!",
-            },
-            {
-              step: "Step Four.",
-              title: "Let's Create Magic! ✨",
-              description: "We're proud to bring DC's most sophisticated mocktail experience to your special events.",
-              hasButton: false
+              title: "Customized Service Experience",
+              description: "We design a menu, setup, and service plan that matches your people, your space, and your vibe.",
             }
           ].map((section, index) => (
             <motion.section
@@ -99,28 +115,41 @@ export default function AboutPage() {
             >
               <div className="absolute -inset-1 bg-gradient-to-br from-pink-400/30 to-purple-400/30 rounded-[32px] blur opacity-0 group-hover:opacity-75 transition-all duration-500" />
               <div className="relative backdrop-blur-md bg-white/30 p-12 rounded-[32px] border border-white/20 text-center">
-                <h2 className="text-4xl font-bold mb-4 bg-gradient-to-br from-pink-600 to-purple-700 bg-clip-text text-transparent">
+                <h2 className="mb-3 font-display text-4xl text-[#be185d]">
                   {section.step}
                 </h2>
-                <h3 className="text-2xl mb-4 text-gray-800">{section.title}</h3>
+                <h3 className="mb-4 font-display text-2xl text-gray-900">{section.title}</h3>
                 <p className="text-lg text-gray-600 mb-6">
                   {section.description}
                 </p>
                 {section.hasButton && (
-                  <Link href="/get-quote">
+                  <Link href="/quote">
                     <Button 
                       size="lg"
                       className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 font-semibold px-8 py-6 text-lg"
                     >
-                      GET A QUOTE ✨
+                      Submit a Quote
                     </Button>
                   </Link>
                 )}
               </div>
             </motion.section>
           ))}
+
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
+          >
+            <SectionHeading
+              title="Book a 30-min 1:1"
+              description="Want to talk it through first? Reserve a half hour with Brenda."
+            />
+            <CalendlyEmbed />
+          </motion.section>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

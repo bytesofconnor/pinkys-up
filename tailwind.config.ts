@@ -19,6 +19,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+      },
       colors: {
         borderColor: {
           border: "hsl(var(--border))",
@@ -64,10 +68,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "hero-drift": {
+          from: { transform: "scale(1.05) translate3d(0, 0, 0)" },
+          to: { transform: "scale(1.12) translate3d(-1.5%, -1%, 0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "hero-drift": "hero-drift 28s ease-in-out infinite alternate",
       },
     },
   },

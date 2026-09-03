@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { motion } from "framer-motion"
+import { SectionHeading } from "@/components/section-heading"
 
 const testimonials = [
   {
@@ -26,24 +27,22 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-100 to-blue-50">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="bg-gradient-to-br from-pink-50 via-white to-purple-50 py-24">
+      <div className="mx-auto max-w-7xl px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h2 className="text-4xl font-playfair font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent mb-4">
-            What People Are Saying
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Creating memorable experiences through exceptional service and innovative mocktails
-          </p>
+          <SectionHeading
+            title="What People Are Saying"
+            description="Creating memorable experiences through exceptional service and innovative mocktails."
+          />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.author}
@@ -51,32 +50,23 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative h-full"
+              className="flex h-full flex-col border-t border-black/10 pt-8"
             >
-              <div className="h-full bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-pink-100 hover:border-pink-200 transition-colors flex flex-col">
-                <div className="flex-grow">
-                  <div className="mb-8">
-                    <svg className="h-8 w-8 text-pink-400 opacity-50" fill="currentColor" viewBox="0 0 32 32">
-                      <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-600 mb-6 flex-grow">
-                    {testimonial.content}
-                  </p>
+              <p className="font-display text-xl leading-relaxed text-gray-800">
+                {testimonial.content}
+              </p>
+              <div className="mt-8 flex items-center">
+                <div className="relative h-12 w-12 overflow-hidden rounded-full">
+                  <Image
+                    src={testimonial.image}
+                    alt={testimonial.author}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <div className="flex items-center">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-pink-100">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.author}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="ml-4">
-                    <p className="font-semibold text-gray-800">{testimonial.author}</p>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
-                  </div>
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-900">{testimonial.author}</p>
+                  <p className="text-sm text-gray-500">{testimonial.role}</p>
                 </div>
               </div>
             </motion.div>

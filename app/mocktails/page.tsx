@@ -3,7 +3,7 @@
 import * as React from "react"
 import { motion as m } from "framer-motion"
 import Image from "next/image"
-import { SiteHeader } from "@/components/site-header"
+import { SectionHeading } from "@/components/section-heading"
 import { cn } from "@/lib/utils"
 
 interface Mocktail {
@@ -13,7 +13,6 @@ interface Mocktail {
   season: string;
   ingredients: string[];
   themeClass: string;
-  titleClass: string;
 }
 
 const mocktails: Mocktail[] = [
@@ -24,7 +23,6 @@ const mocktails: Mocktail[] = [
     season: "Political Collection",
     ingredients: ["Cranberry Juice", "Ginger Beer", "Fresh Lime", "Mint", "Sparkling Water"],
     themeClass: "from-red-400/30 to-blue-400/30",
-    titleClass: "from-red-600 to-blue-700"
   },
   {
     name: "Winter Wonderland",
@@ -33,7 +31,6 @@ const mocktails: Mocktail[] = [
     season: "Winter Collection",
     ingredients: ["Coconut Cream", "Blue Curaçao Syrup", "Silver Dust", "Vanilla"],
     themeClass: "from-cyan-400/30 to-blue-400/30",
-    titleClass: "from-cyan-600 to-blue-700"
   },
   {
     name: "The Electoral Punch",
@@ -42,7 +39,6 @@ const mocktails: Mocktail[] = [
     season: "Political Collection",
     ingredients: ["Cranberry Juice", "Coconut Cream", "Blue Raspberry Syrup", "Lemon", "Star Fruit"],
     themeClass: "from-red-400/30 to-blue-500/30",
-    titleClass: "from-red-600 to-blue-800"
   },
   {
     name: "Frost & Fire",
@@ -51,27 +47,24 @@ const mocktails: Mocktail[] = [
     season: "Winter Collection",
     ingredients: ["Spiced Apple Cider", "Mint Foam", "Cinnamon", "Star Anise", "Fresh Apple"],
     themeClass: "from-orange-400/30 to-cyan-400/30",
-    titleClass: "from-orange-600 to-cyan-700"
   }
 ];
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
-      <SiteHeader />
-      <div className="max-w-7xl mx-auto px-4 pt-32 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+      <div className="mx-auto max-w-7xl px-4 pb-20 pt-16 md:pt-24">
         <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-            Mindfully Crafted Elixirs
-          </h1>
-          <p className="text-xl text-gray-800 font-medium">
-            Seasonal herbs, artisanal botanicals, and wellness-inspired blends
-          </p>
+          <SectionHeading
+            as="h1"
+            title="Mindfully Crafted Elixirs"
+            description="Seasonal herbs, artisanal botanicals, and wellness-inspired blends."
+          />
         </m.div>
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -109,13 +102,12 @@ export default function Page() {
                   </div>
                   <div className="space-y-4">
                     <div>
-                      <h3 className={cn(
-                        "text-2xl font-bold bg-gradient-to-br bg-clip-text text-transparent drop-shadow-sm",
-                        mocktail.titleClass
-                      )}>
+                      <p className="mb-2 text-xs uppercase tracking-[0.24em] text-pink-600">
+                        {mocktail.season}
+                      </p>
+                      <h3 className="font-display text-3xl text-gray-900">
                         {mocktail.name}
                       </h3>
-                      <p className="text-sm text-gray-600">{mocktail.season}</p>
                     </div>
                     <p className="text-gray-700">{mocktail.description}</p>
                     <div>
@@ -133,6 +125,6 @@ export default function Page() {
           ))}
         </m.div>
       </div>
-    </main>
+    </div>
   );
 }

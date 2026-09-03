@@ -7,37 +7,46 @@ import { MusicPlayer } from "./music-player"
 import { TikTokIcon } from "./icons/tiktok"
 import { WhatsAppIcon } from "./icons/whatsapp"
 
+const socialLinks = [
+  {
+    name: "Instagram",
+    href: "https://instagram.com/pinkysup_dc",
+    icon: Instagram,
+  },
+  {
+    name: "TikTok",
+    href: "https://tiktok.com/@pinkysup_dc",
+    icon: TikTokIcon,
+  },
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/15715014766",
+    icon: WhatsAppIcon,
+  },
+]
+
 export function SiteFooter() {
   return (
-    <footer className="sticky bottom-0 z-40 w-full border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+    <footer className="sticky bottom-0 z-40 w-full border-t border-black/10 bg-background">
+      <div className="container flex h-16 items-center gap-2">
         <MarqueeText />
-        <div className="flex items-center space-x-6 ml-auto">
+        <div className="ml-auto flex shrink-0 items-center">
           <MusicPlayer />
-          <Link 
-            href="https://instagram.com/pinkysup_dc" 
-            target="_blank"
-            className="hover:text-pink-500 transition-colors"
-          >
-            <Instagram className="h-5 w-5" />
-            <span className="sr-only">Instagram</span>
-          </Link>
-          <Link 
-            href="https://tiktok.com/@pinkysup_dc" 
-            target="_blank"
-            className="hover:text-pink-500 transition-colors"
-          >
-            <TikTokIcon className="h-5 w-5" />
-            <span className="sr-only">TikTok</span>
-          </Link>
-          <Link 
-            href="http://Wa.me/+15715014766" 
-            target="_blank"
-            className="hover:text-pink-500 transition-colors"
-          >
-            <WhatsAppIcon className="h-5 w-5" />
-            <span className="sr-only">WhatsApp</span>
-          </Link>
+          {socialLinks.map((item) => {
+            const Icon = item.icon
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 w-11 items-center justify-center text-gray-900 transition-colors hover:text-[#9d174d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
+              >
+                <Icon className="h-5 w-5" aria-hidden="true" />
+                <span className="sr-only">{item.name} (opens in a new tab)</span>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </footer>

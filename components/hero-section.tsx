@@ -1,61 +1,70 @@
 'use client';
 
-import Image from "next/image"
-import { motion, useScroll, useTransform } from "framer-motion"
+import Link from "next/link"
+import { motion } from "framer-motion"
 import React from 'react';
+import { CinematicBackdrop } from "@/components/cinematic-backdrop"
+import { getNextRegisterableEvent } from "@/lib/events"
 
 export function HeroSection() {
-  const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [0, 500], [0, 200])
+  const nextRegisterableEvent = getNextRegisterableEvent()
+  const exploreHref = nextRegisterableEvent?.registrationUrl ?? "/events"
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <motion.div
-        style={{ y }}
-        className="absolute inset-0 z-0"
-      >
-        <div className="absolute inset-0 bg-black/20" />
-        <Image
-          src="/polaroid.jpg"
-          alt="People enjoying drinks at a social gathering"
-          fill
-          priority
-          className="object-cover brightness-75"
-        />
-      </motion.div>
+    <section className="relative -mt-20 flex min-h-screen items-center justify-center overflow-hidden">
+      <CinematicBackdrop
+        imageSrc="/polaroid.jpg"
+        alt=""
+        intensity="light"
+      />
 
-      <div className="relative z-10 container mx-auto px-4 py-32">
+      <div className="relative z-10 container mx-auto px-6 py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-3xl backdrop-blur-md bg-black/40 p-8 rounded-3xl shadow-xl border border-white/20 hover:bg-black/50 hover:border-white/30 transition-all duration-300"
-          whileHover={{ scale: 1.01 }}
+          className="mx-auto max-w-3xl rounded-3xl border border-white/20 bg-black/32 px-6 py-10 text-center shadow-xl backdrop-blur-md sm:px-10 sm:py-12"
         >
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-4xl sm:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-200 to-purple-200 text-center"
+            transition={{ delay: 0.15, duration: 0.8 }}
+            className="font-display text-4xl font-semibold leading-[1.2] tracking-tight text-[#ffd0e4] sm:text-5xl md:text-6xl"
           >
-            Elevate your next event with PINKYS UP ✨
+            Move. Connect. Celebrate.
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-lg sm:text-xl font-medium text-center space-y-4 text-gray-100 drop-shadow-lg"
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="mx-auto mt-5 max-w-xl text-base tracking-[0.04em] text-white sm:text-lg"
           >
-            <span className="block mb-4">
-              PINKYS UP DC is a fresh mocktail experience crafted by Brenda Pereira Vargas 
-              to revitalize the District&apos;s social scene.
-            </span>
-            <span className="block">
-              Each creation is infused with creativity and passion, bringing a healthy, 
-              vibrant buzz to the city. Mobile and ready to serve, we&apos;re here to make your 
-              next gathering unforgettable. ✨
-            </span>
+            Wellness, community, and zero-proof celebration.
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.8 }}
+            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
+            <Link
+              href={exploreHref}
+              target={nextRegisterableEvent?.registrationUrl ? "_blank" : undefined}
+              rel={nextRegisterableEvent?.registrationUrl ? "noopener noreferrer" : undefined}
+              className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-[#9d174d] px-8 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
+            >
+              Explore upcoming events
+              {nextRegisterableEvent?.registrationUrl ? (
+                <span className="sr-only"> (opens in a new tab)</span>
+              ) : null}
+            </Link>
+            <Link
+              href="/quote"
+              className="inline-flex min-h-14 w-full items-center justify-center rounded-full border border-white/60 bg-white/10 px-8 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
+            >
+              Book a mocktail experience
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </section>
