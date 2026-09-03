@@ -34,9 +34,7 @@ export default function Home() {
         </p>
       </section>
       <FounderSection />
-      <div className="bg-secondary/30">
-        <GallerySection />
-      </div>
+      <GallerySection />
       <Testimonials />
       <ServiceBars />
       <div className="bg-primary/10">

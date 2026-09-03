@@ -3,15 +3,16 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from "@/components/ui/button"
 import { useRef } from "react"
+import { SectionHeading } from "@/components/section-heading"
+import { galleryImages } from "@/lib/gallery"
 
 export function GallerySection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 300
+      const scrollAmount = 340
       const newScrollLeft =
         scrollContainerRef.current.scrollLeft + (direction === "left" ? -scrollAmount : scrollAmount)
       scrollContainerRef.current.scrollTo({
@@ -21,76 +22,57 @@ export function GallerySection() {
     }
   }
 
-  const gallery = [
-    {
-      title: "Rooftop Views",
-      image: "/drinks.jpg",
-    },
-    {
-      title: "Corporate Wellness",
-      image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&q=80",
-    },
-    {
-      title: "Handcrafted Mocktails",
-      image: "/2.jpg",
-    },
-    {
-      title: "Capitol Celebrations",
-      image: "/3.jpg",
-    },
-    {
-      title: "Team Building",
-      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80",
-    },
-    {
-      title: "Garden Parties",
-      image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80",
-    },
-  ]
-
   return (
-    <section className="py-20 bg-secondary/30" id="gallery">
+    <section className="bg-gradient-to-br from-pink-50 via-white to-purple-50 py-24" id="gallery">
       <div className="container">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="font-display text-3xl text-gray-900 md:text-4xl">Gallery</h2>
-          <div className="flex gap-4">
-            <Button
-              variant="outline"
-              size="icon"
+        <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl sm:text-left">
+            <SectionHeading
+              align="left"
+              eyebrow="Gallery"
+              title="Moments Worth Raising a Glass To."
+              description="Mocktails, community, and a little extra sparkle — from DC to Minneapolis."
+            />
+          </div>
+          <div className="flex shrink-0 gap-3">
+            <button
+              type="button"
               onClick={() => scroll("left")}
-              className="rounded-full"
+              aria-label="Scroll gallery left"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/15 text-gray-900 transition-colors hover:border-[#9d174d] hover:text-[#9d174d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
             >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
+              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
               onClick={() => scroll("right")}
-              className="rounded-full"
+              aria-label="Scroll gallery right"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/15 text-gray-900 transition-colors hover:border-[#9d174d] hover:text-[#9d174d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
             >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
+              <ChevronRight className="h-5 w-5" aria-hidden="true" />
+            </button>
           </div>
         </div>
 
         <div
           ref={scrollContainerRef}
-          className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+          className="flex gap-5 overflow-x-auto pb-2 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {gallery.map((item, index) => (
+          {galleryImages.map((item) => (
             <Link
-              key={index}
+              key={item.src}
               href="/gallery"
-              className="relative flex-none w-[300px] h-[400px] overflow-hidden rounded-xl snap-start group"
+              className="group relative h-[420px] w-[300px] flex-none snap-start overflow-hidden rounded-[28px] sm:w-[320px]"
             >
               <Image
-                src={item.image}
-                alt={item.title}
+                src={item.src}
+                alt={item.alt}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                sizes="320px"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0">
-                <p className="absolute bottom-4 left-4 text-white font-medium text-lg">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
+                <p className="absolute bottom-5 left-5 font-display text-2xl text-white">
                   {item.title}
                 </p>
               </div>

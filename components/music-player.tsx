@@ -22,7 +22,7 @@ export function MusicPlayer() {
     <>
       <audio
         ref={audioRef}
-        src="/fire-for-you-cannons.mp3"
+        src="/te-estoy-correteando.mp3"
         loop
       />
       <button
@@ -30,7 +30,7 @@ export function MusicPlayer() {
         onClick={togglePlay}
         className="inline-flex h-11 w-11 items-center justify-center text-gray-900 transition-colors hover:text-[#9d174d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
         aria-pressed={isPlaying}
-        aria-label={isPlaying ? "Pause ambient music" : "Play ambient music"}
+        aria-label={isPlaying ? "Pause Te Estoy Correteando" : "Play Te Estoy Correteando"}
       >
         {isPlaying ? (
           <Pause className="h-5 w-5" aria-hidden="true" />
