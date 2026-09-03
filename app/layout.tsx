@@ -19,13 +19,14 @@ const instrument = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: "PINKYS UP DC",
+  metadataBase: new URL("https://www.pinkysup.social"),
+  title: "PINKYS UP",
   description: "Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.",
   keywords: ["mobile bar", "beverage catering", "wedding bar service", "corporate events", "Washington DC", "Minneapolis", "Minnesota", "mocktails"],
   authors: [{ name: "PINKYS UP" }],
   openGraph: {
-    title: "PINKYS UP - Mobile Bar Service",
-    description: "Full-service beverage catering company providing exceptional experiences",
+    title: "PINKYS UP",
+    description: "Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.",
     url: "https://www.pinkysup.social",
     siteName: "PINKYS UP",
     locale: "en_US",
@@ -33,8 +34,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PINKYS UP - Mobile Bar Service",
-    description: "Full-service beverage catering company providing exceptional experiences",
+    title: "PINKYS UP",
+    description: "Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.",
   },
   icons: {
     icon: [
