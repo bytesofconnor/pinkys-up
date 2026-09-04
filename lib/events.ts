@@ -16,7 +16,16 @@ export type WellnessEvent = {
 export const wellnessEvents: WellnessEvent[] = eventsData as WellnessEvent[]
 
 export function getEventRegistrationHref(event: WellnessEvent) {
-  return event.registrationUrl ?? whatsAppEventRegistrationUrl(event.name)
+  if (event.registrationUrl) {
+    return event.registrationUrl
+  }
+  
+  return whatsAppEventRegistrationUrl({
+    name: event.name,
+    location: event.location,
+    date: event.startsAt ? formatEventDate(event.startsAt, event.timeZone) : undefined,
+    time: event.startsAt ? formatEventTime(event.startsAt, event.timeZone) : undefined,
+  })
 }
 
 export function getUpcomingEvents(now = Date.now()): WellnessEvent[] {
