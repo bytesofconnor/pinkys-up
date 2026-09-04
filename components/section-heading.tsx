@@ -16,10 +16,10 @@ export function SectionHeading({
   return (
     <div className={align === "center" ? "text-center" : "text-left"}>
       {eyebrow ? (
-        <p className="mb-3 text-sm uppercase tracking-[0.3em] text-pink-600">{eyebrow}</p>
+        <p className="mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-[0.3em] text-pink-600">{eyebrow}</p>
       ) : null}
       <Tag
-        className={`font-display text-4xl leading-tight md:text-5xl ${
+        className={`font-display text-3xl sm:text-4xl leading-tight md:text-5xl ${
           tone === "rose" ? "text-[#be185d]" : "text-gray-900"
         }`}
       >
@@ -27,7 +27,7 @@ export function SectionHeading({
       </Tag>
       {description ? (
         <p
-          className={`mt-4 text-lg text-gray-600 ${
+          className={`mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 ${
             align === "center" ? "mx-auto max-w-3xl" : "max-w-3xl"
           }`}
         >

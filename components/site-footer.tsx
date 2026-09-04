@@ -27,10 +27,10 @@ const socialLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="sticky bottom-0 z-40 w-full border-t border-black/10 bg-background">
-      <div className="container flex h-16 items-center gap-2">
+    <footer className="sticky bottom-0 z-40 w-full border-t border-black/10 bg-background safe-bottom">
+      <div className="container flex h-16 items-center gap-2 px-4 sm:px-6">
         <MarqueeText />
-        <div className="ml-auto flex shrink-0 items-center">
+        <div className="ml-auto flex shrink-0 items-center -mr-2">
           <MusicPlayer />
           {socialLinks.map((item) => {
             const Icon = item.icon

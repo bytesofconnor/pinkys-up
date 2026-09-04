@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
-      <div className="container py-16 md:py-24">
-        <div className="mb-14">
+      <div className="container px-4 sm:px-6 py-12 sm:py-16 md:py-24">
+        <div className="mb-10 sm:mb-14">
           <SectionHeading
             as="h1"
             eyebrow="Gallery"
