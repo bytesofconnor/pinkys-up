@@ -22,6 +22,7 @@ export function SiteHeader() {
   const firstLinkRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- closing menu on navigation is intentional
     setOpen(false)
   }, [pathname])
 
