@@ -59,6 +59,8 @@ export function QuoteForm() {
     }
     
     setFormState({ status: 'pending' });
+    setErrors({});
+    
     try {
       const result = await submitQuoteForm({ error: null, success: false }, {
         ...formData,
@@ -82,13 +84,15 @@ export function QuoteForm() {
         });
         setErrors({});
         setSubmitted(true);
+        setFormState({ status: 'idle' });
       } else if (result.error) {
+        setFormState({ status: 'idle' });
         setErrors({ submit: result.error });
       }
+    } catch (error) {
       setFormState({ status: 'idle' });
-    } catch {
-      setFormState({ status: 'error' });
-      setErrors({ submit: 'Failed to submit form. Please try again.' });
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.';
+      setErrors({ submit: errorMessage });
     }
   };
 
@@ -100,13 +104,21 @@ export function QuoteForm() {
       className="relative"
     >            
       <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-8 bg-white p-4 sm:p-8 rounded-lg shadow-lg border border-gray-100">
-        {formState.status === 'error' && (
+        {errors.submit && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-3 bg-red-50 border border-red-500 rounded text-red-500"
+            className="p-4 bg-red-50 border border-red-300 rounded-lg"
           >
-            An unexpected error occurred
+            <div className="flex items-start">
+              <svg className="w-5 h-5 text-red-500 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold text-red-800 mb-1">Unable to submit your request</h3>
+                <p className="text-sm text-red-700">{errors.submit}</p>
+              </div>
+            </div>
           </motion.div>
         )}
         <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
