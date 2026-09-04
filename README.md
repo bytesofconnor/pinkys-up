@@ -23,7 +23,7 @@ PINKYS UP DC is a premium mobile mocktail catering service based in Washington, 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/cbarrett3/pinkys-up.git
+   git clone https://github.com/bytesofconnor/pinkys-up.git
    ```
 
 2. Install dependencies:
@@ -55,7 +55,7 @@ PINKYS UP DC is a premium mobile mocktail catering service based in Washington, 
 
 ## 🎨 Design System
 
-- **Typography**: Playfair Display for headings, Inter for body text
+- **Typography**: Instrument Serif for headings, Inter for body text
 - **Color Palette**: Pink-to-purple gradients, minimalist whites
 - **Design Philosophy**: Modern glassmorphism with emphasis on sophistication
 - **Animations**: Subtle motion for enhanced user experience
@@ -80,8 +80,8 @@ PINKYS UP DC is a premium mobile mocktail catering service based in Washington, 
 ## 🔄 Continuous Integration
 
 The project is set up with continuous deployment:
-- GitHub repository: [cbarrett3/pinkys-up](https://github.com/cbarrett3/pinkys-up)
-- Vercel deployment: Automatic deploys on push to main branch
+- GitHub repository: [bytesofconnor/pinkys-up](https://github.com/bytesofconnor/pinkys-up)
+- Vercel deployment: Currently tracking `master` branch (note: `main` branch also exists)
 
 ## 👩‍💼 About
 
@@ -91,8 +91,8 @@ PINKYS UP DC was founded by Brenda Pereira Vargas with a vision to revolutionize
 
 For business inquiries:
 - WhatsApp: [Contact Us](http://Wa.me/+15715014766)
-- Instagram: [@pinkysupdc](https://instagram.com/pinkysupdc)
-- TikTok: [@pinkysupdc](https://tiktok.com/@pinkysupdc)
+- Instagram: [@pinkysup_dc](https://instagram.com/pinkysup_dc)
+- TikTok: [@pinkysup_dc](https://tiktok.com/@pinkysup_dc)
 
 ## 📄 License
 
