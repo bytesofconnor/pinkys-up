@@ -1,4 +1,5 @@
 import { whatsAppEventRegistrationUrl } from "@/lib/booking"
+import eventsData from "@/data/events.json"
 
 export const EVENT_TIME_ZONE = "America/Chicago"
 
@@ -12,35 +13,7 @@ export type WellnessEvent = {
   registrationUrl: string | null
 }
 
-export const wellnessEvents: WellnessEvent[] = [
-  {
-    id: "community-wellness-october",
-    name: "Community Wellness Experience",
-    description: "A welcoming morning to move, connect, and explore what feeling good looks like together.",
-    startsAt: "2026-10-18T10:00:00-05:00",
-    location: "Minneapolis, MN",
-    timeZone: "America/Chicago",
-    registrationUrl: null,
-  },
-  {
-    id: "movement-connection-november",
-    name: "Movement & Connection",
-    description: "Gentle mobility, community, and intentional self-care in an accessible space.",
-    startsAt: "2026-11-15T10:00:00-05:00",
-    location: "Washington, DC",
-    timeZone: "America/New_York",
-    registrationUrl: null,
-  },
-  {
-    id: "celebration-social-december",
-    name: "Celebration & Wellness Social",
-    description: "A zero-proof community gathering to close the season with connection and joy.",
-    startsAt: "2026-12-13T15:00:00-06:00",
-    location: "Minneapolis, MN",
-    timeZone: "America/Chicago",
-    registrationUrl: null,
-  },
-]
+export const wellnessEvents: WellnessEvent[] = eventsData as WellnessEvent[]
 
 export function getEventRegistrationHref(event: WellnessEvent) {
   return event.registrationUrl ?? whatsAppEventRegistrationUrl(event.name)
