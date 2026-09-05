@@ -17,42 +17,42 @@ interface Mocktail {
 
 const mocktails: Mocktail[] = [
   {
-    name: "The Filibuster Fizz",
-    description: "A bipartisan blend of cranberry and ginger, garnished with fresh mint and lime. This effervescent drink bridges the aisle with its balanced flavors.",
+    name: "Lake Superior Sunrise",
+    description: "Crisp cranberry and wild blueberry with a hint of pine, garnished with fresh rosemary and lemon. A refreshing tribute to Minnesota's northern shores.",
     image: "/mocktails/filibuster-fizz.svg",
-    season: "Political Collection",
-    ingredients: ["Cranberry Juice", "Ginger Beer", "Fresh Lime", "Mint", "Sparkling Water"],
-    themeClass: "from-red-400/30 to-blue-400/30",
+    season: "Minnesota Collection",
+    ingredients: ["Wild Blueberry", "Cranberry Juice", "Pine Syrup", "Fresh Lemon", "Rosemary"],
+    themeClass: "from-blue-400/30 to-purple-400/30",
   },
   {
-    name: "Winter Wonderland",
-    description: "A magical blend of coconut cream and blue curaçao syrup, topped with edible silver dust. This shimmering drink captures the essence of a snowy evening.",
+    name: "North Woods Spritz",
+    description: "A woodland blend of elderflower and fresh mint with a touch of maple, topped with sparkling water. Captures the essence of Minnesota's pristine forests.",
     image: "/mocktails/winter-wonderland.svg",
-    season: "Winter Collection",
-    ingredients: ["Coconut Cream", "Blue Curaçao Syrup", "Silver Dust", "Vanilla"],
-    themeClass: "from-cyan-400/30 to-blue-400/30",
+    season: "Minnesota Collection",
+    ingredients: ["Elderflower", "Fresh Mint", "Maple Syrup", "Sparkling Water", "Lime"],
+    themeClass: "from-green-400/30 to-cyan-400/30",
   },
   {
-    name: "The Electoral Punch",
-    description: "A layered red, white, and blue masterpiece that celebrates democracy. Each layer represents the colors of liberty, perfectly balanced and united.",
+    name: "Twin Cities Twilight",
+    description: "A sophisticated layered drink featuring lavender and citrus, representing the vibrant blend of Minneapolis and St. Paul. Elegant and balanced.",
     image: "/mocktails/electoral-punch.svg",
-    season: "Political Collection",
-    ingredients: ["Cranberry Juice", "Coconut Cream", "Blue Raspberry Syrup", "Lemon", "Star Fruit"],
-    themeClass: "from-red-400/30 to-blue-500/30",
+    season: "Minnesota Collection",
+    ingredients: ["Lavender Syrup", "Fresh Orange", "Lemon", "Butterfly Pea Tea", "Vanilla"],
+    themeClass: "from-purple-400/30 to-blue-500/30",
   },
   {
-    name: "Frost & Fire",
-    description: "A warming winter mocktail that combines spiced apple cider with a cool mint foam. The perfect balance of warm and cool sensations.",
+    name: "Boundary Waters Breeze",
+    description: "A refreshing blend of cucumber and basil with a hint of wild berry, finished with a splash of tonic. Cool, clean, and endlessly drinkable.",
     image: "/mocktails/frost-and-fire.svg",
-    season: "Winter Collection",
-    ingredients: ["Spiced Apple Cider", "Mint Foam", "Cinnamon", "Star Anise", "Fresh Apple"],
-    themeClass: "from-orange-400/30 to-cyan-400/30",
+    season: "Minnesota Collection",
+    ingredients: ["Fresh Cucumber", "Wild Berry Syrup", "Basil", "Tonic Water", "Lime"],
+    themeClass: "from-teal-400/30 to-green-400/30",
   }
 ];
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-teal-50 to-green-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-16 sm:pb-20 pt-12 sm:pt-16 md:pt-24">
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,9 +62,22 @@ export default function Page() {
         >
           <SectionHeading
             as="h1"
-            title="Mindfully Crafted Elixirs"
-            description="Seasonal herbs, artisanal botanicals, and wellness-inspired blends."
+            title="Mobile Mocktails"
+            description="Minnesota-inspired zero-proof craft cocktails. Bring the bar cart experience to your celebration — elegant, refreshing, and unforgettable."
           />
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="mt-8"
+          >
+            <a
+              href="/contact"
+              className="inline-flex min-h-14 items-center justify-center rounded-full bg-[#9d174d] px-10 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+            >
+              Book Your Experience
+            </a>
+          </m.div>
         </m.div>
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -123,6 +136,27 @@ export default function Page() {
               </div>
             </m.div>
           ))}
+        </m.div>
+        <m.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="mt-20 text-center"
+        >
+          <div className="mx-auto max-w-2xl rounded-3xl border border-white/20 bg-white/40 px-8 py-12 backdrop-blur-sm">
+            <h3 className="mb-4 font-display text-3xl text-gray-900">
+              Ready to Elevate Your Event?
+            </h3>
+            <p className="mb-8 text-lg text-gray-700">
+              Book the cart for a private gathering, celebration, or branded experience.
+            </p>
+            <a
+              href="/contact"
+              className="inline-flex min-h-14 items-center justify-center rounded-full bg-[#9d174d] px-10 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+            >
+              Get in Touch
+            </a>
+          </div>
         </m.div>
       </div>
     </div>
