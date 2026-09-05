@@ -5,27 +5,6 @@ import {
   getEventRegistrationHref,
   type WellnessEvent,
 } from "@/lib/events"
-import { WhatsAppRSVPButton } from "@/components/whatsapp-rsvp-button"
-
-function EventRegistration({ event }: { event: WellnessEvent }) {
-  const href = getEventRegistrationHref(event)
-  
-  if (event.registrationUrl) {
-    return (
-      <Link
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-xs font-semibold uppercase tracking-[0.24em] text-[#be185d] underline-offset-4 hover:underline"
-      >
-        Register
-        <span className="sr-only"> (opens in a new tab)</span>
-      </Link>
-    )
-  }
-  
-  return <WhatsAppRSVPButton href={href} eventName={event.name} variant="link" />
-}
 
 export function UpcomingEvents({ events }: { events: WellnessEvent[] }) {
   if (events.length === 0) {
@@ -39,18 +18,18 @@ export function UpcomingEvents({ events }: { events: WellnessEvent[] }) {
   return (
     <div className="divide-y divide-black/10">
       {events.map((event) => (
-        <article key={event.id} className="py-8 first:pt-0 last:pb-0">
-          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-            <div className="space-y-3">
+        <article key={event.id} className="py-6 sm:py-8 first:pt-0 last:pb-0">
+          <div className="flex flex-col gap-4 sm:gap-5 md:flex-row md:items-end md:justify-between">
+            <div className="space-y-2 sm:space-y-3">
               <p className="text-xs uppercase tracking-[0.28em] text-pink-600">
                 {event.startsAt
                   ? formatEventDate(event.startsAt, event.timeZone)
                   : "Date TBD"}
               </p>
-              <h3 className="font-display text-3xl leading-tight text-gray-900 md:text-4xl">
+              <h3 className="font-display text-2xl leading-tight text-gray-900 sm:text-3xl md:text-4xl">
                 {event.name}
               </h3>
-              <p className="max-w-2xl text-gray-600">{event.description}</p>
+              <p className="max-w-2xl text-gray-600 text-sm sm:text-base">{event.description}</p>
               <p className="text-sm text-gray-500">
                 {event.startsAt
                   ? formatEventTime(event.startsAt, event.timeZone)
@@ -60,7 +39,15 @@ export function UpcomingEvents({ events }: { events: WellnessEvent[] }) {
               </p>
             </div>
             <div className="shrink-0 pb-1">
-              <EventRegistration event={event} />
+              <Link
+                href={getEventRegistrationHref(event)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white bg-[#be185d] rounded-full hover:bg-[#9d174d] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#be185d]"
+              >
+                {event.registrationUrl ? "Register" : "Register via WhatsApp"}
+                <span className="sr-only"> (opens in a new tab)</span>
+              </Link>
             </div>
           </div>
         </article>

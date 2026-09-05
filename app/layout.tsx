@@ -47,6 +47,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.pinkysup.social"
   },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover",
+  },
   openGraph: {
     title: "PINKYS UP | Zero-Proof Mocktails & Community Wellness",
     description: "Zero-proof mocktails and community wellness experiences in Washington, DC and Minneapolis. Mobile mocktail bar for events and free wellness gatherings.",
@@ -81,7 +86,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.NodeNode
 }) {
   const organizationSchema = getOrganizationSchema()
 

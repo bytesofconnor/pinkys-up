@@ -99,7 +99,7 @@ export function QuoteForm() {
       transition={{ duration: 0.8 }}
       className="relative"
     >            
-      <form onSubmit={handleSubmit} className="space-y-8 bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+      <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-8 bg-white p-4 sm:p-8 rounded-lg shadow-lg border border-gray-100">
         {formState.status === 'error' && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -168,37 +168,39 @@ export function QuoteForm() {
           </motion.div>
         ) : (
         <>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <Label htmlFor="firstName">First Name</Label>
+            <Label htmlFor="firstName" className="mb-1.5 block">First Name</Label>
             <Input
               id="firstName"
               name="firstName"
               value={formData.firstName}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, firstName: e.target.value })}
               maxLength={80}
+              className="h-11 sm:h-10"
               required
             />
             {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
           </div>
 
           <div>
-            <Label htmlFor="lastName">Last Name</Label>
+            <Label htmlFor="lastName" className="mb-1.5 block">Last Name</Label>
             <Input
               id="lastName"
               name="lastName"
               value={formData.lastName}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lastName: e.target.value })}
               maxLength={80}
+              className="h-11 sm:h-10"
               required
             />
             {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="mb-1.5 block">Email</Label>
             <Input
               id="email"
               name="email"
@@ -206,13 +208,14 @@ export function QuoteForm() {
               value={formData.email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
               maxLength={254}
+              className="h-11 sm:h-10"
               required
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
 
           <div>
-            <Label htmlFor="phone">Phone</Label>
+            <Label htmlFor="phone" className="mb-1.5 block">Phone</Label>
             <Input
               id="phone"
               name="phone"
@@ -220,6 +223,7 @@ export function QuoteForm() {
               value={formData.phone}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
               maxLength={30}
+              className="h-11 sm:h-10"
               required
             />
             {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -227,10 +231,10 @@ export function QuoteForm() {
         </div>
 
         <div className="space-y-2">
-          <Label className="text-gray-700 font-medium">Services Needed</Label>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex items-center space-x-2">
-              <Checkbox id="bar" name="services" value="bar" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500" 
+          <Label className="text-gray-700 font-medium mb-1.5 block">Services Needed</Label>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="flex items-center space-x-2 min-h-[44px]">
+              <Checkbox id="bar" name="services" value="bar" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
                 checked={formData.services.includes('bar')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
@@ -240,10 +244,10 @@ export function QuoteForm() {
                   }
                 }}
               />
-              <Label htmlFor="bar" className="text-gray-600">Bar Service</Label>
+              <Label htmlFor="bar" className="text-gray-600 text-sm sm:text-base cursor-pointer">Bar Service</Label>
             </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="mixologist" name="services" value="mixologist" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500" 
+            <div className="flex items-center space-x-2 min-h-[44px]">
+              <Checkbox id="mixologist" name="services" value="mixologist" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
                 checked={formData.services.includes('mixologist')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
@@ -253,10 +257,10 @@ export function QuoteForm() {
                   }
                 }}
               />
-              <Label htmlFor="mixologist" className="text-gray-600">Mixologist</Label>
+              <Label htmlFor="mixologist" className="text-gray-600 text-sm sm:text-base cursor-pointer">Mixologist</Label>
             </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="glassware" name="services" value="glassware" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500" 
+            <div className="flex items-center space-x-2 min-h-[44px]">
+              <Checkbox id="glassware" name="services" value="glassware" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
                 checked={formData.services.includes('glassware')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
@@ -266,10 +270,10 @@ export function QuoteForm() {
                   }
                 }}
               />
-              <Label htmlFor="glassware" className="text-gray-600">Glassware</Label>
+              <Label htmlFor="glassware" className="text-gray-600 text-sm sm:text-base cursor-pointer">Glassware</Label>
             </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="custom" name="services" value="custom" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500" 
+            <div className="flex items-center space-x-2 min-h-[44px]">
+              <Checkbox id="custom" name="services" value="custom" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
                 checked={formData.services.includes('custom')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
@@ -279,10 +283,10 @@ export function QuoteForm() {
                   }
                 }}
               />
-              <Label htmlFor="custom" className="text-gray-600">Custom Menu</Label>
+              <Label htmlFor="custom" className="text-gray-600 text-sm sm:text-base cursor-pointer">Custom Menu</Label>
             </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="dj" name="services" value="dj" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500" 
+            <div className="flex items-center space-x-2 min-h-[44px]">
+              <Checkbox id="dj" name="services" value="dj" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
                 checked={formData.services.includes('dj')} 
                 onCheckedChange={(checked) => {
                   if (checked) {
@@ -292,42 +296,44 @@ export function QuoteForm() {
                   }
                 }}
               />
-              <Label htmlFor="dj" className="text-gray-600">DJ Service</Label>
+              <Label htmlFor="dj" className="text-gray-600 text-sm sm:text-base cursor-pointer">DJ Service</Label>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <Label htmlFor="eventType">Event Type</Label>
+            <Label htmlFor="eventType" className="mb-1.5 block">Event Type</Label>
             <Input
               id="eventType"
               name="eventType"
               value={formData.eventType}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, eventType: e.target.value })}
               maxLength={120}
+              className="h-11 sm:h-10"
               required
             />
             {errors.eventType && <p className="text-red-500 text-sm mt-1">{errors.eventType}</p>}
           </div>
 
           <div>
-            <Label htmlFor="eventDate">Event Date</Label>
+            <Label htmlFor="eventDate" className="mb-1.5 block">Event Date</Label>
             <Input
               id="eventDate"
               name="eventDate"
               type="date"
               value={formData.eventDate}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, eventDate: e.target.value })}
+              className="h-11 sm:h-10"
               required
             />
             {errors.eventDate && <p className="text-red-500 text-sm mt-1">{errors.eventDate}</p>}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <Label htmlFor="guestCount">Guest Count</Label>
+            <Label htmlFor="guestCount" className="mb-1.5 block">Guest Count</Label>
             <Input
               id="guestCount"
               name="guestCount"
@@ -336,19 +342,21 @@ export function QuoteForm() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, guestCount: e.target.value })}
               min={1}
               max={99999}
+              className="h-11 sm:h-10"
               required
             />
             {errors.guestCount && <p className="text-red-500 text-sm mt-1">{errors.guestCount}</p>}
           </div>
 
           <div>
-            <Label htmlFor="location">Event Location</Label>
+            <Label htmlFor="location" className="mb-1.5 block">Event Location</Label>
             <Input
               id="location"
               name="location"
               value={formData.location}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, location: e.target.value })}
               maxLength={200}
+              className="h-11 sm:h-10"
               required
             />
             {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
@@ -356,34 +364,38 @@ export function QuoteForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="referralSource">How did you hear about us?</Label>
+          <Label htmlFor="referralSource" className="mb-1.5 block">How did you hear about us?</Label>
           <Input
             id="referralSource"
             name="referralSource"
             value={formData.referralSource}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, referralSource: e.target.value })}
             maxLength={200}
+            className="h-11 sm:h-10"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="additionalDetails">Additional Details</Label>
+          <Label htmlFor="additionalDetails" className="mb-1.5 block">Additional Details</Label>
           <Textarea
             id="additionalDetails"
             name="additionalDetails"
             value={formData.additionalDetails}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, additionalDetails: e.target.value })}
             maxLength={2000}
+            className="min-h-[100px] sm:min-h-[120px]"
           />
         </div>
 
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full"
-        >
-          <SubmitButton className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-md" />
-        </motion.div>
+        <div className="sm:static sm:p-0 -mx-4 -mb-4 sm:mx-0 sm:mb-0 sticky bottom-0 bg-white p-4 border-t sm:border-t-0 border-gray-200 safe-bottom">
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full"
+          >
+            <SubmitButton className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-3.5 sm:py-3 rounded-lg transition-all duration-300 shadow-md min-h-[48px]" />
+          </motion.div>
+        </div>
         </>
         )}
       </form>

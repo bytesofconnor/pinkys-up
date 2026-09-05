@@ -63,11 +63,11 @@ export default function EventsPage() {
           alt=""
           intensity="deep"
         />
-        <div className="relative z-10 mx-auto max-w-4xl px-6 py-32 text-center">
+        <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 py-24 sm:py-32 text-center">
           {nextEvent ? (
             <>
               <p
-                className="mb-4 text-sm uppercase tracking-[0.35em] text-white"
+                className="mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-[0.35em] text-white"
                 style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85)" }}
               >
                 {nextEvent.startsAt
@@ -75,7 +75,7 @@ export default function EventsPage() {
                   : "Date TBD"}
               </p>
               <h1
-                className="mb-10 font-display text-5xl leading-[1.15] text-[#ffd0e4] sm:text-6xl md:text-7xl"
+                className="mb-8 sm:mb-10 font-display text-4xl leading-[1.15] text-[#ffd0e4] sm:text-6xl md:text-7xl"
                 style={{ textShadow: "0 2px 28px rgba(0,0,0,0.85)" }}
               >
                 {nextEvent.name}
@@ -83,10 +83,10 @@ export default function EventsPage() {
               {nextEvent.startsAt ? (
                 <EventCountdown target={nextEvent.startsAt} />
               ) : null}
-              <div className="mt-10">
+              <div className="mt-8 sm:mt-10 px-4">
                 {nextEvent.registrationUrl ? (
-                  <Link href={registerHref} target="_blank" rel="noopener noreferrer">
-                    <button className="bg-[#be185d] px-10 py-6 text-base font-semibold uppercase tracking-[0.2em] text-white hover:bg-[#9d174d]">
+                  <Link href={registerHref} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto">
+                    <button className="w-full sm:w-auto bg-[#be185d] px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base font-semibold uppercase tracking-[0.2em] text-white hover:bg-[#9d174d] min-h-[48px]">
                       Register
                       <span className="sr-only"> (opens in a new tab)</span>
                     </button>
@@ -97,15 +97,16 @@ export default function EventsPage() {
                     eventName={nextEvent.name}
                     variant="button"
                     size="lg"
+                    className="w-full sm:w-auto min-h-[48px] px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base"
                   />
                 )}
               </div>
             </>
           ) : (
             <>
-              <p className="mb-4 text-sm uppercase tracking-[0.35em] text-white">Pinky&apos;s Up</p>
-              <h1 className="font-display text-5xl text-white sm:text-6xl">Events</h1>
-              <p className="mt-6 text-lg text-white">
+              <p className="mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-[0.35em] text-white">Pinky&apos;s Up</p>
+              <h1 className="font-display text-4xl text-white sm:text-6xl">Events</h1>
+              <p className="mt-5 sm:mt-6 text-base sm:text-lg text-white">
                 The next community date is being scheduled.
               </p>
             </>
@@ -113,8 +114,8 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <section className="container max-w-5xl px-4 py-24">
-        <div className="mb-14">
+      <section className="container max-w-5xl px-4 sm:px-6 py-16 sm:py-24">
+        <div className="mb-10 sm:mb-14">
           <SectionHeading
             eyebrow="Upcoming Wellness Events"
             title="Find Your Next Way to Connect."

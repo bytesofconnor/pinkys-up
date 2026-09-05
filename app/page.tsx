@@ -25,8 +25,8 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <section className="container max-w-5xl px-4 py-24">
-        <div className="mb-14">
+      <section className="container max-w-5xl px-4 sm:px-6 py-16 sm:py-24">
+        <div className="mb-10 sm:mb-14">
           <SectionHeading
             eyebrow="Community"
             title="Find Your Next Way to Connect."
@@ -34,10 +34,10 @@ export default function Home() {
           />
         </div>
         <UpcomingEvents events={upcomingEvents.slice(0, 2)} />
-        <p className="mt-10 text-center">
+        <p className="mt-8 sm:mt-10 text-center">
           <Link
             href="/events"
-            className="text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+            className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
           >
             See all upcoming events
           </Link>
@@ -48,8 +48,8 @@ export default function Home() {
       <Testimonials />
       <ServiceBars />
       <div className="bg-primary/10">
-        <div className="container py-24">
-        <div className="mb-12">
+        <div className="container py-16 sm:py-24 px-4 sm:px-6">
+        <div className="mb-10 sm:mb-12">
             <SectionHeading
               title="Ready to Elevate Your Event?"
               description="Book the cart for a private gathering, celebration, or branded experience."
