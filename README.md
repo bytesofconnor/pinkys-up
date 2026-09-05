@@ -19,6 +19,12 @@ PINKYS UP DC is a premium mobile mocktail catering service based in Washington, 
 - **Email Service**: Resend
 - **Deployment**: Vercel
 
+## 📅 Managing Events
+
+**Non-technical users:** See the [Events Guide](./EVENTS_GUIDE.md) for step-by-step instructions on how to add, edit, or remove community events without needing an engineer.
+
+All event data is stored in [`data/events.json`](./data/events.json) and automatically updates the website when changed.
+
 ## 🚀 Getting Started
 
 1. Clone the repository:
