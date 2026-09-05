@@ -7,6 +7,7 @@ import { QuoteRequestEmail } from "@/emails/quote-request"
 import { QuoteConfirmationEmail } from "@/emails/quote-confirmation"
 import { ALLOWED_SERVICES } from "@/lib/quote"
 import { isRateLimited } from "@/lib/rate-limit"
+import { saveQuoteSubmission } from "@/lib/db"
 
 const formSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(80),
@@ -91,6 +92,8 @@ export async function submitQuoteForm(
   formData: FormData
 ): Promise<FormState> {
   const requestId = `req_${Date.now()}_${Math.random().toString(36).substring(7)}`
+  let dbSaved = false
+  let emailSent = false
   
   try {
     const headerList = await headers()
@@ -121,79 +124,115 @@ export async function submitQuoteForm(
     const from = process.env.RESEND_FROM_EMAIL ?? "Pinkys Up <onboarding@resend.dev>"
     const sendGuestConfirmation = process.env.SEND_GUEST_CONFIRMATION === "true"
 
+    // Try to send notification email with retries
     let resend: Resend
+    let emailError: string | undefined
     try {
       resend = getResend()
     } catch (error) {
       console.error(`[${requestId}] Resend not configured:`, error)
-      return { 
-        error: "Our booking system is temporarily unavailable. Please email us directly or try again later.", 
-        success: false 
+      emailError = "Email service not configured"
+    }
+
+    if (!emailError) {
+      const notificationResult = await sendEmailWithRetry(resend!, {
+        from,
+        to: [to],
+        subject: `New Quote Request from ${data.firstName} ${data.lastName}`,
+        html: QuoteRequestEmail(data),
+        replyTo: data.email,
+      })
+
+      if (!notificationResult.success) {
+        console.error(`[${requestId}] Failed to send notification email:`, notificationResult.error)
+        emailError = notificationResult.error
+      } else {
+        console.info(`[${requestId}] Notification email sent successfully`)
+        emailSent = true
+
+        // Send guest confirmation if enabled and notification succeeded
+        if (sendGuestConfirmation) {
+          const confirmationResult = await sendEmailWithRetry(resend!, {
+            from,
+            to: [data.email],
+            subject: "Thank you for your quote request - PINKYS UP",
+            html: QuoteConfirmationEmail({
+              firstName: data.firstName,
+              lastName: data.lastName,
+              eventDate: data.eventDate,
+              eventType: data.eventType,
+              services: data.services,
+            }),
+          })
+
+          if (!confirmationResult.success) {
+            console.warn(`[${requestId}] Failed to send confirmation email to guest:`, confirmationResult.error)
+          } else {
+            console.info(`[${requestId}] Confirmation email sent to guest`)
+          }
+        }
       }
     }
 
-    const notificationResult = await sendEmailWithRetry(resend, {
-      from,
-      to: [to],
-      subject: `New Quote Request from ${data.firstName} ${data.lastName}`,
-      html: QuoteRequestEmail(data),
-      replyTo: data.email,
-    })
-
-    if (!notificationResult.success) {
-      console.error(`[${requestId}] Failed to send notification email:`, notificationResult.error)
+    // Try to save to database (even if email failed)
+    try {
+      const dbResult = await saveQuoteSubmission({
+        ...data,
+        emailSent,
+        emailError,
+      })
       
+      if (dbResult.success) {
+        dbSaved = true
+        console.log(`[${requestId}] Quote saved to database with ID: ${dbResult.id}`)
+      } else {
+        console.error(`[${requestId}] Failed to save quote to database:`, dbResult.error)
+      }
+    } catch (error) {
+      console.error(`[${requestId}] Unexpected error saving to database:`, error)
+    }
+
+    // Return success if either email was sent OR database was saved
+    // This ensures we don't lose the submission if one system fails
+    if (emailSent || dbSaved) {
+      if (!emailSent) {
+        console.warn(`[${requestId}] Quote saved to database but email failed to send`)
+      }
+      if (!dbSaved) {
+        console.warn(`[${requestId}] Email sent but database save failed`)
+      }
+      console.info(`[${requestId}] Quote request processed successfully`)
+      return { success: true }
+    }
+
+    // Both failed - return appropriate error
+    if (emailError) {
       const isConfigError = 
-        notificationResult.error?.includes("API key") ||
-        notificationResult.error?.includes("authentication") ||
-        notificationResult.error?.includes("unauthorized")
+        emailError.includes("API key") ||
+        emailError.includes("authentication") ||
+        emailError.includes("unauthorized") ||
+        emailError.includes("not configured")
       
       if (isConfigError) {
         return { 
-          error: "Our booking system is misconfigured. Please email us directly at the address on our site.", 
+          error: "Our booking system is temporarily unavailable. Please email us directly or try again later.", 
           success: false 
         }
       }
       
-      const isRateLimit = notificationResult.error?.includes("429") || notificationResult.error?.includes("rate limit")
+      const isRateLimit = emailError.includes("429") || emailError.includes("rate limit")
       if (isRateLimit) {
         return {
           error: "We're receiving high volume right now. Please try again in a few minutes or email us directly.",
           success: false
         }
       }
-      
-      return { 
-        error: "Unable to submit your request right now. Please try again in a few minutes or email us directly.", 
-        success: false 
-      }
     }
 
-    console.info(`[${requestId}] Notification email sent successfully`)
-
-    if (sendGuestConfirmation) {
-      const confirmationResult = await sendEmailWithRetry(resend, {
-        from,
-        to: [data.email],
-        subject: "Thank you for your quote request - PINKYS UP",
-        html: QuoteConfirmationEmail({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          eventDate: data.eventDate,
-          eventType: data.eventType,
-          services: data.services,
-        }),
-      })
-
-      if (!confirmationResult.success) {
-        console.warn(`[${requestId}] Failed to send confirmation email to guest:`, confirmationResult.error)
-      } else {
-        console.info(`[${requestId}] Confirmation email sent to guest`)
-      }
+    return { 
+      error: "Unable to submit your request right now. Please try again in a few minutes or email us directly.", 
+      success: false 
     }
-
-    console.info(`[${requestId}] Quote request processed successfully`)
-    return { success: true }
   } catch (error) {
     console.error(`[${requestId}] Unexpected error processing quote form:`, error)
     return { 
