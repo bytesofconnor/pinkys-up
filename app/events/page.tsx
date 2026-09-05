@@ -4,7 +4,7 @@ import { CinematicBackdrop } from "@/components/cinematic-backdrop"
 import { EventCountdown } from "@/components/event-countdown"
 import { SectionHeading } from "@/components/section-heading"
 import { UpcomingEvents } from "@/components/upcoming-events"
-import { Button } from "@/components/ui/button"
+import { WhatsAppRSVPButton } from "@/components/whatsapp-rsvp-button"
 import {
   formatHeroDate,
   getEventRegistrationHref,
@@ -36,9 +36,6 @@ export default function EventsPage() {
   const upcomingEvents = getUpcomingEvents()
   const nextEvent = getNextEvent()
   const registerHref = nextEvent ? getEventRegistrationHref(nextEvent) : "/events"
-  const registerLabel = nextEvent?.registrationUrl
-    ? "Register"
-    : "Register via WhatsApp"
 
   const eventSchemas = upcomingEvents
     .filter(event => event.startsAt)
@@ -87,15 +84,21 @@ export default function EventsPage() {
                 <EventCountdown target={nextEvent.startsAt} />
               ) : null}
               <div className="mt-10">
-                <Link href={registerHref} target="_blank" rel="noopener noreferrer">
-                  <Button
+                {nextEvent.registrationUrl ? (
+                  <Link href={registerHref} target="_blank" rel="noopener noreferrer">
+                    <button className="bg-[#be185d] px-10 py-6 text-base font-semibold uppercase tracking-[0.2em] text-white hover:bg-[#9d174d]">
+                      Register
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </button>
+                  </Link>
+                ) : (
+                  <WhatsAppRSVPButton
+                    href={registerHref}
+                    eventName={nextEvent.name}
+                    variant="button"
                     size="lg"
-                    className="bg-[#be185d] px-10 py-6 text-base font-semibold uppercase tracking-[0.2em] text-white hover:bg-[#9d174d]"
-                  >
-                    {registerLabel}
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </Button>
-                </Link>
+                  />
+                )}
               </div>
             </>
           ) : (

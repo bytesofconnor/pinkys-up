@@ -5,19 +5,26 @@ import {
   getEventRegistrationHref,
   type WellnessEvent,
 } from "@/lib/events"
+import { WhatsAppRSVPButton } from "@/components/whatsapp-rsvp-button"
 
 function EventRegistration({ event }: { event: WellnessEvent }) {
-  return (
-    <Link
-      href={getEventRegistrationHref(event)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-xs font-semibold uppercase tracking-[0.24em] text-[#be185d] underline-offset-4 hover:underline"
-    >
-      {event.registrationUrl ? "Register" : "Register via WhatsApp"}
-      <span className="sr-only"> (opens in a new tab)</span>
-    </Link>
-  )
+  const href = getEventRegistrationHref(event)
+  
+  if (event.registrationUrl) {
+    return (
+      <Link
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-xs font-semibold uppercase tracking-[0.24em] text-[#be185d] underline-offset-4 hover:underline"
+      >
+        Register
+        <span className="sr-only"> (opens in a new tab)</span>
+      </Link>
+    )
+  }
+  
+  return <WhatsAppRSVPButton href={href} eventName={event.name} variant="link" />
 }
 
 export function UpcomingEvents({ events }: { events: WellnessEvent[] }) {
