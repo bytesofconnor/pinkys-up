@@ -15,28 +15,28 @@ export function MarqueeText() {
   const reduceMotion = useReducedMotion()
   const mocktails: Mocktail[] = [
     {
-      name: "The Filibuster Fizz",
-      ingredients: ["Cranberry", "Ginger", "Lime", "Mint"],
+      name: "Lake Superior Sunrise",
+      ingredients: ["Wild Blueberry", "Cranberry", "Pine", "Lemon"],
       image: "/mocktails/filibuster-fizz.svg",
-      titleClass: "from-red-600 to-blue-700"
+      titleClass: "from-blue-600 to-purple-700"
     },
     {
-      name: "Winter Wonderland",
-      ingredients: ["Coconut", "Blue Curaçao", "Silver Dust", "Vanilla"],
+      name: "North Woods Spritz",
+      ingredients: ["Elderflower", "Mint", "Maple", "Lime"],
       image: "/mocktails/winter-wonderland.svg",
-      titleClass: "from-cyan-600 to-blue-700"
+      titleClass: "from-green-600 to-cyan-700"
     },
     {
-      name: "The Electoral Punch",
-      ingredients: ["Cranberry", "Coconut", "Blue Raspberry", "Lemon"],
+      name: "Twin Cities Twilight",
+      ingredients: ["Lavender", "Orange", "Butterfly Pea", "Vanilla"],
       image: "/mocktails/electoral-punch.svg",
-      titleClass: "from-red-600 to-blue-800"
+      titleClass: "from-purple-600 to-blue-800"
     },
     {
-      name: "Frost & Fire",
-      ingredients: ["Spiced Apple", "Mint", "Cinnamon", "Star Anise"],
+      name: "Boundary Waters Breeze",
+      ingredients: ["Cucumber", "Wild Berry", "Basil", "Lime"],
       image: "/mocktails/frost-and-fire.svg",
-      titleClass: "from-orange-600 to-cyan-700"
+      titleClass: "from-teal-600 to-green-700"
     }
   ]
 

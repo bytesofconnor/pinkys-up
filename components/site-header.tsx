@@ -7,11 +7,9 @@ import { Menu, X } from "lucide-react"
 import { AnimatedLogo } from "./animated-logo"
 
 const navItems = [
-  { name: "Events", href: "/events" },
-  { name: "Mocktails", href: "/mocktails" },
-  { name: "About", href: "/about" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Quote", href: "/quote" },
+  { name: "Community Events", href: "/events" },
+  { name: "Mobile Mocktails", href: "/mocktails" },
+  { name: "Contact", href: "/contact" },
 ]
 
 export function SiteHeader() {

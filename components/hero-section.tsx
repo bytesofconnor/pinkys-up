@@ -8,14 +8,13 @@ import { getNextRegisterableEvent } from "@/lib/events"
 
 export function HeroSection() {
   const nextRegisterableEvent = getNextRegisterableEvent()
-  const exploreHref = nextRegisterableEvent?.registrationUrl ?? "/events"
 
   return (
     <section className="relative -mt-20 flex min-h-screen items-center justify-center overflow-hidden">
       <CinematicBackdrop
-        imageSrc="/polaroid.jpg"
+        imageSrc="/minnesota-lake-hero.jpg"
         alt=""
-        intensity="light"
+        intensity="soft"
       />
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 py-24 sm:py-32">
@@ -39,7 +38,7 @@ export function HeroSection() {
             transition={{ delay: 0.15, duration: 0.8 }}
             className="font-display text-3xl font-semibold leading-[1.2] tracking-tight text-[#ffd0e4] sm:text-5xl md:text-6xl"
           >
-            Move. Connect. Celebrate.
+            Wellness. Community. Zero-Proof Celebration.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -47,7 +46,7 @@ export function HeroSection() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="mx-auto mt-4 sm:mt-5 max-w-xl text-sm sm:text-base tracking-[0.04em] text-white sm:text-lg"
           >
-            Wellness, community, and zero-proof celebration.
+            Active movement gatherings and mobile mocktail experiences — come as you are, connect with intention.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -56,21 +55,16 @@ export function HeroSection() {
             className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-3 sm:gap-4 sm:flex-row"
           >
             <Link
-              href={exploreHref}
-              target={nextRegisterableEvent?.registrationUrl ? "_blank" : undefined}
-              rel={nextRegisterableEvent?.registrationUrl ? "noopener noreferrer" : undefined}
+              href="/events"
               className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[#9d174d] px-6 sm:px-8 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
             >
-              Explore upcoming events
-              {nextRegisterableEvent?.registrationUrl ? (
-                <span className="sr-only"> (opens in a new tab)</span>
-              ) : null}
+              Community Events
             </Link>
             <Link
-              href="/quote"
+              href="/mocktails"
               className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full border border-white/60 bg-white/10 px-6 sm:px-8 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
             >
-              Book a mocktail experience
+              Mobile Mocktails
             </Link>
           </motion.div>
         </motion.div>
