@@ -178,7 +178,7 @@ If you have an Eventbrite, Luma, or other registration page:
 
 1. After editing `data/events.json`, scroll down to "Commit changes"
 2. Add a commit message like: `"Update events for January"`
-3. Choose **"Commit directly to the main branch"**
+3. Choose **"Commit directly to the main branch"** (production branch)
 4. Click **"Commit changes"**
 
 **The website will automatically rebuild and update within 2-3 minutes!**

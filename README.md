@@ -87,7 +87,7 @@ All event data is stored in [`data/events.json`](./data/events.json) and automat
 
 The project is set up with continuous deployment:
 - GitHub repository: [bytesofconnor/pinkys-up](https://github.com/bytesofconnor/pinkys-up)
-- Vercel deployment: Currently tracking `master` branch (note: `main` branch also exists)
+- Vercel deployment: Production branch is `main`
 
 ## 👩‍💼 About
 
