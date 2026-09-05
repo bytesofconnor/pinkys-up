@@ -12,7 +12,7 @@ export function HeroSection() {
   return (
     <section className="relative -mt-20 flex min-h-screen items-center justify-center overflow-hidden">
       <CinematicBackdrop
-        imageSrc="/polaroid.jpg"
+        imageSrc="/minnesota-lake-hero.jpg"
         alt=""
         intensity="soft"
       />
