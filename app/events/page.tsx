@@ -11,10 +11,25 @@ import {
   getNextEvent,
   getUpcomingEvents,
 } from "@/lib/events"
+import { getEventSchema } from "@/lib/structured-data"
 
 export const metadata: Metadata = {
-  title: "Events | PINKYS UP DC",
-  description: "Free community wellness experiences in Washington, DC and Minneapolis from Pinky's Up.",
+  title: "Community Wellness Events",
+  description: "Free wellness gatherings in Washington, DC and Minneapolis. Join us for movement, connection, and community experiences from PINKYS UP.",
+  alternates: {
+    canonical: "https://www.pinkysup.social/events"
+  },
+  openGraph: {
+    title: "Community Wellness Events | PINKYS UP",
+    description: "Free wellness gatherings in Washington, DC and Minneapolis. Join us for movement, connection, and community experiences.",
+    url: "https://www.pinkysup.social/events",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Community Wellness Events | PINKYS UP",
+    description: "Free wellness gatherings in Washington, DC and Minneapolis. Join us for movement, connection, and community experiences."
+  }
 }
 
 export default function EventsPage() {
@@ -25,8 +40,26 @@ export default function EventsPage() {
     ? "Register"
     : "Register via WhatsApp"
 
+  const eventSchemas = upcomingEvents
+    .filter(event => event.startsAt)
+    .map(event => getEventSchema({
+      name: event.name,
+      description: event.description,
+      startsAt: event.startsAt ? new Date(event.startsAt) : null,
+      endsAt: event.startsAt ? new Date(new Date(event.startsAt).getTime() + 2 * 60 * 60 * 1000) : null,
+      location: event.location,
+      registrationUrl: event.registrationUrl || undefined
+    }))
+
   return (
     <div className="bg-gradient-to-br from-pink-50 via-white to-purple-50">
+      {eventSchemas.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <section className="relative -mt-20 flex min-h-screen items-center justify-center overflow-hidden">
         <CinematicBackdrop
           imageSrc="/pexel.jpg"

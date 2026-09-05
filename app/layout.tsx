@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { getOrganizationSchema } from "@/lib/structured-data"
 import "./globals.css"
 
 const inter = Inter({
@@ -22,13 +23,33 @@ const instrument = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.pinkysup.social"),
-  title: "PINKYS UP",
-  description: "Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.",
-  keywords: ["mobile bar", "beverage catering", "wedding bar service", "corporate events", "Washington DC", "Minneapolis", "Minnesota", "mocktails"],
+  title: {
+    default: "PINKYS UP | Zero-Proof Mocktails & Community Wellness",
+    template: "%s | PINKYS UP"
+  },
+  description: "Zero-proof mocktails and community wellness experiences in Washington, DC and Minneapolis. Mobile mocktail bar for events and free wellness gatherings.",
+  keywords: [
+    "mobile bar",
+    "mocktail bar",
+    "zero proof drinks",
+    "alcohol free bar",
+    "beverage catering",
+    "wedding bar service",
+    "corporate events",
+    "community wellness",
+    "wellness events",
+    "Washington DC",
+    "Minneapolis",
+    "Minnesota",
+    "mocktails"
+  ],
   authors: [{ name: "PINKYS UP" }],
+  alternates: {
+    canonical: "https://www.pinkysup.social"
+  },
   openGraph: {
-    title: "PINKYS UP",
-    description: "Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.",
+    title: "PINKYS UP | Zero-Proof Mocktails & Community Wellness",
+    description: "Zero-proof mocktails and community wellness experiences in Washington, DC and Minneapolis. Mobile mocktail bar for events and free wellness gatherings.",
     url: "https://www.pinkysup.social",
     siteName: "PINKYS UP",
     locale: "en_US",
@@ -36,8 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PINKYS UP",
-    description: "Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.",
+    title: "PINKYS UP | Zero-Proof Mocktails & Community Wellness",
+    description: "Zero-proof mocktails and community wellness experiences in Washington, DC and Minneapolis.",
   },
   icons: {
     icon: [
@@ -62,8 +83,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const organizationSchema = getOrganizationSchema()
+
   return (
     <html lang="en" className={`${inter.variable} ${instrument.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className="font-sans antialiased">
         <div className="relative flex min-h-screen flex-col">
           <SiteHeader />

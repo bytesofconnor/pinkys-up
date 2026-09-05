@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { HeroSection } from "@/components/hero-section"
 import { ServiceBars } from "@/components/service-bars"
@@ -8,6 +9,15 @@ import { FounderSection } from "@/components/founder-section"
 import { UpcomingEvents } from "@/components/upcoming-events"
 import { SectionHeading } from "@/components/section-heading"
 import { getUpcomingEvents } from "@/lib/events"
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://www.pinkysup.social"
+  },
+  openGraph: {
+    url: "https://www.pinkysup.social"
+  }
+}
 
 export default function Home() {
   const upcomingEvents = getUpcomingEvents()

@@ -1,5 +1,25 @@
+import type { Metadata } from "next"
 import GalleryGrid from "@/components/gallery-grid"
 import { SectionHeading } from "@/components/section-heading"
+
+export const metadata: Metadata = {
+  title: "Event Gallery",
+  description: "Moments from our mocktail events and community wellness gatherings in Washington, DC and Minneapolis. See the magic in action.",
+  alternates: {
+    canonical: "https://www.pinkysup.social/gallery"
+  },
+  openGraph: {
+    title: "Event Gallery | PINKYS UP",
+    description: "Moments from our mocktail events and community wellness gatherings in DC and Minneapolis.",
+    url: "https://www.pinkysup.social/gallery",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Event Gallery | PINKYS UP",
+    description: "Moments from our mocktail events and community wellness gatherings in DC and Minneapolis."
+  }
+}
 
 export default function GalleryPage() {
   return (
