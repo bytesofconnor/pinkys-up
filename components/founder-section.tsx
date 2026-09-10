@@ -35,10 +35,10 @@ export function FounderSection() {
                       <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 blur-md opacity-55 transition-all duration-500 group-hover:opacity-90 group-hover:blur-lg" />
                       <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-white/30">
                         <Image
-                          src="/brenda-capital.JPEG"
-                          alt="Brenda Pereira Vargas, founder of Pinky's Up"
+                          src="/brendap.jpg"
+                          alt="Brenda Pereira Vargas, founder of PINKYS UP"
                           fill
-                          className="object-cover object-[50%_26%] transition-transform duration-700 group-hover:scale-105"
+                          className="object-cover object-[50%_40%] transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
                     </div>
