@@ -14,11 +14,12 @@ export function FounderSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="relative group"
+            className="relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-400/30 to-purple-400/30 blur-xl rounded-full group-hover:blur-2xl transition-all duration-500" />
-            <div className="relative backdrop-blur-md bg-white/30 p-8 rounded-[32px] border border-white/20">
+            <div className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-pink-400/30 to-purple-400/30 blur-xl" />
+            <div className="relative rounded-[32px] border border-white/20 bg-white/80 p-8">
               <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 <Link 
                   href="https://www.instagram.com/stories/brendaaa_pereira/"
@@ -32,13 +33,13 @@ export function FounderSection() {
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <div className="relative h-48 w-48 md:h-64 md:w-64">
-                      <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 blur-md opacity-55 transition-all duration-500 group-hover:opacity-90 group-hover:blur-lg" />
+                      <div className="pointer-events-none absolute -inset-1 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 opacity-50 blur-md" />
                       <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-white/30">
                         <Image
                           src="/brendap.jpg"
                           alt="Brenda Pereira Vargas, founder of PINKYS UP"
                           fill
-                          className="object-cover object-[50%_40%] transition-transform duration-700 group-hover:scale-105"
+                          className="object-cover object-[50%_40%]"
                         />
                       </div>
                     </div>
@@ -48,6 +49,7 @@ export function FounderSection() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
                     <h2 className="mb-4 font-display text-3xl text-gray-900 md:text-4xl">

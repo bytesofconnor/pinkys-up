@@ -54,7 +54,7 @@ export default function Page() {
                     />
                     <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-white/30 bg-white/20">
                       <div className="flex h-full w-full items-center justify-center p-3 transition-transform duration-700 group-hover:scale-105 sm:p-4">
-                        <MocktailIllustration name={mocktail.name} />
+                        <MocktailIllustration name={mocktail.name} instanceId={mocktail.name} />
                       </div>
                     </div>
                   </div>

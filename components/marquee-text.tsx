@@ -21,15 +21,15 @@ export function MarqueeText() {
           repeat: reduceMotion ? 0 : Infinity,
           ease: "linear",
         }}
-        className="inline-block whitespace-nowrap"
+        className="inline-block whitespace-nowrap will-change-transform"
       >
         {duplicatedMocktails.map((mocktail, index) => (
           <span
             key={index}
-            className="mx-10 inline-flex items-center group"
+            className="mx-10 inline-flex items-center"
           >
             <div className="relative mr-2.5 h-11 w-[2.05rem] shrink-0 sm:h-12 sm:w-9">
-              <MocktailIllustration name={mocktail.name} />
+              <MocktailIllustration name={mocktail.name} instanceId={`ticker-${index}`} animate={false} />
             </div>
             <span className={cn(
               "bg-gradient-to-r bg-clip-text text-xs font-medium leading-none text-transparent sm:text-sm",

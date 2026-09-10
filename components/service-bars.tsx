@@ -18,13 +18,14 @@ export function ServiceBars() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="relative group mx-auto max-w-7xl"
+          className="relative mx-auto max-w-7xl"
         >
-          <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-pink-400/20 to-purple-400/20 blur-xl transition-all duration-300 group-hover:blur-2xl" />
-          <div className="relative overflow-hidden rounded-[32px] border border-white/20 bg-white/30 p-5 backdrop-blur-md sm:p-8">
+          <div className="pointer-events-none absolute inset-0 rounded-[32px] bg-gradient-to-br from-pink-400/20 to-purple-400/20 blur-xl" />
+          <div className="relative overflow-hidden rounded-[32px] border border-white/20 bg-white/80 p-5 sm:p-8">
             <div className="relative mb-8">
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-pink-400 to-purple-500 blur-md opacity-55 transition-all duration-500 group-hover:opacity-90 group-hover:blur-lg" />
+              <div className="pointer-events-none absolute -inset-1 rounded-2xl bg-gradient-to-br from-pink-400 to-purple-500 opacity-45 blur-md" />
               <div className="relative overflow-hidden rounded-2xl">
                 <Image
                   src="/image.png"
