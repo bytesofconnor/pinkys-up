@@ -5,6 +5,7 @@ import { EventCountdown } from "@/components/event-countdown"
 import { SectionHeading } from "@/components/section-heading"
 import { UpcomingEvents } from "@/components/upcoming-events"
 import { WhatsAppRSVPButton } from "@/components/whatsapp-rsvp-button"
+import { TrackedLink } from "@/components/tracked-link"
 import {
   formatHeroDate,
   getEventRegistrationHref,
@@ -32,9 +33,11 @@ export const metadata: Metadata = {
   }
 }
 
-export default function EventsPage() {
-  const upcomingEvents = getUpcomingEvents()
-  const nextEvent = getNextEvent()
+export const dynamic = "force-dynamic"
+
+export default async function EventsPage() {
+  const upcomingEvents = await getUpcomingEvents()
+  const nextEvent = await getNextEvent()
   const registerHref = nextEvent ? getEventRegistrationHref(nextEvent) : "/events"
 
   const eventSchemas = upcomingEvents
@@ -57,17 +60,18 @@ export default function EventsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <section className="relative -mt-20 flex min-h-screen items-center justify-center overflow-hidden">
+      <section className="relative -mt-20 flex min-h-[calc(100dvh-4rem)] items-center justify-center overflow-hidden">
         <CinematicBackdrop
-          imageSrc="/pexel.jpg"
+          imageSrc="/park.png"
           alt=""
-          intensity="deep"
+          intensity="default"
+          objectPosition="center 58%"
         />
-        <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 py-24 sm:py-32 text-center">
+        <div className="relative z-10 mx-auto max-w-3xl px-4 py-28 text-center sm:px-6 sm:py-32">
           {nextEvent ? (
             <>
               <p
-                className="mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-[0.35em] text-white"
+                className="mb-3 text-[11px] uppercase tracking-[0.32em] text-white/90 sm:text-xs"
                 style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85)" }}
               >
                 {nextEvent.startsAt
@@ -75,7 +79,7 @@ export default function EventsPage() {
                   : "Date TBD"}
               </p>
               <h1
-                className="mb-8 sm:mb-10 font-display text-4xl leading-[1.15] text-[#ffd0e4] sm:text-6xl md:text-7xl"
+                className="mb-6 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-[#ffd0e4] sm:mb-8 sm:text-5xl md:text-6xl"
                 style={{ textShadow: "0 2px 28px rgba(0,0,0,0.85)" }}
               >
                 {nextEvent.name}
@@ -83,10 +87,10 @@ export default function EventsPage() {
               {nextEvent.startsAt ? (
                 <EventCountdown target={nextEvent.startsAt} />
               ) : null}
-              <div className="mt-8 sm:mt-10 px-4">
+              <div className="mt-7 sm:mt-8">
                 {nextEvent.registrationUrl ? (
-                  <Link href={registerHref} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto">
-                    <button className="w-full sm:w-auto bg-[#be185d] px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base font-semibold uppercase tracking-[0.2em] text-white hover:bg-[#9d174d] min-h-[48px]">
+                  <Link href={registerHref} target="_blank" rel="noopener noreferrer" className="inline-block">
+                    <button className="inline-flex min-h-12 items-center rounded-full bg-[#9d174d] px-7 py-3 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843]">
                       Register
                       <span className="sr-only"> (opens in a new tab)</span>
                     </button>
@@ -97,18 +101,39 @@ export default function EventsPage() {
                     eventName={nextEvent.name}
                     variant="button"
                     size="lg"
-                    className="w-full sm:w-auto min-h-[48px] px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base"
                   />
                 )}
               </div>
             </>
           ) : (
             <>
-              <p className="mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-[0.35em] text-white">Pinky&apos;s Up</p>
-              <h1 className="font-display text-4xl text-white sm:text-6xl">Events</h1>
-              <p className="mt-5 sm:mt-6 text-base sm:text-lg text-white">
-                The next community date is being scheduled.
+              <p
+                className="mb-3 text-[11px] uppercase tracking-[0.32em] text-white/90 sm:text-xs"
+                style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85)" }}
+              >
+                Washington, DC · Minneapolis
               </p>
+              <h1
+                className="mb-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-[#ffd0e4] sm:text-5xl md:text-6xl"
+                style={{ textShadow: "0 2px 28px rgba(0,0,0,0.85)" }}
+              >
+                The next date is being planned.
+              </h1>
+              <p
+                className="mx-auto max-w-md text-sm text-white/90 sm:text-base"
+                style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85)" }}
+              >
+                Community gatherings will show up here when they&apos;re on the calendar.
+              </p>
+              <div className="mt-7 sm:mt-8">
+                <TrackedLink
+                  href="/quote?for=events"
+                  event="book_quote"
+                  className="inline-flex min-h-12 items-center rounded-full bg-[#9d174d] px-7 py-3 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843]"
+                >
+                  Host or partner with us
+                </TrackedLink>
+              </div>
             </>
           )}
         </div>
@@ -123,6 +148,17 @@ export default function EventsPage() {
           />
         </div>
         <UpcomingEvents events={upcomingEvents} />
+        {upcomingEvents.length > 0 ? (
+          <p className="mt-10 text-center sm:mt-12">
+            <TrackedLink
+              href="/quote?for=events"
+              event="book_quote"
+              className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+            >
+              Host or partner with us
+            </TrackedLink>
+          </p>
+        ) : null}
       </section>
     </div>
   )

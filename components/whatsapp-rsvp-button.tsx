@@ -134,7 +134,7 @@ export function WhatsAppRSVPButton({
         onClick={handleClick}
         className={
           size === "lg"
-            ? `inline-flex items-center gap-2 bg-[#be185d] px-10 py-6 text-base font-semibold uppercase tracking-[0.2em] text-white hover:bg-[#9d174d] ${className}`
+            ? `inline-flex min-h-12 items-center gap-2 rounded-full bg-[#9d174d] px-7 py-3 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] ${className}`
             : `inline-flex items-center gap-2 rounded-md bg-pink-600 px-4 py-2 text-sm font-semibold text-white hover:bg-pink-700 ${className}`
         }
       >

@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { getOrganizationSchema } from "@/lib/structured-data"
+import { getOrganizationSchema, getLocalBusinessSchema } from "@/lib/structured-data"
 import "./globals.css"
 
 const inter = Inter({
@@ -29,19 +29,12 @@ export const metadata: Metadata = {
   },
   description: "Zero-proof mocktails and community wellness experiences in Washington, DC and Minneapolis. Mobile mocktail bar for events and free wellness gatherings.",
   keywords: [
-    "mobile bar",
-    "mocktail bar",
-    "zero proof drinks",
-    "alcohol free bar",
-    "beverage catering",
-    "wedding bar service",
-    "corporate events",
+    "PINKYS UP",
+    "mocktails",
+    "zero-proof",
     "community wellness",
-    "wellness events",
     "Washington DC",
     "Minneapolis",
-    "Minnesota",
-    "mocktails"
   ],
   authors: [{ name: "PINKYS UP" }],
   alternates: {
@@ -89,6 +82,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const organizationSchema = getOrganizationSchema()
+  const localBusinessSchema = getLocalBusinessSchema()
 
   return (
     <html lang="en" className={`${inter.variable} ${instrument.variable}`}>
@@ -96,6 +90,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
       </head>
       <body className="font-sans antialiased">

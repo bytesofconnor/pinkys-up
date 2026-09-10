@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M90 100 L90 300 C90 330,210 330,210 300 L210 100 C210 70,90 70,90 100" stroke="#E2E8F0" stroke-width="4" fill="none"/>
+  <path d="M210 150 L230 150 C240 150,240 250,230 250 L210 250" stroke="#E2E8F0" stroke-width="4" fill="none"/>
+  <path d="M92 102 L208 102 L208 298 C208 326,92 326,92 298 Z" fill="url(#stayAwhileGrad)" opacity="0.9"/>
+  <circle cx="120" cy="200" r="4" fill="white" opacity="0.55">
+    <animate attributeName="cy" from="280" to="130" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="155" cy="240" r="3" fill="white" opacity="0.5">
+    <animate attributeName="cy" from="290" to="140" dur="2.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="180" cy="190" r="3.5" fill="white" opacity="0.45">
+    <animate attributeName="cy" from="285" to="135" dur="3.3s" repeatCount="indefinite"/>
+  </circle>
+  <g opacity="0.55" stroke="#F9A8D4" fill="none" stroke-width="2">
+    <path d="M120 80 Q130 60,140 80">
+      <animate attributeName="d" values="M120 80 Q130 60,140 80;M120 85 Q130 65,140 85;M120 80 Q130 60,140 80" dur="3s" repeatCount="indefinite"/>
+    </path>
+    <path d="M150 70 Q160 50,170 70">
+      <animate attributeName="d" values="M150 70 Q160 50,170 70;M150 75 Q160 55,170 75;M150 70 Q160 50,170 70" dur="2.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M180 80 Q190 60,200 80">
+      <animate attributeName="d" values="M180 80 Q190 60,200 80;M180 85 Q190 65,200 85;M180 80 Q190 60,200 80" dur="3.5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <path d="M140 90 C120 80,160 80,140 100" stroke="#4ADE80" stroke-width="2" fill="#22C55E"/>
+  <path d="M160 85 C140 75,180 75,160 95" stroke="#86EFAC" stroke-width="2" fill="#4ADE80"/>
+  <circle cx="150" cy="85" r="8" fill="#F9A8D4"/>
+  <defs>
+    <linearGradient id="stayAwhileGrad" x1="150" y1="102" x2="150" y2="298" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D1FAE5"/>
+      <stop offset="55%" stop-color="#6EE7B7"/>
+      <stop offset="100%" stop-color="#F9A8D4"/>
+    </linearGradient>
+  </defs>
+</svg>

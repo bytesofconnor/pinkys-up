@@ -3,14 +3,19 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { submitQuoteForm } from '@/app/actions'
-import { type AllowedService } from '@/lib/quote'
+import { SERVICE_CHECKBOXES, SERVICE_OPTIONS, type AllowedService } from '@/lib/quote'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { SubmitButton } from '@/components/submit-button'
+import { cn } from '@/lib/utils'
 
-export function QuoteForm() {
+export function QuoteForm({
+  initialServices = [],
+}: {
+  initialServices?: AllowedService[]
+}) {
   const [formState, setFormState] = useState<{ status: 'idle' | 'pending' | 'error' }>({ status: 'idle' });
   const [submitted, setSubmitted] = useState(false);
 
@@ -26,10 +31,37 @@ export function QuoteForm() {
     referralSource: '',
     additionalDetails: '',
     website: '',
-    services: [] as AllowedService[]
+    services: initialServices
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const wantsMocktails = formData.services.includes("mocktails")
+  const wantsEvents = formData.services.includes("events")
+  const eventTypePlaceholder =
+    wantsMocktails && !wantsEvents
+      ? "Wedding, birthday, brand event..."
+      : wantsEvents && !wantsMocktails
+        ? "Private wellness gathering, community partnership..."
+        : "Wedding, wellness gathering, brand event..."
+
+  const toggleService = (id: AllowedService) => {
+    setFormData((current) => {
+      const selected = current.services.includes(id)
+      return {
+        ...current,
+        services: selected
+          ? current.services.filter((service) => service !== id)
+          : [...current.services, id],
+      }
+    })
+    setErrors((current) => {
+      if (!current.services) return current
+      const next = { ...current }
+      delete next.services
+      return next
+    })
+  }
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -42,6 +74,9 @@ export function QuoteForm() {
       newErrors.email = 'Please enter a valid email';
     }
     if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
+    if (!formData.services.includes("mocktails") && !formData.services.includes("events")) {
+      newErrors.services = "Choose mocktail cart, community events, or both"
+    }
     if (!formData.eventDate.trim()) newErrors.eventDate = 'Event date is required';
     if (!formData.eventType.trim()) newErrors.eventType = 'Event type is required';
     if (!formData.guestCount.trim()) newErrors.guestCount = 'Guest count is required';
@@ -64,7 +99,7 @@ export function QuoteForm() {
     try {
       const result = await submitQuoteForm({ error: null, success: false }, {
         ...formData,
-        services: formData.services.length > 0 ? formData.services : ['bar']
+        services: formData.services,
       });
       
       if (result.success) {
@@ -73,7 +108,7 @@ export function QuoteForm() {
           lastName: '',
           email: '',
           phone: '',
-          services: [],
+          services: initialServices,
           eventType: '',
           eventDate: '',
           location: '',
@@ -97,19 +132,10 @@ export function QuoteForm() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="relative"
-    >            
+    <div className="relative">
       <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-8 bg-white p-4 sm:p-8 rounded-lg shadow-lg border border-gray-100">
         {errors.submit && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="p-4 bg-red-50 border border-red-300 rounded-lg"
-          >
+          <div className="p-4 bg-red-50 border border-red-300 rounded-lg">
             <div className="flex items-start">
               <svg className="w-5 h-5 text-red-500 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -119,7 +145,7 @@ export function QuoteForm() {
                 <p className="text-sm text-red-700">{errors.submit}</p>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
         <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
           <label htmlFor="website">Website</label>
@@ -137,49 +163,99 @@ export function QuoteForm() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="py-10 px-6 text-center"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mb-6"
+            <svg
+              className="w-16 h-16 mx-auto mb-4 text-pink-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <svg
-                className="w-16 h-16 mx-auto mb-4 text-pink-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <motion.path
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <h3 className="mb-2 font-display text-2xl text-[#be185d]">
-                Thank You for Choosing PINKYS UP!
-              </h3>
-              <p className="text-gray-600 text-lg">
-                We&apos;ll get back to you within 24-48 hours with pricing and availability.
-              </p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="text-sm text-gray-500"
-            >
-              Keep an eye on your email for our response!
-            </motion.div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <h3 className="mb-2 font-display text-2xl text-[#be185d]">
+              Thank you — we got it.
+            </h3>
+            <p className="text-gray-600 text-lg">
+              We&apos;ll get back to you within 24–48 hours.
+            </p>
+            <p className="mt-4 text-sm text-gray-500">
+              Keep an eye on your email for our response.
+            </p>
           </motion.div>
         ) : (
         <>
+        <div className="space-y-3">
+          <Label className="text-gray-700 font-medium mb-1.5 block">What do you need?</Label>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+            {SERVICE_OPTIONS.map((option) => {
+              const selected = formData.services.includes(option.id)
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => toggleService(option.id)}
+                  className={cn(
+                    "rounded-2xl border px-5 py-5 text-left shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d] sm:px-6 sm:py-6",
+                    selected
+                      ? "border-[#9d174d] bg-pink-50 shadow-none"
+                      : "border-gray-200 bg-white hover:border-pink-200"
+                  )}
+                >
+                  <span className="flex items-start justify-between gap-3">
+                    <p className="font-display text-xl text-gray-900 sm:text-2xl">{option.title}</p>
+                    <span
+                      className={cn(
+                        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2",
+                        selected
+                          ? "border-[#9d174d] bg-[#9d174d] text-white"
+                          : "border-gray-300 bg-white"
+                      )}
+                      aria-hidden="true"
+                    >
+                      {selected ? (
+                        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      ) : null}
+                    </span>
+                  </span>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-600">{option.description}</p>
+                </button>
+              )
+            })}
+          </div>
+          {errors.services && <p className="text-red-500 text-sm">{errors.services}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <Label className="text-gray-700 font-medium mb-1.5 block">Services Needed</Label>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            {SERVICE_CHECKBOXES.map((option) => (
+              <div key={option.id} className="flex min-h-[44px] items-center space-x-2">
+                <Checkbox
+                  id={option.id}
+                  name="services"
+                  value={option.id}
+                  className="h-5 w-5 border-2 border-gray-300 data-[state=checked]:border-pink-500 data-[state=checked]:bg-pink-500"
+                  checked={formData.services.includes(option.id)}
+                  onCheckedChange={() => toggleService(option.id)}
+                />
+                <Label htmlFor={option.id} className="cursor-pointer text-sm text-gray-600 sm:text-base">
+                  {option.title}
+                </Label>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <Label htmlFor="firstName" className="mb-1.5 block">First Name</Label>
@@ -242,86 +318,16 @@ export function QuoteForm() {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <Label className="text-gray-700 font-medium mb-1.5 block">Services Needed</Label>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            <div className="flex items-center space-x-2 min-h-[44px]">
-              <Checkbox id="bar" name="services" value="bar" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
-                checked={formData.services.includes('bar')} 
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'bar' as const] });
-                  } else {
-                    setFormData({ ...formData, services: formData.services.filter((service) => service !== 'bar') });
-                  }
-                }}
-              />
-              <Label htmlFor="bar" className="text-gray-600 text-sm sm:text-base cursor-pointer">Bar Service</Label>
-            </div>
-            <div className="flex items-center space-x-2 min-h-[44px]">
-              <Checkbox id="mixologist" name="services" value="mixologist" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
-                checked={formData.services.includes('mixologist')} 
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'mixologist' as const] });
-                  } else {
-                    setFormData({ ...formData, services: formData.services.filter((service) => service !== 'mixologist') });
-                  }
-                }}
-              />
-              <Label htmlFor="mixologist" className="text-gray-600 text-sm sm:text-base cursor-pointer">Mixologist</Label>
-            </div>
-            <div className="flex items-center space-x-2 min-h-[44px]">
-              <Checkbox id="glassware" name="services" value="glassware" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
-                checked={formData.services.includes('glassware')} 
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'glassware' as const] });
-                  } else {
-                    setFormData({ ...formData, services: formData.services.filter((service) => service !== 'glassware') });
-                  }
-                }}
-              />
-              <Label htmlFor="glassware" className="text-gray-600 text-sm sm:text-base cursor-pointer">Glassware</Label>
-            </div>
-            <div className="flex items-center space-x-2 min-h-[44px]">
-              <Checkbox id="custom" name="services" value="custom" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
-                checked={formData.services.includes('custom')} 
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'custom' as const] });
-                  } else {
-                    setFormData({ ...formData, services: formData.services.filter((service) => service !== 'custom') });
-                  }
-                }}
-              />
-              <Label htmlFor="custom" className="text-gray-600 text-sm sm:text-base cursor-pointer">Custom Menu</Label>
-            </div>
-            <div className="flex items-center space-x-2 min-h-[44px]">
-              <Checkbox id="dj" name="services" value="dj" className="border-2 border-gray-300 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 h-5 w-5" 
-                checked={formData.services.includes('dj')} 
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setFormData({ ...formData, services: [...formData.services, 'dj' as const] });
-                  } else {
-                    setFormData({ ...formData, services: formData.services.filter((service) => service !== 'dj') });
-                  }
-                }}
-              />
-              <Label htmlFor="dj" className="text-gray-600 text-sm sm:text-base cursor-pointer">DJ Service</Label>
-            </div>
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <Label htmlFor="eventType" className="mb-1.5 block">Event Type</Label>
+            <Label htmlFor="eventType" className="mb-1.5 block">What are you planning?</Label>
             <Input
               id="eventType"
               name="eventType"
               value={formData.eventType}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, eventType: e.target.value })}
               maxLength={120}
+              placeholder={eventTypePlaceholder}
               className="h-11 sm:h-10"
               required
             />
@@ -329,7 +335,7 @@ export function QuoteForm() {
           </div>
 
           <div>
-            <Label htmlFor="eventDate" className="mb-1.5 block">Event Date</Label>
+            <Label htmlFor="eventDate" className="mb-1.5 block">Date</Label>
             <Input
               id="eventDate"
               name="eventDate"
@@ -361,13 +367,14 @@ export function QuoteForm() {
           </div>
 
           <div>
-            <Label htmlFor="location" className="mb-1.5 block">Event Location</Label>
+            <Label htmlFor="location" className="mb-1.5 block">Location</Label>
             <Input
               id="location"
               name="location"
               value={formData.location}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, location: e.target.value })}
               maxLength={200}
+              placeholder="Washington, DC or Minneapolis"
               className="h-11 sm:h-10"
               required
             />
@@ -388,7 +395,7 @@ export function QuoteForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="additionalDetails" className="mb-1.5 block">Additional Details</Label>
+          <Label htmlFor="additionalDetails" className="mb-1.5 block">Anything else we should know?</Label>
           <Textarea
             id="additionalDetails"
             name="additionalDetails"
@@ -400,17 +407,11 @@ export function QuoteForm() {
         </div>
 
         <div className="sm:static sm:p-0 -mx-4 -mb-4 sm:mx-0 sm:mb-0 sticky bottom-0 bg-white p-4 border-t sm:border-t-0 border-gray-200 safe-bottom">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full"
-          >
-            <SubmitButton className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-3.5 sm:py-3 rounded-lg transition-all duration-300 shadow-md min-h-[48px]" />
-          </motion.div>
+          <SubmitButton pending={formState.status === 'pending'} />
         </div>
         </>
         )}
       </form>
-    </motion.div>
+    </div>
   )
 }

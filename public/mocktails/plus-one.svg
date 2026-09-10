@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M150 320 L140 300 C110 290,90 240,90 200 C90 140,150 100,150 100 C150 100,210 140,210 200 C210 240,190 290,160 300 L150 320" stroke="#E2E8F0" stroke-width="4" fill="none"/>
+  <path d="M130 320 L170 320" stroke="#E2E8F0" stroke-width="4"/>
+  <path d="M140 320 L140 350 L160 350 L160 320" stroke="#E2E8F0" stroke-width="4" fill="none"/>
+  <path d="M130 350 L170 350" stroke="#E2E8F0" stroke-width="4"/>
+  <path d="M150 105 C150 105,205 142,205 198 C205 235,187 282,160 292 L150 298 C150 298,115 282,95 198 C95 142,150 105,150 105" fill="url(#plusOneGrad)" opacity="0.95"/>
+  <g fill="white" opacity="0.85">
+    <path d="M130 150 L133 145 L136 150 L133 155 Z">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M170 160 L173 155 L176 160 L173 165 Z">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M150 170 L153 165 L156 170 L153 175 Z">
+      <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/>
+    </path>
+    <path d="M118 200 L121 195 L124 200 L121 205 Z">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <circle cx="138" cy="92" r="6" fill="#BE185D"/>
+  <circle cx="152" cy="86" r="5" fill="#DB2777"/>
+  <circle cx="164" cy="94" r="4" fill="#F472B6"/>
+  <path d="M172 84 C186 68,198 90,180 98" stroke="#86EFAC" stroke-width="2" fill="#4ADE80"/>
+  <defs>
+    <linearGradient id="plusOneGrad" x1="150" y1="105" x2="150" y2="298" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FBCFE8"/>
+      <stop offset="50%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#9D174D"/>
+    </linearGradient>
+  </defs>
+</svg>

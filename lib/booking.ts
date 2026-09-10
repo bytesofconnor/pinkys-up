@@ -8,6 +8,10 @@ export function whatsAppMessageUrl(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 }
 
+export const whatsAppOneOnOneUrl = whatsAppMessageUrl(
+  "Hi Pinky's Up! I'd like to book a 1:1 with Brenda."
+)
+
 type EventDetails = {
   name: string
   location?: string

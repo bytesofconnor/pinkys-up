@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M150 318 L142 298 C116 288,96 242,96 202 C96 148,150 108,150 108 C150 108,204 148,204 202 C204 242,184 288,158 298 L150 318" stroke="#F8E7EE" stroke-width="4" fill="none"/>
+  <path d="M132 348 L168 348" stroke="#F8E7EE" stroke-width="4"/>
+  <path d="M142 318 L142 348 L158 348 L158 318" stroke="#F8E7EE" stroke-width="4" fill="none"/>
+  <path d="M150 118 C150 118,196 154,196 200 C196 236,180 278,158 290 L150 296 C150 296,120 278,104 200 C104 154,150 118,150 118" fill="url(#berryLiquid)" opacity="0.94"/>
+  <circle cx="132" cy="96" r="7" fill="#BE185D"/>
+  <circle cx="148" cy="88" r="6" fill="#DB2777"/>
+  <circle cx="164" cy="98" r="5" fill="#F472B6"/>
+  <path d="M172 86 C186 70,198 92,180 100" stroke="#86EFAC" stroke-width="2" fill="#4ADE80"/>
+  <defs>
+    <linearGradient id="berryLiquid" x1="150" y1="118" x2="150" y2="296" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FBCFE8"/>
+      <stop offset="50%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#9D174D"/>
+    </linearGradient>
+  </defs>
+</svg>

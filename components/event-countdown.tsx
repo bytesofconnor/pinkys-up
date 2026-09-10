@@ -57,16 +57,16 @@ export function EventCountdown({ target }: { target: string }) {
       {units.map((unit, index) => (
         <div key={unit.label} className="flex items-start">
           {index > 0 ? (
-            <div className="mx-4 mt-3 h-10 w-px bg-white/25 sm:mx-6 sm:mt-4 sm:h-12 md:mx-8" />
+            <div className="mx-3 mt-2 h-7 w-px bg-white/20 sm:mx-5 sm:mt-3 sm:h-9" />
           ) : null}
-          <div className="min-w-[4.5rem] text-center sm:min-w-[5.5rem]">
+          <div className="min-w-[3.75rem] text-center sm:min-w-[4.5rem]">
             <div
-              className="font-display text-5xl leading-none tabular-nums text-white sm:text-6xl md:text-7xl"
+              className="font-display text-4xl leading-none tabular-nums text-white sm:text-5xl"
               style={{ textShadow: "0 2px 28px rgba(0,0,0,0.7)" }}
             >
               {unit.value}
             </div>
-            <div className="mt-3 text-xs font-medium uppercase tracking-[0.28em] text-white">
+            <div className="mt-2 text-[10px] font-medium uppercase tracking-[0.22em] text-white/80">
               {unit.label}
             </div>
           </div>

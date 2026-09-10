@@ -5,7 +5,7 @@ import { z } from "zod"
 import { Resend } from "resend"
 import { QuoteRequestEmail } from "@/emails/quote-request"
 import { QuoteConfirmationEmail } from "@/emails/quote-confirmation"
-import { ALLOWED_SERVICES } from "@/lib/quote"
+import { ALLOWED_SERVICES, serviceLabel } from "@/lib/quote"
 import { isRateLimited } from "@/lib/rate-limit"
 import { saveQuoteSubmission } from "@/lib/db"
 
@@ -14,7 +14,14 @@ const formSchema = z.object({
   lastName: z.string().trim().min(1, "Last name is required").max(80),
   phone: z.string().trim().min(7, "Phone number is required").max(30),
   email: z.string().trim().email("Invalid email address").max(254),
-  services: z.array(z.enum(ALLOWED_SERVICES)).min(1, "Please select at least one service").max(ALLOWED_SERVICES.length),
+  services: z
+    .array(z.enum(ALLOWED_SERVICES))
+    .min(1, "Please select at least one service")
+    .max(ALLOWED_SERVICES.length)
+    .refine(
+      (services) => services.includes("mocktails") || services.includes("events"),
+      "Choose mocktail cart, community events, or both"
+    ),
   eventType: z.string().trim().min(1, "Event type is required").max(120),
   eventDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid event date"),
   location: z.string().trim().min(1, "Location is required").max(200),
@@ -138,7 +145,7 @@ export async function submitQuoteForm(
       const notificationResult = await sendEmailWithRetry(resend!, {
         from,
         to: [to],
-        subject: `New Quote Request from ${data.firstName} ${data.lastName}`,
+        subject: `New request from ${data.firstName} ${data.lastName} — ${data.services.map(serviceLabel).join(" + ")}`,
         html: QuoteRequestEmail(data),
         replyTo: data.email,
       })

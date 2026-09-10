@@ -14,6 +14,25 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/get-quote",
+        destination: "/quote",
+        permanent: true,
+      },
+      {
+        source: "/about",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/gallery",
+        destination: "/#bars",
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

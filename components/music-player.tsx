@@ -3,19 +3,37 @@
 import { useState, useRef } from 'react';
 import { Play, Pause } from 'lucide-react';
 
+const START_AT_SECONDS = 20
+
 export function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        void audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
+  const startFromOffset = () => {
+    const audio = audioRef.current
+    if (!audio) {
+      return
     }
+    if (audio.currentTime < START_AT_SECONDS) {
+      audio.currentTime = START_AT_SECONDS
+    }
+  }
+
+  const togglePlay = () => {
+    const audio = audioRef.current
+    if (!audio) {
+      return
+    }
+
+    if (isPlaying) {
+      audio.pause()
+      setIsPlaying(false)
+      return
+    }
+
+    startFromOffset()
+    void audio.play()
+    setIsPlaying(true)
   };
 
   return (
@@ -23,7 +41,14 @@ export function MusicPlayer() {
       <audio
         ref={audioRef}
         src="/te-estoy-correteando.mp3"
-        loop
+        onEnded={() => {
+          const audio = audioRef.current
+          if (!audio) {
+            return
+          }
+          audio.currentTime = START_AT_SECONDS
+          void audio.play()
+        }}
       />
       <button
         type="button"

@@ -1,21 +1,21 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Get a Quote for Your Event",
-  description: "Book PINKYS UP mobile mocktail bar for your wedding, corporate event, or private celebration in DC or Minneapolis. Request a custom quote today.",
+  title: "Get in Touch",
+  description: "Book the PINKYS UP mocktail cart or plan a community wellness gathering in Washington, DC or Minneapolis.",
   alternates: {
     canonical: "https://www.pinkysup.social/quote"
   },
   openGraph: {
-    title: "Get a Quote for Your Event | PINKYS UP",
-    description: "Book our mobile mocktail bar for your wedding, corporate event, or private celebration. Custom quotes for DC and Minneapolis.",
+    title: "Get in Touch | PINKYS UP",
+    description: "Book the mocktail cart or plan a community wellness gathering in Washington, DC or Minneapolis.",
     url: "https://www.pinkysup.social/quote",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Get a Quote for Your Event | PINKYS UP",
-    description: "Book our mobile mocktail bar for your wedding, corporate event, or private celebration."
+    title: "Get in Touch | PINKYS UP",
+    description: "Book the mocktail cart or plan a community wellness gathering in Washington, DC or Minneapolis."
   }
 }
 

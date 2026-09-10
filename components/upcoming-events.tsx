@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { EventsEmptyState } from "@/components/events-empty-state"
 import {
   formatEventDate,
   formatEventTime,
@@ -8,11 +9,7 @@ import {
 
 export function UpcomingEvents({ events }: { events: WellnessEvent[] }) {
   if (events.length === 0) {
-    return (
-      <p className="text-center text-lg text-gray-600">
-        New community dates are on the way. Check back soon.
-      </p>
-    )
+    return <EventsEmptyState />
   }
 
   return (

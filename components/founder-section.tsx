@@ -4,6 +4,7 @@ import React from 'react';
 import Image from "next/image"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { TrackedLink } from "@/components/tracked-link"
 
 export function FounderSection() {
   return (
@@ -34,10 +35,10 @@ export function FounderSection() {
                       <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 blur-md opacity-55 transition-all duration-500 group-hover:opacity-90 group-hover:blur-lg" />
                       <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-white/30">
                         <Image
-                          src="/brendap.jpg"
+                          src="/brenda-capital.JPEG"
                           alt="Brenda Pereira Vargas, founder of Pinky's Up"
                           fill
-                          className="origin-[50%_45%] scale-[1.28] object-cover object-[48%_64%] transition-transform duration-700 group-hover:scale-[1.34]"
+                          className="object-cover object-[50%_26%] transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
                     </div>
@@ -50,16 +51,23 @@ export function FounderSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
                     <h2 className="mb-4 font-display text-3xl text-gray-900 md:text-4xl">
-                      Elevating Moments by Brenda
+                      Hi, I&apos;m Brenda.
                     </h2>
                     <p className="text-lg text-gray-600 mb-6">
-                      Hey there! I&apos;m Brenda, the founder of PINKYS UP. My journey into the world of mocktails began with a simple
-                      realization - everyone deserves to feel included and celebrated, regardless of their relationship with alcohol.
+                      I run PINKYS UP — mocktails and community gatherings in Washington, DC and Minneapolis.
                     </p>
                     <p className="text-lg text-gray-600">
-                      Today, I&apos;m proud to bring that experience to Washington, DC and Minneapolis.
-                      Let&apos;s create unforgettable moments together! 🌟
+                      I started this because not everyone drinks, and they still deserve to feel part of the night. Come to a gathering, book the cart, or just say hi. I&apos;d love to meet you.
                     </p>
+                    <div className="mt-6 flex justify-center md:justify-start">
+                      <TrackedLink
+                        href="/1-1"
+                        event="book_one_on_one"
+                        className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#9d174d] px-6 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+                      >
+                        Book a 1:1
+                      </TrackedLink>
+                    </div>
                   </motion.div>
                 </div>
               </div>

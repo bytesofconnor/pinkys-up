@@ -1,4 +1,5 @@
 import { escapeHtml, escapeHtmlWithBreaks } from "@/lib/html"
+import { serviceLabel } from "@/lib/quote"
 
 interface QuoteEmailProps {
   firstName: string
@@ -70,7 +71,7 @@ export function QuoteRequestEmail({
           <div class="section">
             <div class="label">Services Requested:</div>
             <div class="services">
-              ${services.map((service) => `<span class="service-tag">${escapeHtml(service)}</span>`).join(" ")}
+              ${services.map((service) => `<span class="service-tag">${escapeHtml(serviceLabel(service))}</span>`).join(" ")}
             </div>
           </div>
 

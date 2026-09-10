@@ -1,18 +1,10 @@
 import { getRecentQuoteSubmissions } from '@/lib/db'
+import { serviceLabel } from '@/lib/quote'
 import { redirect } from 'next/navigation'
+import { isAdmin } from '@/lib/admin'
+import { AdminNav } from '@/app/admin/admin-nav'
 
 export const dynamic = 'force-dynamic'
-
-async function verifyAccess(searchParams: { token?: string }) {
-  const adminToken = process.env.ADMIN_TOKEN
-  
-  if (!adminToken) {
-    return false
-  }
-
-  const token = searchParams.token
-  return token === adminToken
-}
 
 export default async function AdminQuotesPage({
   searchParams,
@@ -20,23 +12,19 @@ export default async function AdminQuotesPage({
   searchParams: Promise<{ token?: string }>
 }) {
   const params = await searchParams
-  const hasAccess = await verifyAccess(params)
-
-  if (!hasAccess) {
-    redirect('/')
+  if (!(await isAdmin(params.token))) {
+    redirect('/admin')
   }
 
   const quotes = await getRecentQuoteSubmissions(100)
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-pink-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Quote Submissions</h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Showing {quotes.length} most recent quote requests
-          </p>
-        </div>
+        <AdminNav current="quotes" />
+        <p className="mb-6 text-sm text-gray-600">
+          Showing {quotes.length} most recent quote requests
+        </p>
 
         {quotes.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-8 text-center">
@@ -113,7 +101,7 @@ export default async function AdminQuotesPage({
                           key={service}
                           className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-pink-100 text-pink-800"
                         >
-                          {service}
+                          {serviceLabel(service)}
                         </span>
                       ))}
                     </div>

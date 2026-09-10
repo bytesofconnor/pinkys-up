@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M100 100 L200 100 L150 300 L140 300 L150 320 L160 320 L150 300 Z" stroke="#E2E8F0" stroke-width="4" fill="none"/>
+  <path d="M101 101 L199 101 L152 290 L148 290 Z" fill="url(#mirrorballGrad)" opacity="0.92"/>
+  <g opacity="0.85">
+    <circle cx="130" cy="150" r="2" fill="white">
+      <animate attributeName="opacity" values="1;0.25;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="170" cy="170" r="2" fill="#FDE68A">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="190" r="2" fill="white">
+      <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="140" cy="210" r="1.5" fill="#F9A8D4">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="175" cy="145" r="1.5" fill="white">
+      <animate attributeName="opacity" values="1;0.2;1" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g opacity="0.65">
+    <circle cx="140" cy="160" r="1" fill="white"/>
+    <circle cx="160" cy="180" r="1" fill="#FDE68A"/>
+    <circle cx="180" cy="140" r="1" fill="white"/>
+    <circle cx="120" cy="200" r="1" fill="#F9A8D4"/>
+  </g>
+  <path d="M100 100 L200 100" stroke="#F9A8D4" stroke-width="6" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="mirrorballGrad" x1="150" y1="100" x2="150" y2="290" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="45%" stop-color="#F9A8D4"/>
+      <stop offset="100%" stop-color="#BE185D"/>
+    </linearGradient>
+  </defs>
+</svg>

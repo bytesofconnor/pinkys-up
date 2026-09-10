@@ -1,6 +1,6 @@
-# 🍹 PINKYS UP DC
+# PINKYS UP
 
-PINKYS UP DC is a premium mobile mocktail catering service based in Washington, DC. We specialize in creating sophisticated, non-alcoholic beverages for events that deserve an elevated touch.
+Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.
 
 ## 🌟 Features
 
@@ -91,7 +91,7 @@ The project is set up with continuous deployment:
 
 ## 👩‍💼 About
 
-PINKYS UP DC was founded by Brenda Pereira Vargas with a vision to revolutionize the non-alcoholic beverage scene in Washington, DC. Our mission is to provide sophisticated, inclusive drinking experiences for all types of celebrations.
+PINKYS UP was founded by Brenda Pereira Vargas. The brand hosts community wellness gatherings and books a zero-proof mocktail cart in Washington, DC and Minneapolis.
 
 ## 📞 Contact
 

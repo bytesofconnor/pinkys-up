@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M110 80 L190 80 L168 250 L132 250 Z" stroke="#F8E7EE" stroke-width="4" fill="none"/>
+  <path d="M150 250 L150 330" stroke="#F8E7EE" stroke-width="4"/>
+  <path d="M128 330 L172 330" stroke="#F8E7EE" stroke-width="4"/>
+  <path d="M114 92 L186 92 L166 246 L134 246 Z" fill="url(#sunsetLiquid)" opacity="0.92"/>
+  <path d="M118 78 C130 58,170 58,182 78" stroke="#E11D48" stroke-width="3" fill="none"/>
+  <circle cx="138" cy="64" r="7" fill="#FB7185"/>
+  <circle cx="154" cy="58" r="6" fill="#F97316"/>
+  <circle cx="168" cy="66" r="5" fill="#F9A8D4"/>
+  <defs>
+    <linearGradient id="sunsetLiquid" x1="150" y1="92" x2="150" y2="246" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F9A8D4"/>
+      <stop offset="55%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+  </defs>
+</svg>
