@@ -17,7 +17,7 @@ export function MarqueeText() {
         initial={reduceMotion ? { x: 0 } : { x: "-100%" }}
         animate={reduceMotion ? { x: 0 } : { x: "0%" }}
         transition={{
-          duration: reduceMotion ? 0 : 120,
+          duration: reduceMotion ? 0 : 80,
           repeat: reduceMotion ? 0 : Infinity,
           ease: "linear",
         }}
@@ -26,13 +26,13 @@ export function MarqueeText() {
         {duplicatedMocktails.map((mocktail, index) => (
           <span
             key={index}
-            className="inline-flex items-center mx-12 group"
+            className="mx-10 inline-flex items-center group"
           >
-            <div className="relative mr-3 h-6 w-6">
+            <div className="relative mr-2.5 h-11 w-[2.05rem] shrink-0 sm:h-12 sm:w-9">
               <MocktailIllustration name={mocktail.name} />
             </div>
             <span className={cn(
-              "text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent",
+              "bg-gradient-to-r bg-clip-text text-xs font-medium leading-none text-transparent sm:text-sm",
               mocktail.titleClass
             )}>
               {mocktail.name}: {mocktail.ingredients.join(" + ")} ✨

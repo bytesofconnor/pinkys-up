@@ -193,7 +193,7 @@ export function QuoteForm({
         <>
         <div className="space-y-3">
           <Label className="text-gray-700 font-medium mb-1.5 block">What do you need?</Label>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+          <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4">
             {SERVICE_OPTIONS.map((option) => {
               const selected = formData.services.includes(option.id)
               return (
@@ -203,17 +203,17 @@ export function QuoteForm({
                   aria-pressed={selected}
                   onClick={() => toggleService(option.id)}
                   className={cn(
-                    "rounded-2xl border px-5 py-5 text-left shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d] sm:px-6 sm:py-6",
+                    "flex h-full flex-col items-stretch justify-start rounded-2xl border px-5 py-5 text-left shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d] sm:px-6 sm:py-6",
                     selected
                       ? "border-[#9d174d] bg-pink-50 shadow-none"
                       : "border-gray-200 bg-white hover:border-pink-200"
                   )}
                 >
-                  <span className="flex items-start justify-between gap-3">
-                    <p className="font-display text-xl text-gray-900 sm:text-2xl">{option.title}</p>
+                  <span className="flex w-full items-start justify-between gap-3">
+                    <p className="font-display text-xl leading-tight text-gray-900 sm:text-2xl">{option.title}</p>
                     <span
                       className={cn(
-                        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2",
+                        "mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2",
                         selected
                           ? "border-[#9d174d] bg-[#9d174d] text-white"
                           : "border-gray-300 bg-white"
