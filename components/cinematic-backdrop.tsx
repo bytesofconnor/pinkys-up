@@ -6,12 +6,14 @@ export function CinematicBackdrop({
   alt,
   intensity = "default",
   objectPosition = "center",
+  soften = "none",
 }: {
   imageSrc: string
   videoSrc?: string
   alt: string
   intensity?: "default" | "deep" | "soft" | "light" | "clear"
   objectPosition?: string
+  soften?: "none" | "barely"
 }) {
   const wash =
     intensity === "deep"
@@ -41,7 +43,11 @@ export function CinematicBackdrop({
         alt={alt}
         fill
         priority
-        className="object-cover"
+        className={
+          soften === "barely"
+            ? "object-cover scale-[1.04] blur-[0.7px] saturate-[1.04]"
+            : "object-cover"
+        }
         style={{ objectPosition }}
       />
       {videoSrc ? (

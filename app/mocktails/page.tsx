@@ -10,13 +10,13 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
       <HeroSection
-        variant="editorial"
         imageSrc="/pinkies.png"
         objectPosition="64% 42%"
         intensity="clear"
+        align="left"
+        soften="barely"
         title="Mindfully Crafted Elixirs"
         description="Zero-proof drinks, built for the cart."
-        minHeightClass="min-h-[calc(100dvh-4rem)]"
         actions={[
           {
             href: "/quote?for=mocktails",

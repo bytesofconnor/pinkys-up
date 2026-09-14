@@ -1,7 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { CinematicBackdrop } from "@/components/cinematic-backdrop"
 import { EventCountdown } from "@/components/event-countdown"
+import { HeroSection } from "@/components/hero-section"
 import { SectionHeading } from "@/components/section-heading"
 import { UpcomingEvents } from "@/components/upcoming-events"
 import { WhatsAppRSVPButton } from "@/components/whatsapp-rsvp-button"
@@ -60,84 +60,62 @@ export default async function EventsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <section className="relative -mt-20 flex min-h-[calc(100dvh-4rem)] items-center justify-center overflow-hidden">
-        <CinematicBackdrop
+      {nextEvent ? (
+        <HeroSection
           imageSrc="/park.png"
-          alt=""
-          intensity="default"
           objectPosition="center 58%"
+          soften="barely"
+        >
+          <div className="relative">
+            <p className="absolute bottom-full mb-4 w-full text-xs uppercase tracking-[0.35em] text-white/90 [text-shadow:0_2px_24px_rgba(0,0,0,0.7)]">
+              {nextEvent.startsAt
+                ? formatHeroDate(nextEvent.startsAt, nextEvent.timeZone)
+                : "Date TBD"}
+            </p>
+            <h1 className="font-display text-3xl font-semibold leading-[1.15] tracking-tight text-[#ffd0e4] sm:text-5xl md:text-6xl [text-shadow:0_2px_28px_rgba(0,0,0,0.55)]">
+              {nextEvent.name}
+            </h1>
+          </div>
+          {nextEvent.startsAt ? (
+            <div className="mt-6 sm:mt-8">
+              <EventCountdown target={nextEvent.startsAt} />
+            </div>
+          ) : null}
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
+            {nextEvent.registrationUrl ? (
+              <Link href={registerHref} target="_blank" rel="noopener noreferrer" className="inline-block">
+                <button className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[#9d174d] px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] sm:w-auto">
+                  Register
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </button>
+              </Link>
+            ) : (
+              <WhatsAppRSVPButton
+                href={registerHref}
+                eventName={nextEvent.name}
+                variant="button"
+                size="lg"
+              />
+            )}
+          </div>
+        </HeroSection>
+      ) : (
+        <HeroSection
+          imageSrc="/park.png"
+          objectPosition="center 58%"
+          soften="barely"
+          title="The next date is being planned."
+          description="Community gatherings will show up here when they're on the calendar."
+          actions={[
+            {
+              href: "/quote?for=events",
+              event: "book_quote",
+              label: "Host or partner with us",
+              variant: "primary",
+            },
+          ]}
         />
-        <div className="relative z-10 mx-auto max-w-3xl px-4 py-28 text-center sm:px-6 sm:py-32">
-          {nextEvent ? (
-            <>
-              <p
-                className="mb-3 text-[11px] uppercase tracking-[0.32em] text-white/90 sm:text-xs"
-                style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85)" }}
-              >
-                {nextEvent.startsAt
-                  ? formatHeroDate(nextEvent.startsAt, nextEvent.timeZone)
-                  : "Date TBD"}
-              </p>
-              <h1
-                className="mb-6 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-[#ffd0e4] sm:mb-8 sm:text-5xl md:text-6xl"
-                style={{ textShadow: "0 2px 28px rgba(0,0,0,0.85)" }}
-              >
-                {nextEvent.name}
-              </h1>
-              {nextEvent.startsAt ? (
-                <EventCountdown target={nextEvent.startsAt} />
-              ) : null}
-              <div className="mt-7 sm:mt-8">
-                {nextEvent.registrationUrl ? (
-                  <Link href={registerHref} target="_blank" rel="noopener noreferrer" className="inline-block">
-                    <button className="inline-flex min-h-12 items-center rounded-full bg-[#9d174d] px-7 py-3 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843]">
-                      Register
-                      <span className="sr-only"> (opens in a new tab)</span>
-                    </button>
-                  </Link>
-                ) : (
-                  <WhatsAppRSVPButton
-                    href={registerHref}
-                    eventName={nextEvent.name}
-                    variant="button"
-                    size="lg"
-                  />
-                )}
-              </div>
-            </>
-          ) : (
-            <>
-              <p
-                className="mb-3 text-[11px] uppercase tracking-[0.32em] text-white/90 sm:text-xs"
-                style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85)" }}
-              >
-                Washington, DC · Minneapolis
-              </p>
-              <h1
-                className="mb-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-[#ffd0e4] sm:text-5xl md:text-6xl"
-                style={{ textShadow: "0 2px 28px rgba(0,0,0,0.85)" }}
-              >
-                The next date is being planned.
-              </h1>
-              <p
-                className="mx-auto max-w-md text-sm text-white/90 sm:text-base"
-                style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85)" }}
-              >
-                Community gatherings will show up here when they&apos;re on the calendar.
-              </p>
-              <div className="mt-7 sm:mt-8">
-                <TrackedLink
-                  href="/quote?for=events"
-                  event="book_quote"
-                  className="inline-flex min-h-12 items-center rounded-full bg-[#9d174d] px-7 py-3 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843]"
-                >
-                  Host or partner with us
-                </TrackedLink>
-              </div>
-            </>
-          )}
-        </div>
-      </section>
+      )}
 
       <section className="container max-w-5xl px-4 sm:px-6 py-16 sm:py-24">
         <div className="mb-10 sm:mb-14">

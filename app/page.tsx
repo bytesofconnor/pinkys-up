@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen">
-      <HeroSection imageSrc="/cover.png" objectPosition="center 48%" />
+      <HeroSection imageSrc="/cover.png" objectPosition="center 48%" soften="barely" />
       <section className="container max-w-5xl px-4 sm:px-6 py-16 sm:py-24">
         <div className="mb-10 sm:mb-14">
           <SectionHeading
