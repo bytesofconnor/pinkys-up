@@ -1,10 +1,13 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Instrument_Serif, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { getOrganizationSchema, getLocalBusinessSchema } from "@/lib/structured-data"
+import { SiteDirectory } from "@/components/site-directory"
+import { PageView } from "@/components/page-view"
+import { JsonLd } from "@/components/json-ld"
+import { getSiteGraph } from "@/lib/structured-data"
 import "./globals.css"
 
 const inter = Inter({
@@ -24,30 +27,29 @@ const instrument = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.pinkysup.social"),
   title: {
-    default: "PINKYS UP | Zero-Proof Mocktails & Community Wellness",
-    template: "%s | PINKYS UP"
+    default: "PINKYS UP | Mocktail Cart & Wellness Events in DC and Minneapolis",
+    template: "%s | PINKYS UP",
   },
-  description: "Zero-proof mocktails and community wellness experiences in Washington, DC and Minneapolis. Mobile mocktail bar for events and free wellness gatherings.",
+  description:
+    "Mobile zero-proof mocktail bar for weddings and private events in Washington, DC and Minneapolis, plus free community wellness gatherings.",
   keywords: [
     "PINKYS UP",
-    "mocktails",
-    "zero-proof",
-    "community wellness",
-    "Washington DC",
-    "Minneapolis",
+    "mobile mocktail bar",
+    "zero-proof mocktails",
+    "non-alcoholic wedding bar",
+    "Washington DC mocktail cart",
+    "Minneapolis mocktail bar",
+    "community wellness events",
   ],
-  authors: [{ name: "PINKYS UP" }],
+  authors: [{ name: "Brenda Pereira Vargas" }, { name: "PINKYS UP" }],
+  creator: "Brenda Pereira Vargas",
   alternates: {
-    canonical: "https://www.pinkysup.social"
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    viewportFit: "cover",
+    canonical: "https://www.pinkysup.social",
   },
   openGraph: {
-    title: "PINKYS UP | Zero-Proof Mocktails & Community Wellness",
-    description: "Zero-proof mocktails and community wellness experiences in Washington, DC and Minneapolis. Mobile mocktail bar for events and free wellness gatherings.",
+    title: "PINKYS UP | Mocktail Cart & Wellness Events in DC and Minneapolis",
+    description:
+      "Zero-proof mocktail cart for events, and free wellness gatherings, in Washington, DC and Minneapolis.",
     url: "https://www.pinkysup.social",
     siteName: "PINKYS UP",
     locale: "en_US",
@@ -55,8 +57,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PINKYS UP | Zero-Proof Mocktails & Community Wellness",
-    description: "Zero-proof mocktails and community wellness experiences in Washington, DC and Minneapolis.",
+    title: "PINKYS UP | Mocktail Cart & Wellness Events in DC and Minneapolis",
+    description: "Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
   icons: {
     icon: [
@@ -67,13 +77,19 @@ export const metadata: Metadata = {
       {
         url: "/favicon.png",
         type: "image/png",
-      }
+      },
     ],
     apple: {
       url: "/favicon.png",
       type: "image/png",
-    }
-  }
+    },
+  },
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 }
 
 export default function RootLayout({
@@ -81,20 +97,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const organizationSchema = getOrganizationSchema()
-  const localBusinessSchema = getLocalBusinessSchema()
-
   return (
     <html lang="en" className={`${inter.variable} ${instrument.variable}`}>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-        />
+        <JsonLd data={getSiteGraph()} />
       </head>
       <body className="font-sans antialiased">
         <div className="relative flex min-h-screen flex-col">
@@ -102,10 +108,12 @@ export default function RootLayout({
           <main id="main-content" className="pt-20" tabIndex={-1}>
             {children}
           </main>
+          <SiteDirectory />
           <SiteFooter />
         </div>
         <Analytics />
         <SpeedInsights />
+        <PageView />
       </body>
     </html>
   )

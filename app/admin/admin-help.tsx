@@ -1,6 +1,6 @@
 import { quoteNotificationEmail } from "@/lib/quote"
 
-export function AdminHelp({ current }: { current: "events" | "quotes" }) {
+export function AdminHelp({ current }: { current: "insights" | "events" | "quotes" }) {
   const inbox = quoteNotificationEmail()
 
   return (
@@ -12,7 +12,7 @@ export function AdminHelp({ current }: { current: "events" | "quotes" }) {
           <span className="font-medium text-gray-800">Show on the website</span> to
           hide a date without deleting it. Quote requests live under Quotes.
         </>
-      ) : (
+      ) : current === "quotes" ? (
         <>
           These are submissions from the public quote form. Every request is also
           emailed to{" "}
@@ -21,6 +21,13 @@ export function AdminHelp({ current }: { current: "events" | "quotes" }) {
           </a>
           . If a row is here but email failed, follow up from the contact details
           on the card.
+        </>
+      ) : (
+        <>
+          Simple counts from the website for the last 30 days: visits, which pages
+          people open, and which buttons they tap. Quote requests are the same
+          submissions as the Quotes tab. This starts from when tracking went live,
+          so older Vercel numbers will not appear here.
         </>
       )}
     </p>

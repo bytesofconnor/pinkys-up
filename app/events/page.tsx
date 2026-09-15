@@ -12,25 +12,23 @@ import {
   getNextEvent,
   getUpcomingEvents,
 } from "@/lib/events"
+import { JsonLd } from "@/components/json-ld"
 import { getEventSchema } from "@/lib/structured-data"
 
 export const metadata: Metadata = {
-  title: "Community Wellness Events",
-  description: "Free wellness gatherings in Washington, DC and Minneapolis. Join us for movement, connection, and community experiences from PINKYS UP.",
+  title: "Free community wellness events in DC and Minneapolis",
+  description:
+    "Free PINKYS UP gatherings in Washington, DC and Minneapolis — movement, connection, and zero-proof hospitality. See upcoming dates and RSVP.",
   alternates: {
-    canonical: "https://www.pinkysup.social/events"
+    canonical: "https://www.pinkysup.social/events",
   },
   openGraph: {
-    title: "Community Wellness Events | PINKYS UP",
-    description: "Free wellness gatherings in Washington, DC and Minneapolis. Join us for movement, connection, and community experiences.",
+    title: "Community wellness events | PINKYS UP",
+    description:
+      "Free wellness gatherings in Washington, DC and Minneapolis from PINKYS UP.",
     url: "https://www.pinkysup.social/events",
-    type: "website"
+    type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Community Wellness Events | PINKYS UP",
-    description: "Free wellness gatherings in Washington, DC and Minneapolis. Join us for movement, connection, and community experiences."
-  }
 }
 
 export const dynamic = "force-dynamic"
@@ -54,11 +52,7 @@ export default async function EventsPage() {
   return (
     <div className="bg-gradient-to-br from-pink-50 via-white to-purple-50">
       {eventSchemas.map((schema, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
+        <JsonLd key={index} data={schema} />
       ))}
       {nextEvent ? (
         <HeroSection

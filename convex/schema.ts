@@ -18,6 +18,12 @@ export default defineSchema({
     emailError: v.optional(v.string()),
   }).index("by_email", ["email"]),
 
+  siteEvents: defineTable({
+    name: v.string(),
+    path: v.optional(v.string()),
+    sessionId: v.optional(v.string()),
+  }).index("by_name", ["name"]),
+
   communityEvents: defineTable({
     name: v.string(),
     description: v.string(),

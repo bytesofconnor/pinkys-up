@@ -1,9 +1,9 @@
 export function requireAdminToken(token: string) {
-  const expected = process.env.ADMIN_TOKEN
+  const expected = process.env.ADMIN_TOKEN?.trim()
   if (!expected) {
     throw new Error("Admin token is not configured")
   }
-  if (token !== expected) {
+  if (token.trim() !== expected) {
     throw new Error("Unauthorized")
   }
 }

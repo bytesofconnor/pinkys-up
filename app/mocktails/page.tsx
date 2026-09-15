@@ -63,9 +63,9 @@ export default function Page() {
                       <p className="mb-1.5 sm:mb-2 text-xs uppercase tracking-[0.24em] text-pink-600">
                         {mocktail.season}
                       </p>
-                      <h3 className="font-display text-2xl sm:text-3xl text-gray-900">
+                      <h2 className="font-display text-2xl sm:text-3xl text-gray-900">
                         {mocktail.name}
-                      </h3>
+                      </h2>
                     </div>
                     <p className="text-sm sm:text-base text-gray-700">{mocktail.description}</p>
                     <div>

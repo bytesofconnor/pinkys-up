@@ -5,15 +5,24 @@ import { FounderSection } from "@/components/founder-section"
 import { UpcomingEvents } from "@/components/upcoming-events"
 import { SectionHeading } from "@/components/section-heading"
 import { TrackedLink } from "@/components/tracked-link"
+import { AboutPinkys } from "@/components/about-pinkys"
 import { getUpcomingEvents } from "@/lib/events"
 
 export const metadata: Metadata = {
+  title: {
+    absolute: "PINKYS UP | Mocktail Cart & Wellness Events in DC and Minneapolis",
+  },
+  description:
+    "Mobile zero-proof mocktail bar for weddings and private events in Washington, DC and Minneapolis, plus free community wellness gatherings. Book PINKYS UP.",
   alternates: {
-    canonical: "https://www.pinkysup.social"
+    canonical: "https://www.pinkysup.social",
   },
   openGraph: {
-    url: "https://www.pinkysup.social"
-  }
+    title: "PINKYS UP | Mocktail Cart & Wellness Events in DC and Minneapolis",
+    description:
+      "Zero-proof mocktail cart for events, and free wellness gatherings, in Washington, DC and Minneapolis.",
+    url: "https://www.pinkysup.social",
+  },
 }
 
 export default async function Home() {
@@ -44,6 +53,7 @@ export default async function Home() {
         ) : null}
       </section>
       <ServiceBars />
+      <AboutPinkys />
       <FounderSection />
     </div>
   )

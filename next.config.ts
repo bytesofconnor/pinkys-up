@@ -50,6 +50,16 @@ const nextConfig: NextConfig = {
         destination: "/#bars",
         permanent: true,
       },
+      {
+        source: "/dc",
+        destination: "/washington-dc",
+        permanent: true,
+      },
+      {
+        source: "/minneapolis-mn",
+        destination: "/minneapolis",
+        permanent: true,
+      },
     ]
   },
   async headers() {

@@ -4,7 +4,9 @@ Zero-proof mocktails and community wellness in Washington, DC and Minneapolis.
 
 **Live:** [www.pinkysup.social](https://www.pinkysup.social)
 
-This README is the operating manual for the site: what it does, how Brenda runs it, and how to develop and ship.
+Dashboards, env vars, and which service owns what: **[OPS.md](./OPS.md)**.
+
+This README is how the site works and how Brenda uses admin.
 
 ## What the site does
 
@@ -15,7 +17,7 @@ This README is the operating manual for the site: what it does, how Brenda runs 
 | `/mocktails` | Three signature drinks |
 | `/1-1` | Book time with Brenda (Calendly if set, otherwise WhatsApp) |
 | `/quote` | Cart and community-event quote form |
-| `/admin` | Access-code login, then **Events** and **Quotes** |
+| `/admin` | Access-code login, then **Insights**, **Events**, and **Quotes** |
 
 Quotes email Brenda **and** save to Convex. A request still counts if only one of those succeeds. Events Brenda publishes in admin show on `/` and `/events`.
 
@@ -50,29 +52,13 @@ Open `/admin` locally with the same `ADMIN_TOKEN`.
 
 ## Environment variables
 
-Set these on **Vercel** (Production and Preview). `ADMIN_TOKEN` must also be set in the **Convex dashboard** on both the dev and prod deployments.
+Names, which dashboard they live in, and prod vs local URLs: **[OPS.md](./OPS.md)**. Copy `.env.example` to `.env.local` for local work.
 
-| Variable | Where | Notes |
-| --- | --- | --- |
-| `NEXT_PUBLIC_CONVEX_URL` | Vercel, as **Config** (not Secret) | Public on purpose. Production: `https://cautious-sheep-629.convex.cloud` |
-| `ADMIN_TOKEN` | Vercel **Secret** + Convex dashboard | Access code for `/admin`. Same value in both places |
-| `RESEND_API_KEY` | Vercel **Secret** | Sends quote emails |
-| `QUOTE_NOTIFICATION_EMAIL` | Vercel | Inbox for new quotes. Falls back to Brenda’s Gmail if unset |
-| `RESEND_FROM_EMAIL` | Vercel | Defaults to `Pinkys Up <onboarding@resend.dev>` until the domain is verified in Resend |
-| `SEND_GUEST_CONFIRMATION` | Vercel | Set `true` to email the guest a copy. Off by default |
-| `NEXT_PUBLIC_CALENDLY_URL` | Vercel Config | Optional. Without it, `/1-1` uses WhatsApp |
-
-Do not put `NEXT_PUBLIC_CONVEX_URL` in Secret — Vercel will warn because `NEXT_PUBLIC_` is exposed to the browser.
-
-Convex dashboard: [pinkys-up](https://dashboard.convex.dev/t/connor-barrett/pinkys-up)
+`ADMIN_TOKEN` must match on Next **and** the Convex deployment that `NEXT_PUBLIC_CONVEX_URL` points at. `NEXT_PUBLIC_CONVEX_URL` is Vercel **Config**, not Secret.
 
 ## Shipping
 
-GitHub default branch is `main`. Vercel deploys that automatically.
-
-Say **ship it** to commit and push. Do not force-push. Do not run `npx convex deploy` unless we are intentionally updating the production Convex backend (functions already live there).
-
-After a Convex function change: `npm run convex:dev` locally, then deploy Convex to prod when that backend change should go live.
+Details: **[OPS.md](./OPS.md)**. GitHub `main` → Vercel. Say **ship it** to commit and push. Do not force-push. Run `npx convex deploy` only when `convex/` should update production.
 
 ## Stack
 
@@ -80,7 +66,7 @@ After a Convex function change: `npm run convex:dev` locally, then deploy Convex
 - Convex for quotes and community events
 - Resend for quote email
 - Tailwind + Framer Motion
-- Vercel Analytics + Speed Insights (Hobby: page views only, no custom events)
+- Vercel Analytics + Speed Insights; Brenda-facing counts at `/admin/insights`
 
 ## Brand
 

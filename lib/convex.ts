@@ -3,7 +3,7 @@ export function convexConfigured() {
 }
 
 export function getAdminToken() {
-  const token = process.env.ADMIN_TOKEN
+  const token = process.env.ADMIN_TOKEN?.trim()
   if (!token) {
     throw new Error("ADMIN_TOKEN is not configured")
   }
