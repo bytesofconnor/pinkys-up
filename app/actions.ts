@@ -5,7 +5,7 @@ import { z } from "zod"
 import { Resend } from "resend"
 import { QuoteRequestEmail } from "@/emails/quote-request"
 import { QuoteConfirmationEmail } from "@/emails/quote-confirmation"
-import { ALLOWED_SERVICES, serviceLabel } from "@/lib/quote"
+import { ALLOWED_SERVICES, quoteNotificationEmail, serviceLabel } from "@/lib/quote"
 import { isRateLimited } from "@/lib/rate-limit"
 import { saveQuoteSubmission } from "@/lib/db"
 
@@ -127,7 +127,7 @@ export async function submitQuoteForm(
 
     console.info(`[${requestId}] Processing quote request from ${data.email}`)
 
-    const to = process.env.QUOTE_NOTIFICATION_EMAIL ?? "pereira.brenda61@gmail.com"
+    const to = quoteNotificationEmail()
     const from = process.env.RESEND_FROM_EMAIL ?? "Pinkys Up <onboarding@resend.dev>"
     const sendGuestConfirmation = process.env.SEND_GUEST_CONFIRMATION === "true"
 

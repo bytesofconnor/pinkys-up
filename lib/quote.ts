@@ -49,6 +49,10 @@ export function serviceLabel(id: string): string {
   return SERVICE_LABELS[id] ?? id
 }
 
+export function quoteNotificationEmail() {
+  return process.env.QUOTE_NOTIFICATION_EMAIL?.trim() || "pereira.brenda61@gmail.com"
+}
+
 export function parseQuoteInterest(value?: string | string[]): AllowedService[] {
   const raw = Array.isArray(value) ? value.join(",") : (value ?? "")
   return raw

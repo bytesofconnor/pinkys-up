@@ -1,4 +1,3 @@
-import { loginAdmin } from "@/app/admin/actions"
 import { isAdmin } from "@/lib/admin"
 import { redirect } from "next/navigation"
 
@@ -16,7 +15,7 @@ export default async function AdminLoginPage({
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-pink-50 px-4">
-      <form action={loginAdmin} className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-sm">
+      <form action="/admin/login" method="post" className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-sm">
         <p className="text-xs uppercase tracking-[0.24em] text-pink-600">PINKYS UP</p>
         <h1 className="mt-2 font-display text-3xl text-gray-900">Admin</h1>
         <p className="mt-2 text-sm text-gray-600">

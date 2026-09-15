@@ -28,25 +28,6 @@ function revalidatePublic() {
   revalidatePath("/events")
 }
 
-export async function loginAdmin(formData: FormData) {
-  const adminToken = process.env.ADMIN_TOKEN
-  const token = String(formData.get("token") ?? "")
-  if (!adminToken || token !== adminToken) {
-    redirect("/admin?error=1")
-  }
-
-  const jar = await cookies()
-  jar.set(ADMIN_COOKIE, adminToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30,
-  })
-
-  redirect("/admin/events")
-}
-
 export async function logoutAdmin() {
   const jar = await cookies()
   jar.delete(ADMIN_COOKIE)
