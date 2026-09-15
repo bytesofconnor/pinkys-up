@@ -1,4 +1,7 @@
-import { createClient } from '@supabase/supabase-js'
+import { fetchMutation, fetchQuery } from "convex/nextjs"
+import { api } from "@/convex/_generated/api"
+import { convexConfigured, getAdminToken } from "@/lib/convex"
+import type { AllowedService } from "@/lib/quote"
 
 export type QuoteSubmission = {
   id: string
@@ -18,34 +21,12 @@ export type QuoteSubmission = {
   email_error?: string
 }
 
-let supabaseClient: ReturnType<typeof createClient> | null = null
-
-export function getSupabaseClient() {
-  if (!supabaseClient) {
-    const supabaseUrl = process.env.SUPABASE_URL
-    const supabaseKey = process.env.SUPABASE_SERVICE_KEY
-
-    if (!supabaseUrl || !supabaseKey) {
-      throw new Error('Supabase configuration missing. Set SUPABASE_URL and SUPABASE_SERVICE_KEY environment variables.')
-    }
-
-    supabaseClient = createClient(supabaseUrl, supabaseKey, {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false,
-      }
-    })
-  }
-
-  return supabaseClient
-}
-
 export async function saveQuoteSubmission(data: {
   firstName: string
   lastName: string
   email: string
   phone: string
-  services: string[]
+  services: AllowedService[]
   eventType: string
   eventDate: string
   location: string
@@ -55,65 +36,68 @@ export async function saveQuoteSubmission(data: {
   emailSent: boolean
   emailError?: string
 }): Promise<{ success: boolean; error?: string; id?: string }> {
-  try {
-    const supabase = getSupabaseClient()
+  if (!convexConfigured()) {
+    return { success: false, error: "Convex is not configured" }
+  }
 
-    const insertData = {
-      first_name: data.firstName,
-      last_name: data.lastName,
+  try {
+    const id = await fetchMutation(api.quotes.create, {
+      adminToken: getAdminToken(),
+      firstName: data.firstName,
+      lastName: data.lastName,
       email: data.email,
       phone: data.phone,
       services: data.services,
-      event_type: data.eventType,
-      event_date: data.eventDate,
+      eventType: data.eventType,
+      eventDate: data.eventDate,
       location: data.location,
-      guest_count: parseInt(data.guestCount, 10),
-      referral_source: data.referralSource || undefined,
-      additional_details: data.additionalDetails || undefined,
-      email_sent: data.emailSent,
-      email_error: data.emailError || undefined,
-    }
+      guestCount: parseInt(data.guestCount, 10),
+      referralSource: data.referralSource || undefined,
+      additionalDetails: data.additionalDetails || undefined,
+      emailSent: data.emailSent,
+      emailError: data.emailError || undefined,
+    })
 
-    const { data: result, error } = await supabase
-      .from('quote_submissions')
-      .insert(insertData as never)
-      .select('id')
-      .single()
-
-    if (error) {
-      console.error('Database error saving quote:', error)
-      return { success: false, error: error.message }
-    }
-
-    const resultData = result as { id: string } | null
-    return { success: true, id: resultData?.id }
+    return { success: true, id }
   } catch (error) {
-    console.error('Unexpected error saving quote:', error)
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Unknown error'
+    console.error("Unexpected error saving quote:", error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
     }
   }
 }
 
 export async function getRecentQuoteSubmissions(limit = 50): Promise<QuoteSubmission[]> {
+  if (!convexConfigured()) {
+    return []
+  }
+
   try {
-    const supabase = getSupabaseClient()
+    const data = await fetchQuery(api.quotes.listRecent, {
+      adminToken: getAdminToken(),
+      limit,
+    })
 
-    const { data, error } = await supabase
-      .from('quote_submissions')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(limit)
-
-    if (error) {
-      console.error('Database error fetching quotes:', error)
-      return []
-    }
-
-    return (data as QuoteSubmission[]) || []
+    return data.map((quote) => ({
+      id: quote._id,
+      created_at: new Date(quote._creationTime).toISOString(),
+      first_name: quote.firstName,
+      last_name: quote.lastName,
+      email: quote.email,
+      phone: quote.phone,
+      services: quote.services,
+      event_type: quote.eventType,
+      event_date: quote.eventDate,
+      location: quote.location,
+      guest_count: quote.guestCount,
+      referral_source: quote.referralSource,
+      additional_details: quote.additionalDetails,
+      email_sent: quote.emailSent,
+      email_error: quote.emailError,
+    }))
   } catch (error) {
-    console.error('Unexpected error fetching quotes:', error)
+    console.error("Unexpected error fetching quotes:", error)
     return []
   }
 }

@@ -11,7 +11,7 @@ import { wallTimeToIso } from "@/lib/timezone"
 const TIME_ZONES = ["America/New_York", "America/Chicago"] as const
 
 const eventSchema = z.object({
-  id: z.string().uuid().optional(),
+  id: z.string().min(1).optional(),
   name: z.string().trim().min(1).max(160),
   description: z.string().trim().min(1).max(500),
   location: z.string().trim().min(1).max(200),

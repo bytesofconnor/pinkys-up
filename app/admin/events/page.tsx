@@ -1,9 +1,11 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { AdminNav } from "@/app/admin/admin-nav"
+import { AdminHelp } from "@/app/admin/admin-help"
 import { DeleteEventButton } from "@/app/admin/delete-event-button"
 import { isAdmin } from "@/lib/admin"
-import { eventsDatabaseConfigured, listAllEvents } from "@/lib/events-db"
+import { convexConfigured } from "@/lib/convex"
+import { listAllEvents } from "@/lib/events-db"
 import { formatEventDate, formatEventTime } from "@/lib/events"
 
 export const dynamic = "force-dynamic"
@@ -21,13 +23,13 @@ export default async function AdminEventsPage({
   let events: Awaited<ReturnType<typeof listAllEvents>> = []
   let loadError: string | null = null
 
-  if (!eventsDatabaseConfigured()) {
-    loadError = "Supabase is not configured on this environment yet."
+  if (!convexConfigured()) {
+    loadError = "Convex is not configured on this environment yet."
   } else {
     try {
       events = await listAllEvents()
     } catch {
-      loadError = "The events table is missing. Run the SQL in database/events.sql in Supabase, then refresh."
+      loadError = "Could not load events from Convex. Check ADMIN_TOKEN on both Vercel and the Convex dashboard."
     }
   }
 
@@ -41,6 +43,7 @@ export default async function AdminEventsPage({
     <div className="min-h-screen bg-pink-50 py-8">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <AdminNav current="events" />
+        <AdminHelp current="events" />
 
         {loadError ? (
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
