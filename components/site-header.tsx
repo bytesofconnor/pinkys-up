@@ -16,13 +16,15 @@ const navItems = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const [menuPathname, setMenuPathname] = useState(pathname)
   const menuId = useId()
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const firstLinkRef = useRef<HTMLAnchorElement>(null)
 
-  useEffect(() => {
+  if (menuPathname !== pathname) {
+    setMenuPathname(pathname)
     setOpen(false)
-  }, [pathname])
+  }
 
   useEffect(() => {
     if (!open) {

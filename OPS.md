@@ -27,7 +27,7 @@ Next and the Convex CLI both use the repo-root **`.env.local`**. Template: [`.en
 | Quote inbox (Gmail) | `pinkysup.social@gmail.com` |
 | DNS | Squarespace (Google Domains nameservers), not Vercel. Site `A @` → Vercel, `CNAME www` → `cname.vercel-dns.com`. DKIM/CNAME for Resend also live here |
 
-No GitHub Actions. No Stripe. `/1-1` is Calendly if `NEXT_PUBLIC_CALENDLY_URL` is set, otherwise WhatsApp.
+GitHub Actions: `CI / checks` on PRs and `main` (lint, `tsc --noEmit`, `next build`, Playwright smoke); Dependabot auto-merge for patch/minor; Convex deploy on `convex/**` pushes to `main` (needs `CONVEX_DEPLOY_KEY`). No Stripe. `/1-1` is Calendly if `NEXT_PUBLIC_CALENDLY_URL` is set, otherwise WhatsApp.
 
 Local shortcuts:
 
