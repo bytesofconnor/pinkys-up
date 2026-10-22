@@ -59,7 +59,7 @@ export function EventCountdown({ target }: { target: string }) {
           {index > 0 ? (
             <div className="mx-3 mt-2 h-7 w-px bg-white/20 sm:mx-5 sm:mt-3 sm:h-9" />
           ) : null}
-          <div className="min-w-[3.75rem] text-center sm:min-w-[4.5rem]">
+          <div className="min-w-15 text-center sm:min-w-18">
             <div
               className="font-display text-4xl leading-none tabular-nums text-white sm:text-5xl"
               style={{ textShadow: "0 2px 28px rgba(0,0,0,0.7)" }}

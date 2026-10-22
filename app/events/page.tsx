@@ -50,7 +50,7 @@ export default async function EventsPage() {
     }))
 
   return (
-    <div className="bg-gradient-to-br from-pink-50 via-white to-purple-50">
+    <div className="bg-linear-to-br from-pink-50 via-white to-purple-50">
       {eventSchemas.map((schema, index) => (
         <JsonLd key={index} data={schema} />
       ))}
@@ -125,7 +125,7 @@ export default async function EventsPage() {
             <TrackedLink
               href="/quote?for=events"
               event="book_quote"
-              className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+              className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
             >
               Host or partner with us
             </TrackedLink>

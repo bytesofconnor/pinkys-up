@@ -18,7 +18,7 @@ export function FounderSection() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-pink-400/30 to-purple-400/30 blur-xl" />
+            <div className="pointer-events-none absolute inset-0 rounded-full bg-linear-to-br from-pink-400/30 to-purple-400/30 blur-xl" />
             <div className="relative rounded-[32px] border border-white/20 bg-white/80 p-8">
               <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 <Link 
@@ -33,7 +33,7 @@ export function FounderSection() {
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <div className="relative h-48 w-48 md:h-64 md:w-64">
-                      <div className="pointer-events-none absolute -inset-1 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 opacity-50 blur-md" />
+                      <div className="pointer-events-none absolute -inset-1 rounded-full bg-linear-to-br from-pink-400 to-purple-500 opacity-50 blur-md" />
                       <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-white/30">
                         <Image
                           src="/brendap.jpg"
@@ -65,7 +65,7 @@ export function FounderSection() {
                       <TrackedLink
                         href="/1-1"
                         event="book_one_on_one"
-                        className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#9d174d] px-6 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+                        className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#9d174d] px-6 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
                       >
                         Book a 1:1
                       </TrackedLink>

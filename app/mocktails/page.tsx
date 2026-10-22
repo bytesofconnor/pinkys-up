@@ -8,7 +8,7 @@ import { mocktails } from "@/lib/mocktails"
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-pink-50 to-purple-50">
       <HeroSection
         imageSrc="/pinkies.png"
         objectPosition="64% 42%"

@@ -37,7 +37,7 @@ export default async function AdminQuotesPage({
             </p>
 
         {quotes.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
+          <div className="bg-white rounded-lg shadow-sm p-8 text-center">
             <p className="text-gray-500">No quote submissions yet.</p>
           </div>
         ) : (
@@ -45,7 +45,7 @@ export default async function AdminQuotesPage({
             {quotes.map((quote) => (
               <div
                 key={quote.id}
-                className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                className="bg-white rounded-lg shadow-xs border border-gray-200 p-6 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div>
@@ -109,7 +109,7 @@ export default async function AdminQuotesPage({
                       {quote.services.map((service) => (
                         <span
                           key={service}
-                          className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-pink-100 text-pink-800"
+                          className="inline-flex items-center px-2 py-1 rounded-sm text-xs font-medium bg-pink-100 text-pink-800"
                         >
                           {serviceLabel(service)}
                         </span>
@@ -134,7 +134,7 @@ export default async function AdminQuotesPage({
                   {quote.email_error && (
                     <div className="md:col-span-2">
                       <p className="text-red-600 font-medium">Email Error</p>
-                      <p className="text-red-700 text-xs font-mono bg-red-50 p-2 rounded">
+                      <p className="text-red-700 text-xs font-mono bg-red-50 p-2 rounded-sm">
                         {quote.email_error}
                       </p>
                     </div>

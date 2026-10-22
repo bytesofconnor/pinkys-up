@@ -53,7 +53,7 @@ export function MusicPlayer() {
       <button
         type="button"
         onClick={togglePlay}
-        className="inline-flex h-11 w-11 items-center justify-center text-gray-900 transition-colors hover:text-[#9d174d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
+        className="inline-flex h-11 w-11 items-center justify-center text-gray-900 transition-colors hover:text-[#9d174d] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
         aria-pressed={isPlaying}
         aria-label={isPlaying ? "Pause Te Estoy Correteando" : "Play Te Estoy Correteando"}
       >

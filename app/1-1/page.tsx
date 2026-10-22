@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function OneOnOnePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-pink-50 via-white to-purple-50">
       <div className="container max-w-5xl px-4 sm:px-6 py-12 sm:py-16 md:py-24">
         <div className="mb-10 sm:mb-14">
           <SectionHeading

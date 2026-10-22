@@ -2,22 +2,82 @@
   "version": 1.1,
   "atDirectives": [
     {
-      "name": "@tailwind",
-      "description": "Use the @tailwind directive to insert Tailwind's `base`, `components`, `utilities`, and `screens` styles into your CSS.",
+      "name": "@import",
+      "description": "Import Tailwind CSS with `@import \"tailwindcss\"` in v4.",
       "references": [
         {
           "name": "Tailwind Documentation",
-          "url": "https://tailwindcss.com/docs/functions-and-directives#tailwind"
+          "url": "https://tailwindcss.com/docs/functions-and-directives"
+        }
+      ]
+    },
+    {
+      "name": "@theme",
+      "description": "Define design tokens as CSS variables. Use `@theme inline` when values should reference other CSS variables without re-emitting them.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/theme"
+        }
+      ]
+    },
+    {
+      "name": "@utility",
+      "description": "Define a custom utility that works with variants.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities"
+        }
+      ]
+    },
+    {
+      "name": "@custom-variant",
+      "description": "Register a custom variant, such as class-based dark mode.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/hover-focus-and-other-states#registering-a-custom-variant"
+        }
+      ]
+    },
+    {
+      "name": "@source",
+      "description": "Tell Tailwind which files to scan for class names.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/detecting-classes-in-source-files"
+        }
+      ]
+    },
+    {
+      "name": "@config",
+      "description": "Load a JavaScript Tailwind config file for backward compatibility.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#config-directive"
+        }
+      ]
+    },
+    {
+      "name": "@plugin",
+      "description": "Load a Tailwind plugin from CSS.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#plugin-directive"
         }
       ]
     },
     {
       "name": "@layer",
-      "description": "Use the @layer directive to tell Tailwind which layer a set of custom styles belong to.",
+      "description": "Use the native CSS @layer at-rule to control cascade.",
       "references": [
         {
           "name": "Tailwind Documentation",
-          "url": "https://tailwindcss.com/docs/functions-and-directives#layer"
+          "url": "https://tailwindcss.com/docs/functions-and-directives"
         }
       ]
     },
@@ -27,7 +87,7 @@
       "references": [
         {
           "name": "Tailwind Documentation",
-          "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
+          "url": "https://tailwindcss.com/docs/functions-and-directives#apply-directive"
         }
       ]
     }

@@ -77,13 +77,13 @@ export function WhatsAppRSVPButton({
               <label className="text-sm font-medium text-gray-700">Phone Number:</label>
               <button
                 onClick={handleCopyNumber}
-                className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-pink-600 hover:bg-pink-100"
+                className="flex items-center gap-1 rounded-sm px-2 py-1 text-xs font-medium text-pink-600 hover:bg-pink-100"
               >
                 {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
                 {copied ? "Copied!" : "Copy"}
               </button>
             </div>
-            <code className="block rounded bg-white px-3 py-2 text-sm text-gray-900">
+            <code className="block rounded-sm bg-white px-3 py-2 text-sm text-gray-900">
               {whatsappNumber}
             </code>
           </div>
@@ -93,13 +93,13 @@ export function WhatsAppRSVPButton({
               <label className="text-sm font-medium text-gray-700">Message:</label>
               <button
                 onClick={handleCopyMessage}
-                className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-pink-600 hover:bg-pink-100"
+                className="flex items-center gap-1 rounded-sm px-2 py-1 text-xs font-medium text-pink-600 hover:bg-pink-100"
               >
                 {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
                 {copied ? "Copied!" : "Copy"}
               </button>
             </div>
-            <div className="max-h-32 overflow-y-auto rounded bg-white px-3 py-2 text-sm text-gray-900">
+            <div className="max-h-32 overflow-y-auto rounded-sm bg-white px-3 py-2 text-sm text-gray-900">
               {message}
             </div>
           </div>
