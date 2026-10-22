@@ -32,7 +32,7 @@ export function MarqueeText() {
               <MocktailIllustration name={mocktail.name} instanceId={`ticker-${index}`} animate={false} />
             </div>
             <span className={cn(
-              "bg-gradient-to-r bg-clip-text text-xs font-medium leading-none text-transparent sm:text-sm",
+              "bg-linear-to-r bg-clip-text text-xs font-medium leading-none text-transparent sm:text-sm",
               mocktail.titleClass
             )}>
               {mocktail.name}: {mocktail.ingredients.join(" + ")} ✨

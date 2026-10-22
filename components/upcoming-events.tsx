@@ -40,7 +40,7 @@ export function UpcomingEvents({ events }: { events: WellnessEvent[] }) {
                 href={getEventRegistrationHref(event)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white bg-[#be185d] rounded-full hover:bg-[#9d174d] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#be185d]"
+                className="inline-flex min-h-[44px] items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white bg-[#be185d] rounded-full hover:bg-[#9d174d] transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#be185d]"
               >
                 {event.registrationUrl ? "Register" : "Register via WhatsApp"}
                 <span className="sr-only"> (opens in a new tab)</span>

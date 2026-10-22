@@ -60,7 +60,7 @@ export function CityLanding({ slug }: { slug: CityCopy["slug"] }) {
   const city = cities[slug]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-pink-50 via-white to-purple-50">
       <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-20">
         <SectionHeading as="h1" eyebrow={city.eyebrow} title={city.title} description={city.description} />
         <div className="mt-10 space-y-5 text-base leading-relaxed text-gray-700 sm:text-lg">

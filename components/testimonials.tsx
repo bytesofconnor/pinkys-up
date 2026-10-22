@@ -27,7 +27,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="bg-gradient-to-br from-pink-50 via-white to-purple-50 py-24">
+    <section className="bg-linear-to-br from-pink-50 via-white to-purple-50 py-24">
       <div className="mx-auto max-w-7xl px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

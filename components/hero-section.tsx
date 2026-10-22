@@ -83,7 +83,7 @@ export function HeroSection({
                 {description ? (
                   <p
                     className={cn(
-                      "mt-4 min-h-[3.25rem] text-sm tracking-[0.04em] text-white/95 sm:mt-5 sm:min-h-[3.75rem] sm:text-base md:text-lg [text-shadow:0_2px_24px_rgba(0,0,0,0.7)]",
+                      "mt-4 min-h-13 text-sm tracking-[0.04em] text-white/95 sm:mt-5 sm:min-h-15 sm:text-base md:text-lg [text-shadow:0_2px_24px_rgba(0,0,0,0.7)]",
                       isLeft ? "max-w-md" : "mx-auto max-w-xl"
                     )}
                   >
@@ -105,8 +105,8 @@ export function HeroSection({
                       rel={action.external ? "noopener noreferrer" : undefined}
                       className={
                         action.variant === "primary"
-                          ? "inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#9d174d] px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                          : "inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/70 bg-black/25 px-7 py-3.5 text-sm font-medium tracking-wide text-white backdrop-blur-[2px] transition-colors hover:bg-black/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                          ? "inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#9d174d] px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                          : "inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/70 bg-black/25 px-7 py-3.5 text-sm font-medium tracking-wide text-white backdrop-blur-[2px] transition-colors hover:bg-black/40 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                       }
                     >
                       {action.label}

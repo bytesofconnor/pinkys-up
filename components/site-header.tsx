@@ -57,14 +57,14 @@ export function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-background safe-top">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-white focus:px-4 focus:py-2 focus:text-gray-900 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[#9d174d]"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:bg-white focus:px-4 focus:py-2 focus:text-gray-900 focus:outline-solid focus:outline-2 focus:outline-offset-2 focus:outline-[#9d174d]"
       >
         Skip to content
       </a>
       <div className="container flex h-20 items-center justify-between gap-3 px-4 sm:px-6">
         <Link
           href="/"
-          className="shrink-0 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+          className="shrink-0 rounded-xs focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
           aria-label="Pinky's Up home"
         >
           <AnimatedLogo />
@@ -76,7 +76,7 @@ export function SiteHeader() {
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  className="inline-flex min-h-11 items-center px-3 text-sm uppercase tracking-wide text-gray-900 transition-colors hover:text-[#9d174d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
+                  className="inline-flex min-h-11 items-center px-3 text-sm uppercase tracking-wide text-gray-900 transition-colors hover:text-[#9d174d] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
                   aria-current={pathname === item.href ? "page" : undefined}
                 >
                   {item.name}
@@ -89,7 +89,7 @@ export function SiteHeader() {
         <button
           ref={menuButtonRef}
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center text-gray-900 md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
+          className="inline-flex h-11 w-11 items-center justify-center text-gray-900 md:hidden focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
           aria-expanded={open}
           aria-controls={menuId}
           onClick={() => setOpen((current) => !current)}
@@ -111,7 +111,7 @@ export function SiteHeader() {
                 <Link
                   ref={index === 0 ? firstLinkRef : undefined}
                   href={item.href}
-                  className="flex min-h-12 items-center border-b border-black/5 text-base font-medium uppercase tracking-wide text-gray-900 last:border-b-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#9d174d]"
+                  className="flex min-h-12 items-center border-b border-black/5 text-base font-medium uppercase tracking-wide text-gray-900 last:border-b-0 focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#9d174d]"
                   aria-current={pathname === item.href ? "page" : undefined}
                   onClick={() => setOpen(false)}
                 >

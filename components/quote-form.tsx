@@ -147,7 +147,7 @@ export function QuoteForm({
             </div>
           </div>
         )}
-        <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute left-[-9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
           <label htmlFor="website">Website</label>
           <input
             id="website"
@@ -191,7 +191,8 @@ export function QuoteForm({
           </motion.div>
         ) : (
         <>
-        <div className="space-y-3">
+        {/* v3 space-y put this gap on the first in-flow child after the off-screen honeypot. */}
+        <div className="mt-5 space-y-3 sm:mt-8">
           <Label className="text-gray-700 font-medium mb-1.5 block">What do you need?</Label>
           <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4">
             {SERVICE_OPTIONS.map((option) => {
@@ -203,7 +204,7 @@ export function QuoteForm({
                   aria-pressed={selected}
                   onClick={() => toggleService(option.id)}
                   className={cn(
-                    "flex h-full flex-col items-stretch justify-start rounded-2xl border px-5 py-5 text-left shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d] sm:px-6 sm:py-6",
+                    "flex h-full flex-col items-stretch justify-start rounded-2xl border px-5 py-5 text-left shadow-xs transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d] sm:px-6 sm:py-6",
                     selected
                       ? "border-[#9d174d] bg-pink-50 shadow-none"
                       : "border-gray-200 bg-white hover:border-pink-200"

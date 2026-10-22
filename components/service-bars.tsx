@@ -22,10 +22,10 @@ export function ServiceBars() {
           transition={{ duration: 0.6 }}
           className="relative mx-auto max-w-7xl"
         >
-          <div className="pointer-events-none absolute inset-0 rounded-[32px] bg-gradient-to-br from-pink-400/20 to-purple-400/20 blur-xl" />
+          <div className="pointer-events-none absolute inset-0 rounded-[32px] bg-linear-to-br from-pink-400/20 to-purple-400/20 blur-xl" />
           <div className="relative overflow-hidden rounded-[32px] border border-white/20 bg-white/80 p-5 sm:p-8">
             <div className="relative mb-8">
-              <div className="pointer-events-none absolute -inset-1 rounded-2xl bg-gradient-to-br from-pink-400 to-purple-500 opacity-45 blur-md" />
+              <div className="pointer-events-none absolute -inset-1 rounded-2xl bg-linear-to-br from-pink-400 to-purple-500 opacity-45 blur-md" />
               <div className="relative overflow-hidden rounded-2xl">
                 <Image
                   src="/image.png"
@@ -61,14 +61,14 @@ export function ServiceBars() {
                 <TrackedLink
                   href="/quote?for=mocktails"
                   event="book_quote"
-                  className="inline-flex min-h-11 items-center justify-center bg-[#9d174d] px-6 text-xs font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#831843] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+                  className="inline-flex min-h-11 items-center justify-center bg-[#9d174d] px-6 text-xs font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
                 >
                   Request a quote
                 </TrackedLink>
                 <TrackedLink
                   href="/mocktails"
                   event="see_menu"
-                  className="inline-flex min-h-11 items-center justify-center border border-gray-900 px-6 text-xs font-semibold uppercase tracking-[0.18em] text-gray-900 transition-colors hover:bg-gray-900 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+                  className="inline-flex min-h-11 items-center justify-center border border-gray-900 px-6 text-xs font-semibold uppercase tracking-[0.18em] text-gray-900 transition-colors hover:bg-gray-900 hover:text-white focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
                 >
                   See the menu
                 </TrackedLink>
