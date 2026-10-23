@@ -27,7 +27,7 @@ Next and the Convex CLI both use the repo-root **`.env.local`**. Template: [`.en
 | Quote inbox (Gmail) | `pinkysup.social@gmail.com` |
 | DNS | Squarespace (Google Domains nameservers), not Vercel. Site `A @` → Vercel, `CNAME www` → `cname.vercel-dns.com`. DKIM/CNAME for Resend also live here |
 
-GitHub Actions: `CI / checks` on PRs and `main` (lint, `tsc --noEmit`, `next build`, Playwright smoke); Dependabot auto-merge for patch/minor; Convex deploy on `convex/**` pushes to `main` (needs `CONVEX_DEPLOY_KEY`). No Stripe. `/1-1` is Calendly if `NEXT_PUBLIC_CALENDLY_URL` is set, otherwise WhatsApp.
+GitHub Actions runs `CI / checks` on pull requests and on `main` (lint, `tsc --noEmit`, `next build`, Playwright smoke). Same-repo pull requests squash-merge after that check, including Cursor `cursor/*` branches, every Dependabot update (patch, minor, major, and GitHub Actions), and pull requests that change `.github/**`, `.cursor/rules/**`, or `AGENTS.md`. Forks stay manual. Convex deploys from `main` when `convex/**` changes, including after a `GITHUB_TOKEN` squash, because those merges do not start `push` workflows. The secret is `CONVEX_DEPLOY_KEY`. No Stripe. `/1-1` is Calendly if `NEXT_PUBLIC_CALENDLY_URL` is set, otherwise WhatsApp.
 
 Local shortcuts:
 
