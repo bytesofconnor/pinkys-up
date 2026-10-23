@@ -12,7 +12,7 @@ For non-trivial tasks, work under `/poteto-mode` and use the model mapping in `.
 
 ## CI and pull requests
 
-PRs against `main` use `.github/pull_request_template.md` (**Verification** and **Blast Radius**). Mark `CI / checks` required: lint, `tsc --noEmit`, `next build`, and Playwright smoke on `/`, `/events`, `/mocktails`, `/quote`, `/about` at 1280×800 and 390×844. Do not skip tests or disable lint to go green. Same-repo PRs squash-merge after `CI / checks`. That includes Cursor `cursor/*` branches, every Dependabot update (patch, minor, major, and GitHub Actions), and PRs that change `.github/**`, `.cursor/rules/**`, or `AGENTS.md`. Forks stay manual. Convex deploys from `main` when `convex/**` changes (`CONVEX_DEPLOY_KEY`), including after a `GITHUB_TOKEN` squash. Those merges do not start `push` workflows.
+PRs against `main` use `.github/pull_request_template.md` (**Verification** and **Blast Radius**). PR bodies need Summary, Verification, Blast Radius headings (checked in CI; Dependabot exempt). Mark `CI / checks` required: lint, `tsc --noEmit`, `next build`, and Playwright smoke on `/`, `/events`, `/mocktails`, `/quote`, `/about` at 1280×800 and 390×844. Do not skip tests or disable lint to go green. Same-repo PRs squash-merge after `CI / checks`. That includes Cursor `cursor/*` branches, every Dependabot update (patch, minor, major, and GitHub Actions), and PRs that change `.github/**`, `.cursor/rules/**`, or `AGENTS.md`. Forks stay manual. Convex deploys from `main` when `convex/**` changes (`CONVEX_DEPLOY_KEY`), including after a `GITHUB_TOKEN` squash. Those merges do not start `push` workflows.
 
 ## Vercel builds
 
