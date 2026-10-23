@@ -9,3 +9,5 @@
 ## Blast Radius
 
 <!-- What else could break: shared layout, data, env, Convex, Vercel, other routes, or required CI checks. -->
+
+Same-repo pull requests squash-merge once `CI / checks` is green. That includes Dependabot majors and edits under `.github/**`, `.cursor/rules/**`, and `AGENTS.md`. Forks wait for a person.
