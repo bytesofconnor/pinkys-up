@@ -1,9 +1,9 @@
 'use client';
 
 import Link from "next/link"
-import { Instagram } from "lucide-react"
 import { MarqueeText } from "./marquee-text"
 import { MusicPlayer } from "./music-player"
+import { InstagramIcon } from "./icons/instagram"
 import { TikTokIcon } from "./icons/tiktok"
 import { WhatsAppIcon } from "./icons/whatsapp"
 
@@ -11,7 +11,7 @@ const socialLinks = [
   {
     name: "Instagram",
     href: "https://instagram.com/pinkysup_dc",
-    icon: Instagram,
+    icon: InstagramIcon,
   },
   {
     name: "TikTok",
