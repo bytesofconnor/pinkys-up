@@ -17,3 +17,29 @@ updates:
         update-types:
           - minor
           - patch
+      production-major:
+        dependency-type: production
+        update-types:
+          - major
+      development-major:
+        dependency-type: development
+        update-types:
+          - major
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+      actions-major:
+        patterns:
+          - "*"
+        update-types:
+          - major
