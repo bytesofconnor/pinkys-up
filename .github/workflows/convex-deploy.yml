@@ -28,7 +28,7 @@ jobs:
       ref: ${{ steps.decision.outputs.ref }}
     steps:
       - name: Checkout default branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
 
@@ -164,7 +164,7 @@ jobs:
 
       - name: Checkout
         if: steps.secret.outputs.skip != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: ${{ github.repository }}
           ref: ${{ github.event_name == 'workflow_run' && needs.observe.outputs.ref || github.sha }}
@@ -172,7 +172,7 @@ jobs:
 
       - name: Setup Node.js
         if: steps.secret.outputs.skip != 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
