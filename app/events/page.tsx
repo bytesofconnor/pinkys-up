@@ -110,6 +110,12 @@ export default async function EventsPage() {
               variant: "primary",
             },
             {
+              href: link("partners").path,
+              event: "venue_partner",
+              label: link("partners").label,
+              variant: "secondary",
+            },
+            {
               href: whatsAppUrl({ kind: "broadcast_join" }),
               event: "join_broadcast",
               label: "Get event updates on WhatsApp",
@@ -143,6 +149,13 @@ export default async function EventsPage() {
               className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
             >
               Host or partner with us
+            </TrackedLink>
+            <TrackedLink
+              href={link("partners").path}
+              event="venue_partner"
+              className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+            >
+              {link("partners").label}
             </TrackedLink>
             <TrackedLink
               href={link("gathering").path}

@@ -1,6 +1,6 @@
 import { TrackedLink } from "@/components/tracked-link"
 import { whatsAppUrl } from "@/lib/booking"
-import { contactHref } from "@/lib/destinations"
+import { contactHref, link } from "@/lib/destinations"
 
 export function EventsEmptyState() {
   return (
@@ -18,6 +18,13 @@ export function EventsEmptyState() {
           className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#9d174d] px-6 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
         >
           Host or partner with us
+        </TrackedLink>
+        <TrackedLink
+          href={link("partners").path}
+          event="venue_partner"
+          className="inline-flex min-h-11 items-center justify-center rounded-full border border-gray-900 px-6 text-sm font-medium tracking-wide text-gray-900 transition-colors hover:bg-gray-900 hover:text-white focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+        >
+          {link("partners").label}
         </TrackedLink>
         <TrackedLink
           href={whatsAppUrl({ kind: "broadcast_join" })}

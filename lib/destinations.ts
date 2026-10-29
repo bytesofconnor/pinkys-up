@@ -43,6 +43,13 @@ const destinations = {
     path: "/quote",
     label: "Contact",
     place: { kind: "action" },
+    directoryOrder: 6,
+    sitemap: { priority: 0.8, changeFrequency: "monthly" },
+  },
+  partners: {
+    path: "/partners",
+    label: "Venue partners",
+    place: { kind: "page" },
     directoryOrder: 5,
     sitemap: { priority: 0.8, changeFrequency: "monthly" },
   },

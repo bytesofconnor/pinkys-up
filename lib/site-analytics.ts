@@ -13,6 +13,7 @@ type SiteEventName =
   | "book_one_on_one"
   | "explore_events"
   | "join_broadcast"
+  | "venue_partner"
 
 let client: ConvexHttpClient | null | undefined
 
@@ -57,6 +58,7 @@ export function isSiteEventName(value: string): value is SiteEventName {
     value === "see_all_events" ||
     value === "book_one_on_one" ||
     value === "explore_events" ||
-    value === "join_broadcast"
+    value === "join_broadcast" ||
+    value === "venue_partner"
   )
 }
