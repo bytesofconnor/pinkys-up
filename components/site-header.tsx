@@ -4,14 +4,8 @@ import { useEffect, useId, useRef, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
+import { headerContact, headerTabs, link } from "@/lib/destinations"
 import { AnimatedLogo } from "./animated-logo"
-
-const navItems = [
-  { name: "Events", href: "/events" },
-  { name: "Mocktails", href: "/mocktails" },
-  { name: "1:1", href: "/1-1" },
-  { name: "Quote", href: "/quote" },
-]
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
@@ -63,28 +57,37 @@ export function SiteHeader() {
       </a>
       <div className="container flex h-20 items-center justify-between gap-3 px-4 sm:px-6">
         <Link
-          href="/"
+          href={link("home").path}
           className="shrink-0 rounded-xs focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
           aria-label="Pinky's Up home"
         >
           <AnimatedLogo />
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center justify-end gap-1">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className="inline-flex min-h-11 items-center px-3 text-sm uppercase tracking-wide text-gray-900 transition-colors hover:text-[#9d174d] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
-                  aria-current={pathname === item.href ? "page" : undefined}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="hidden items-center gap-2 md:flex">
+          <nav aria-label="Primary">
+            <ul className="flex items-center justify-end gap-1">
+              {headerTabs.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={item.path}
+                    className="inline-flex min-h-11 items-center px-3 text-sm uppercase tracking-wide text-gray-900 transition-colors hover:text-[#9d174d] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
+                    aria-current={pathname === item.path ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <Link
+            href={headerContact.path}
+            className="inline-flex min-h-11 items-center bg-[#9d174d] px-4 text-xs font-semibold uppercase tracking-[0.16em] text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
+            aria-current={pathname === headerContact.path ? "page" : undefined}
+          >
+            {headerContact.label}
+          </Link>
+        </div>
 
         <button
           ref={menuButtonRef}
@@ -100,27 +103,35 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <nav
-          id={menuId}
-          aria-label="Primary"
-          className="border-t border-black/10 bg-background md:hidden"
-        >
-          <ul className="container flex flex-col py-2">
-            {navItems.map((item, index) => (
-              <li key={item.name}>
-                <Link
-                  ref={index === 0 ? firstLinkRef : undefined}
-                  href={item.href}
-                  className="flex min-h-12 items-center border-b border-black/5 text-base font-medium uppercase tracking-wide text-gray-900 last:border-b-0 focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#9d174d]"
-                  aria-current={pathname === item.href ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="border-t border-black/10 bg-background md:hidden">
+          <nav id={menuId} aria-label="Primary">
+            <ul className="container flex flex-col py-2">
+              {headerTabs.map((item, index) => (
+                <li key={item.id}>
+                  <Link
+                    ref={index === 0 ? firstLinkRef : undefined}
+                    href={item.path}
+                    className="flex min-h-12 items-center border-b border-black/5 text-base font-medium uppercase tracking-wide text-gray-900 focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#9d174d]"
+                    aria-current={pathname === item.path ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="container pb-4">
+            <Link
+              href={headerContact.path}
+              className="flex min-h-12 items-center justify-center bg-[#9d174d] px-4 text-sm font-semibold uppercase tracking-[0.16em] text-white focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d]"
+              aria-current={pathname === headerContact.path ? "page" : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {headerContact.label}
+            </Link>
+          </div>
+        </div>
       ) : null}
     </header>
   )

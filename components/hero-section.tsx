@@ -3,6 +3,7 @@
 import React from 'react';
 import { CinematicBackdrop } from "@/components/cinematic-backdrop"
 import { TrackedLink } from "@/components/tracked-link"
+import { contactHref, link } from "@/lib/destinations"
 import { cn } from "@/lib/utils"
 
 type HeroAction = {
@@ -14,8 +15,8 @@ type HeroAction = {
 }
 
 export function HeroSection({
-  imageSrc = "/cover.png",
-  objectPosition = "center 48%",
+  imageSrc = "/park.png",
+  objectPosition = "center 58%",
   intensity = "default",
   align = "center",
   eyebrow = "Washington, DC · Minneapolis",
@@ -40,13 +41,13 @@ export function HeroSection({
 
   const links = actions ?? [
     {
-      href: "/events",
+      href: link("events").path,
       event: "explore_events",
       label: "Join a community event",
       variant: "primary" as const,
     },
     {
-      href: "/quote?for=mocktails",
+      href: contactHref("mocktails"),
       event: "book_quote",
       label: "Book the cart",
       variant: "secondary" as const,

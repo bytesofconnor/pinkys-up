@@ -21,7 +21,29 @@ const pages = [
     path: "/about",
     heading: "A zero-proof mocktail bar for DC and Minneapolis.",
   },
+  {
+    path: "/contact",
+    heading: "How can we help?",
+  },
 ] as const
+
+test("primary nav is home, community events, and mobile mocktails", async ({ page }, testInfo) => {
+  await page.goto("/", { waitUntil: "domcontentloaded" })
+
+  if (testInfo.project.name === "mobile") {
+    await page.getByRole("button", { name: "Open menu" }).click()
+  }
+
+  const primary = page.getByRole("navigation", { name: "Primary" })
+  await expect(primary.getByRole("link")).toHaveCount(3)
+  await expect(primary.getByRole("link", { name: "Home", exact: true })).toBeVisible()
+  await expect(primary.getByRole("link", { name: "Community Events", exact: true })).toBeVisible()
+  await expect(primary.getByRole("link", { name: "Mobile Mocktails", exact: true })).toBeVisible()
+  await expect(primary.getByRole("link", { name: "About", exact: true })).toHaveCount(0)
+  await expect(primary.getByRole("link", { name: "1:1", exact: true })).toHaveCount(0)
+  await expect(primary.getByRole("link", { name: "Quote", exact: true })).toHaveCount(0)
+  await expect(page.getByRole("link", { name: "Contact", exact: true }).first()).toBeVisible()
+})
 
 for (const pageDef of pages) {
   test(`${pageDef.path} returns 200 and renders ${pageDef.heading}`, async ({

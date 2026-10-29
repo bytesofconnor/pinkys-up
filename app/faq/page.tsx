@@ -3,6 +3,7 @@ import Link from "next/link"
 import { SectionHeading } from "@/components/section-heading"
 import { JsonLd } from "@/components/json-ld"
 import { faqs } from "@/lib/faq"
+import { link } from "@/lib/destinations"
 import { getBreadcrumbSchema, getFaqSchema } from "@/lib/structured-data"
 
 export const metadata: Metadata = {
@@ -48,11 +49,11 @@ export default function FaqPage() {
         </dl>
         <p className="mt-14 text-center text-sm text-gray-600">
           Ready to book?{" "}
-          <Link href="/quote" className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+          <Link href={link("contact").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
             Request a quote
           </Link>{" "}
           or see{" "}
-          <Link href="/events" className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+          <Link href={link("events").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
             upcoming events
           </Link>
           .

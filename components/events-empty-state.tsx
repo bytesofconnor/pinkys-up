@@ -1,5 +1,6 @@
 import { TrackedLink } from "@/components/tracked-link"
 import { whatsAppMessageUrl } from "@/lib/booking"
+import { contactHref } from "@/lib/destinations"
 
 export function EventsEmptyState() {
   return (
@@ -12,7 +13,7 @@ export function EventsEmptyState() {
       </p>
       <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <TrackedLink
-          href="/quote?for=events"
+          href={contactHref("events")}
           event="book_quote"
           className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#9d174d] px-6 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
         >

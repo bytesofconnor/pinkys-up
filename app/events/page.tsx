@@ -14,6 +14,7 @@ import {
 } from "@/lib/events"
 import { JsonLd } from "@/components/json-ld"
 import { getEventSchema } from "@/lib/structured-data"
+import { contactHref } from "@/lib/destinations"
 
 export const metadata: Metadata = {
   title: "Free community wellness events in DC and Minneapolis",
@@ -102,7 +103,7 @@ export default async function EventsPage() {
           description="Community gatherings will show up here when they're on the calendar."
           actions={[
             {
-              href: "/quote?for=events",
+              href: contactHref("events"),
               event: "book_quote",
               label: "Host or partner with us",
               variant: "primary",
@@ -123,7 +124,7 @@ export default async function EventsPage() {
         {upcomingEvents.length > 0 ? (
           <p className="mt-10 text-center sm:mt-12">
             <TrackedLink
-              href="/quote?for=events"
+              href={contactHref("events")}
               event="book_quote"
               className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
             >
