@@ -22,9 +22,25 @@ export async function resolve(specifier, context, nextResolve) {
 `
 register(`data:text/javascript,${encodeURIComponent(resolver)}`, import.meta.url)
 
-const { fieldsForInquiry, formatStoredEventDate, parseInquiry, storedPhoneDisplay } = await import(
-  "./inquiry"
-)
+const {
+  fieldsForInquiry,
+  formatStoredEventDate,
+  parseInquiry,
+  partnerFieldErrors,
+  storedGuestCountDisplay,
+  storedPhoneDisplay,
+} = await import("./inquiry")
+
+type PartnerFixture = {
+  kind: "partner"
+  contactName: string
+  email: string
+  phone: string
+  venueName: string
+  venueKind: string
+  area: string
+  note: string
+}
 
 const quote = {
   kind: "quote",
@@ -37,6 +53,20 @@ const quote = {
   eventDate: "2026-06-15",
   location: "Washington, DC",
   guestCount: "40",
+}
+
+function partner(overrides: Partial<PartnerFixture> = {}): PartnerFixture {
+  return {
+    kind: "partner",
+    contactName: "Mary Jane Watson",
+    email: "mary@example.com",
+    phone: "5551234",
+    venueName: "North Room",
+    venueKind: "brewery",
+    area: "Minneapolis",
+    note: "Backyard",
+    ...overrides,
+  }
 }
 
 function gathering(overrides: Record<string, unknown> = {}) {
@@ -164,7 +194,98 @@ describe("parseInquiry gathering", () => {
   })
 })
 
+describe("parseInquiry partner", () => {
+  it("accepts a full venue row and stamps the mailbox", () => {
+    const input = partner()
+    const parsed = parseInquiry(input)
+    assert.equal(parsed.ok, true)
+    if (!parsed.ok || parsed.inquiry.kind !== "partner") {
+      assert.fail("expected a partner inquiry")
+    }
+
+    assert.equal(parsed.inquiry.firstName, "Mary")
+    assert.equal(parsed.inquiry.lastName, "Jane Watson")
+    assert.equal(parsed.inquiry.phone, "5551234")
+    assert.equal(parsed.inquiry.venueKind, "brewery")
+
+    const fields = fieldsForInquiry(parsed.inquiry)
+    assert.deepEqual(fields.record.services, ["mocktails", "events"])
+    assert.deepEqual(fields.notification.email.services, ["mocktails", "events"])
+    assert.deepEqual(fields.notification.confirmation.services, ["mocktails", "events"])
+    assert.equal(fields.record.eventType, "Venue partnership — Brewery")
+    assert.equal(fields.record.eventDate, "flexible")
+    assert.equal(fields.notification.email.eventDate, "Flexible")
+    assert.equal(fields.notification.confirmation.eventDate, "Flexible")
+    assert.equal(fields.record.guestCount, "0")
+    assert.equal(fields.notification.email.guestCount, "Not a guest count")
+    assert.equal(fields.record.additionalDetails, "Venue: North Room\nBackyard")
+    assert.equal(fields.notification.email.additionalDetails, "Venue: North Room\nBackyard")
+    assert.equal(fields.notification.subject, "New venue partner from Mary Jane Watson — North Room")
+    assert.equal(fields.notification.heading, "New venue partnership request")
+    assert.equal(fields.notification.showReferral, false)
+    assert.equal(
+      fields.notification.confirmationSubject,
+      "Thank you for your partnership request - PINKYS UP",
+    )
+    assert.deepEqual(partnerFieldErrors(input), {})
+  })
+
+  it("accepts a blank phone, a blank note, and a mononym", () => {
+    const parsed = parseInquiry(partner({ contactName: "Cher", phone: "", note: "" }))
+    assert.equal(parsed.ok, true)
+    if (!parsed.ok || parsed.inquiry.kind !== "partner") {
+      assert.fail("expected a partner inquiry")
+    }
+
+    assert.equal(parsed.inquiry.phone, null)
+    assert.equal(parsed.inquiry.firstName, "Cher")
+    assert.equal(parsed.inquiry.lastName, "")
+
+    const fields = fieldsForInquiry(parsed.inquiry)
+    assert.equal(fields.record.phone, "")
+    assert.equal(fields.notification.email.phone, "Not given")
+    assert.equal(fields.record.lastName, "")
+    assert.equal(fields.record.additionalDetails, "Venue: North Room")
+    assert.equal(fields.notification.email.additionalDetails, "Venue: North Room")
+    assert.equal(fields.notification.subject, "New venue partner from Cher — North Room")
+  })
+
+  it("rejects a phone of length 3", () => {
+    const input = partner({ phone: "123" })
+    assert.deepEqual(parseInquiry(input), { ok: false })
+    assert.ok(partnerFieldErrors(input).phone)
+  })
+
+  it("rejects an unknown venue kind and a blank venue name", () => {
+    const input = partner({ venueKind: "restaurant", venueName: "" })
+    assert.deepEqual(parseInquiry(input), { ok: false })
+    const errors = partnerFieldErrors(input)
+    assert.ok(errors.venueKind)
+    assert.ok(errors.venueName)
+  })
+
+  it("rejects a strict extra guestCount", () => {
+    assert.deepEqual(parseInquiry({ ...partner(), guestCount: "40" }), { ok: false })
+  })
+
+  it("accepts kind other", () => {
+    const parsed = parseInquiry(partner({ venueKind: "other" }))
+    assert.equal(parsed.ok, true)
+    if (!parsed.ok || parsed.inquiry.kind !== "partner") {
+      assert.fail("expected a partner inquiry")
+    }
+    assert.equal(parsed.inquiry.venueKind, "other")
+    const fields = fieldsForInquiry(parsed.inquiry)
+    assert.equal(fields.record.eventType, "Venue partnership — Other")
+  })
+})
+
 describe("stored quote values", () => {
+  it("prints a real guest count and the partner sentinel", () => {
+    assert.equal(storedGuestCountDisplay(40), "40 guests")
+    assert.equal(storedGuestCountDisplay(0), "Not a guest count")
+  })
+
   it("labels the flexible token and formats a real date", () => {
     assert.equal(formatStoredEventDate("flexible"), "Flexible")
     const iso = "2026-06-15"

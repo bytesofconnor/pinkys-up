@@ -1,5 +1,5 @@
 import { getRecentQuoteSubmissions } from '@/lib/db'
-import { formatStoredEventDate, storedPhoneDisplay } from '@/lib/inquiry'
+import { formatStoredEventDate, storedGuestCountDisplay, storedPhoneDisplay } from '@/lib/inquiry'
 import { serviceLabel } from '@/lib/quote'
 import { redirect } from 'next/navigation'
 import { isAdmin } from '@/lib/admin'
@@ -99,7 +99,7 @@ export default async function AdminQuotesPage({
                     <p className="text-gray-600 font-medium">Event Details</p>
                     <p className="text-gray-900">{quote.event_type}</p>
                     <p className="text-gray-900">{dateLabel}</p>
-                    <p className="text-gray-900">{quote.guest_count} guests</p>
+                    <p className="text-gray-900">{storedGuestCountDisplay(quote.guest_count)}</p>
                   </div>
 
                   <div>

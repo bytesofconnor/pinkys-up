@@ -14,6 +14,7 @@ const CLICK_LABELS: Record<string, string> = {
   book_one_on_one: "Book a 1:1",
   explore_events: "Join a community event",
   join_broadcast: "Join the WhatsApp broadcast list",
+  venue_partner: "Venue partners",
 }
 
 const PAGE_LABELS: Record<string, string> = {
