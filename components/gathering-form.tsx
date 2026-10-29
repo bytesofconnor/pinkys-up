@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from "framer-motion"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useState } from "react"
 import { submitQuoteForm } from '@/app/actions'
 import { gatheringFieldErrors, type GatheringFieldErrors, type GatheringInput, type GatheringWhen } from '@/lib/inquiry'
 import { Input } from '@/components/ui/input'
@@ -69,23 +69,17 @@ export function GatheringForm() {
   const [submitted, setSubmitted] = useState(false);
   const [draft, setDraft] = useState<GatheringDraft>(emptyDraft);
   const [errors, setErrors] = useState<GatheringFieldErrors>({});
-  const bannerRef = useRef<HTMLDivElement>(null);
+
+  const focusBanner = useCallback((node: HTMLDivElement | null) => {
+    if (!node) return
+    if (fieldOrder.some((key) => errors[key])) return
+    node.focus()
+  }, [errors])
 
   function focusFirstInvalid(fieldErrors: GatheringFieldErrors) {
     const field = fieldOrder.find((key) => fieldErrors[key])
-    if (field) {
-      document.getElementById(field)?.focus()
-      return
-    }
-    if (fieldErrors.submit) bannerRef.current?.focus()
+    if (field) document.getElementById(field)?.focus()
   }
-
-  // The banner mounts with the error, so focus waits for that paint.
-  useEffect(() => {
-    if (!errors.submit) return
-    if (fieldOrder.some((key) => errors[key])) return
-    bannerRef.current?.focus()
-  }, [errors])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -129,7 +123,7 @@ export function GatheringForm() {
       >
         {errors.submit && (
           <div
-            ref={bannerRef}
+            ref={focusBanner}
             role="alert"
             tabIndex={-1}
             className="p-4 bg-red-50 border border-red-300 rounded-lg focus:outline-solid focus:outline-2 focus:outline-offset-2 focus:outline-[#9d174d]"
