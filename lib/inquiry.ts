@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { ALLOWED_SERVICES, serviceLabel, type AllowedService } from "@/lib/quote"
+import { venueKindLabel, venueKinds, type VenueKind } from "@/lib/partners"
 
 export type QuoteInput = {
   kind: "quote"
@@ -34,7 +35,19 @@ export type GatheringInput = {
   website?: string
 }
 
-export type InquiryInput = QuoteInput | GatheringInput
+export type PartnerInput = {
+  kind: "partner"
+  contactName: string
+  email: string
+  phone: string
+  venueName: string
+  venueKind: string
+  area: string
+  note: string
+  website?: string
+}
+
+export type InquiryInput = QuoteInput | GatheringInput | PartnerInput
 
 export type QuoteInquiry = {
   kind: "quote"
@@ -66,9 +79,22 @@ export type GatheringInquiry = {
   website?: string
 }
 
+export type PartnerInquiry = {
+  kind: "partner"
+  firstName: string
+  lastName: string
+  email: string
+  phone: string | null
+  venueName: string
+  venueKind: VenueKind
+  area: string
+  note: string
+  website?: string
+}
+
 declare const acceptedBrand: unique symbol
 
-export type AcceptedInquiry = (QuoteInquiry | GatheringInquiry) & {
+export type AcceptedInquiry = (QuoteInquiry | GatheringInquiry | PartnerInquiry) & {
   readonly [acceptedBrand]: true
 }
 
@@ -85,6 +111,17 @@ export type GatheringField =
 export type GatheringFieldErrors = Partial<
   Record<GatheringField | "submit", string>
 >
+
+export type PartnerField =
+  | "contactName"
+  | "email"
+  | "phone"
+  | "venueName"
+  | "venueKind"
+  | "area"
+  | "note"
+
+export type PartnerFieldErrors = Partial<Record<PartnerField | "submit", string>>
 
 export type StoredQuoteInput = {
   firstName: string
@@ -148,6 +185,7 @@ export type StoredPhoneDisplay =
 const FLEXIBLE_EVENT_DATE = "flexible"
 const FLEXIBLE_DATE_LABEL = "Flexible"
 const ABSENT_PHONE_LABEL = "Not given"
+const NO_GUEST_COUNT = "Not a guest count"
 
 const quoteInputSchema = z.object({
   kind: z.literal("quote"),
@@ -197,6 +235,25 @@ const gatheringInputSchema = z.object({
   website: z.string().optional(),
 }).strict()
 
+function isVenueKind(value: string): value is VenueKind {
+  return venueKinds.some((kind) => kind.id === value)
+}
+
+const partnerInputSchema = z.object({
+  kind: z.literal("partner"),
+  contactName: z.string().trim().min(1, "Name is required").max(80),
+  email: z.string().trim().min(1, "Email is required").email("Please enter a valid email").max(254),
+  phone: z.string().trim().max(30).refine(
+    (value) => value.length === 0 || value.length >= 7,
+    "Enter a phone number, or leave it blank",
+  ),
+  venueName: z.string().trim().min(1, "Venue name is required").max(120),
+  venueKind: z.string().refine(isVenueKind, "Choose the kind of venue"),
+  area: z.string().trim().min(1, "City or area is required").max(200),
+  note: z.string().trim().max(2000),
+  website: z.string().optional(),
+}).strict()
+
 const GATHERING_FIELDS = [
   "name",
   "email",
@@ -207,7 +264,17 @@ const GATHERING_FIELDS = [
   "notes",
 ] as const satisfies readonly GatheringField[]
 
-function stamp(inquiry: QuoteInquiry | GatheringInquiry): AcceptedInquiry {
+const PARTNER_FIELDS = [
+  "contactName",
+  "email",
+  "phone",
+  "venueName",
+  "venueKind",
+  "area",
+  "note",
+] as const satisfies readonly PartnerField[]
+
+function stamp(inquiry: QuoteInquiry | GatheringInquiry | PartnerInquiry): AcceptedInquiry {
   return inquiry as AcceptedInquiry
 }
 
@@ -232,6 +299,22 @@ function normalizeGathering(input: z.output<typeof gatheringInputSchema>): Gathe
     guestCount: input.guestCount,
     gatheringType: input.gatheringType,
     notes: input.notes,
+    website: input.website,
+  }
+}
+
+function normalizePartner(input: z.output<typeof partnerInputSchema>): PartnerInquiry {
+  const { firstName, lastName } = splitName(input.contactName)
+  return {
+    kind: "partner",
+    firstName,
+    lastName,
+    email: input.email,
+    phone: input.phone.length === 0 ? null : input.phone,
+    venueName: input.venueName,
+    venueKind: input.venueKind,
+    area: input.area,
+    note: input.note,
     website: input.website,
   }
 }
@@ -262,6 +345,11 @@ export function parseInquiry(raw: unknown): ParseResult {
     if (!parsed.success) return { ok: false }
     return { ok: true, inquiry: stamp(normalizeGathering(parsed.data)) }
   }
+  if (raw.kind === "partner") {
+    const parsed = partnerInputSchema.safeParse(raw)
+    if (!parsed.success) return { ok: false }
+    return { ok: true, inquiry: stamp(normalizePartner(parsed.data)) }
+  }
   return { ok: false }
 }
 
@@ -271,6 +359,28 @@ export function gatheringFieldErrors(input: GatheringInput): GatheringFieldError
   const errors: GatheringFieldErrors = {}
   for (const issue of parsed.error.issues) {
     const key = gatheringErrorKey(issue.path)
+    if (errors[key]) continue
+    errors[key] = key === "submit"
+      ? "Please fill out all required fields correctly."
+      : issue.message
+  }
+  return errors
+}
+
+function partnerErrorKey(path: PropertyKey[]): PartnerField | "submit" {
+  const head = path[0]
+  if (typeof head === "string" && PARTNER_FIELDS.includes(head as (typeof PARTNER_FIELDS)[number])) {
+    return head as PartnerField
+  }
+  return "submit"
+}
+
+export function partnerFieldErrors(input: PartnerInput): PartnerFieldErrors {
+  const parsed = partnerInputSchema.safeParse(input)
+  if (parsed.success) return {}
+  const errors: PartnerFieldErrors = {}
+  for (const issue of parsed.error.issues) {
+    const key = partnerErrorKey(issue.path)
     if (errors[key]) continue
     errors[key] = key === "submit"
       ? "Please fill out all required fields correctly."
@@ -375,9 +485,76 @@ function gatheringFields(inquiry: GatheringInquiry): InquiryFields {
   }
 }
 
+function partnerFields(inquiry: PartnerInquiry): InquiryFields {
+  const services: AllowedService[] = ["mocktails", "events"]
+  const eventType = `Venue partnership — ${venueKindLabel(inquiry.venueKind)}`
+  const additionalDetails = inquiry.note
+    ? `Venue: ${inquiry.venueName}\n${inquiry.note}`
+    : `Venue: ${inquiry.venueName}`
+  const person = personLabel(inquiry.firstName, inquiry.lastName)
+  const record: StoredQuoteInput = {
+    firstName: inquiry.firstName,
+    lastName: inquiry.lastName,
+    email: inquiry.email,
+    phone: inquiry.phone ?? "",
+    services,
+    eventType,
+    eventDate: FLEXIBLE_EVENT_DATE,
+    location: inquiry.area,
+    guestCount: "0",
+    referralSource: "",
+    additionalDetails,
+  }
+
+  return {
+    record,
+    notification: {
+      subject: `New venue partner from ${person} — ${inquiry.venueName}`,
+      heading: "New venue partnership request",
+      showReferral: false,
+      confirmationSubject: "Thank you for your partnership request - PINKYS UP",
+      email: {
+        firstName: inquiry.firstName,
+        lastName: inquiry.lastName,
+        email: inquiry.email,
+        phone: inquiry.phone ?? ABSENT_PHONE_LABEL,
+        eventDate: FLEXIBLE_DATE_LABEL,
+        eventType,
+        guestCount: storedGuestCountDisplay(0),
+        location: inquiry.area,
+        services,
+        referralSource: "",
+        additionalDetails,
+      },
+      confirmation: {
+        firstName: inquiry.firstName,
+        lastName: inquiry.lastName,
+        eventDate: FLEXIBLE_DATE_LABEL,
+        eventType,
+        services,
+      },
+    },
+  }
+}
+
 export function fieldsForInquiry(inquiry: AcceptedInquiry): InquiryFields {
-  if (inquiry.kind === "quote") return quoteFields(inquiry)
-  return gatheringFields(inquiry)
+  switch (inquiry.kind) {
+    case "quote":
+      return quoteFields(inquiry)
+    case "gathering":
+      return gatheringFields(inquiry)
+    case "partner":
+      return partnerFields(inquiry)
+    default: {
+      const unreachable: never = inquiry
+      throw new Error(`Unexpected inquiry: ${JSON.stringify(unreachable)}`)
+    }
+  }
+}
+
+export function storedGuestCountDisplay(count: number): string {
+  if (count === 0) return NO_GUEST_COUNT
+  return `${count} guests`
 }
 
 export function formatStoredEventDate(eventDate: string): string {
