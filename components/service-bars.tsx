@@ -4,6 +4,7 @@ import React from 'react';
 import Image from "next/image"
 import { motion } from 'framer-motion';
 import { TrackedLink } from "@/components/tracked-link"
+import { contactHref, link } from "@/lib/destinations"
 
 export function ServiceBars() {
   return (
@@ -59,14 +60,14 @@ export function ServiceBars() {
               </ul>
               <div className="flex flex-col items-center justify-center gap-3 pt-2 sm:flex-row">
                 <TrackedLink
-                  href="/quote?for=mocktails"
+                  href={contactHref("mocktails")}
                   event="book_quote"
                   className="inline-flex min-h-11 items-center justify-center bg-[#9d174d] px-6 text-xs font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
                 >
                   Request a quote
                 </TrackedLink>
                 <TrackedLink
-                  href="/mocktails"
+                  href={link("mocktails").path}
                   event="see_menu"
                   className="inline-flex min-h-11 items-center justify-center border border-gray-900 px-6 text-xs font-semibold uppercase tracking-[0.18em] text-gray-900 transition-colors hover:bg-gray-900 hover:text-white focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
                 >

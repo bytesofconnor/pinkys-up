@@ -1,6 +1,7 @@
 import { QuoteForm } from "@/components/quote-form"
 import { SectionHeading } from "@/components/section-heading"
 import { parseQuoteInterest } from "@/lib/quote"
+import { link } from "@/lib/destinations"
 
 export default async function QuotePage({
   searchParams,
@@ -27,7 +28,7 @@ export default async function QuotePage({
         </div>
         <p className="mt-8 text-center text-sm text-gray-500">
           Looking for time with Brenda instead?{" "}
-          <a href="/1-1" className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+          <a href={link("oneOnOne").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
             Book a 1:1
           </a>
         </p>

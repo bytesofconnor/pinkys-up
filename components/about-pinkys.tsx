@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { link } from "@/lib/destinations"
 
 export function AboutPinkys() {
   return (
@@ -13,26 +14,26 @@ export function AboutPinkys() {
             PINKYS UP is Brenda Pereira Vargas&apos;s mobile mocktail cart and community wellness
             project. We do not serve alcohol. The cart is for weddings, parties, and brand events.
             The gatherings are free, and they show up on{" "}
-            <Link href="/events" className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
-              Events
+            <Link href={link("events").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+              Community Events
             </Link>{" "}
             when a real date is booked.
           </p>
           <p>
             Looking for a{" "}
-            <Link href="/washington-dc" className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+            <Link href={link("washingtonDc").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
               mocktail bar in Washington, DC
             </Link>{" "}
             or a{" "}
-            <Link href="/minneapolis" className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+            <Link href={link("minneapolis").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
               mocktail cart in Minneapolis
             </Link>
             ? Start with a{" "}
-            <Link href="/quote" className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+            <Link href={link("contact").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
               quote
             </Link>
             . Menu, booking questions, and who we are:{" "}
-            <Link href="/faq" className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+            <Link href={link("faq").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
               FAQ
             </Link>
             .

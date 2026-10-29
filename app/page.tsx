@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/section-heading"
 import { TrackedLink } from "@/components/tracked-link"
 import { AboutPinkys } from "@/components/about-pinkys"
 import { getUpcomingEvents } from "@/lib/events"
+import { link } from "@/lib/destinations"
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +31,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen">
-      <HeroSection imageSrc="/cover.png" objectPosition="center 48%" soften="barely" />
+      <HeroSection imageSrc="/park.png" objectPosition="center 58%" soften="barely" />
       <section className="container max-w-5xl px-4 sm:px-6 py-16 sm:py-24">
         <div className="mb-10 sm:mb-14">
           <SectionHeading
@@ -43,7 +44,7 @@ export default async function Home() {
         {upcomingEvents.length > 0 ? (
           <p className="mt-8 sm:mt-10 text-center">
             <TrackedLink
-              href="/events"
+              href={link("events").path}
               event="see_all_events"
               className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
             >

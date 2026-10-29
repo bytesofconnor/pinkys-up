@@ -14,9 +14,10 @@ This README is how the site works and how Brenda uses admin.
 | --- | --- |
 | `/` | Homepage: next community date, mocktail cart, founder |
 | `/events` | Community dates. Empty until Brenda adds one in admin |
-| `/mocktails` | Three signature drinks |
-| `/1-1` | Book time with Brenda (Calendly if set, otherwise WhatsApp) |
-| `/quote` | Cart and community-event quote form |
+| `/mocktails` | Mobile mocktail cart landing and three signature drinks |
+| `/1-1` | Book time with Brenda (Calendly if set, otherwise WhatsApp). Linked from the founder section, not the header |
+| `/quote` | Contact form for the cart and community events. Header label is Contact |
+| `/contact` | Redirects to `/quote` |
 | `/admin` | Access-code login, then **Insights**, **Events**, and **Quotes** |
 
 Quotes email Brenda **and** save to Convex. A request still counts if only one of those succeeds. Events Brenda publishes in admin show on `/` and `/events`.

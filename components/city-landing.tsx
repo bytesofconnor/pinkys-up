@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/section-heading"
+import { contactHref, link } from "@/lib/destinations"
 
 type CityCopy = {
   slug: "washington-dc" | "minneapolis"
@@ -71,13 +72,13 @@ export function CityLanding({ slug }: { slug: CityCopy["slug"] }) {
         </div>
         <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link
-            href="/quote?for=mocktails"
+            href={contactHref("mocktails")}
             className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#9d174d] px-7 text-sm font-medium text-white hover:bg-[#831843]"
           >
             Request a quote
           </Link>
           <Link
-            href="/events"
+            href={link("events").path}
             className="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-900 px-7 text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white"
           >
             Community events

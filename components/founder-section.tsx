@@ -5,6 +5,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { TrackedLink } from "@/components/tracked-link"
+import { link } from "@/lib/destinations"
 
 export function FounderSection() {
   return (
@@ -63,7 +64,7 @@ export function FounderSection() {
                     </p>
                     <div className="mt-6 flex justify-center md:justify-start">
                       <TrackedLink
-                        href="/1-1"
+                        href={link("oneOnOne").path}
                         event="book_one_on_one"
                         className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#9d174d] px-6 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
                       >

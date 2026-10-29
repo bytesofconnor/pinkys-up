@@ -1,10 +1,12 @@
 'use client'
 
 import * as React from "react"
+import Link from "next/link"
 import { motion as m } from "framer-motion"
 import { HeroSection } from "@/components/hero-section"
 import { MocktailIllustration } from "@/components/mocktail-illustration"
 import { mocktails } from "@/lib/mocktails"
+import { contactHref, link } from "@/lib/destinations"
 
 export default function Page() {
   return (
@@ -16,16 +18,37 @@ export default function Page() {
         align="left"
         soften="barely"
         title="Mindfully Crafted Elixirs"
-        description="Zero-proof drinks, built for the cart."
+        description="Zero-proof drinks for Washington, DC and Minneapolis, built for the cart."
         actions={[
           {
-            href: "/quote?for=mocktails",
+            href: contactHref("mocktails"),
             event: "book_quote",
             label: "Book this menu",
             variant: "primary",
           },
         ]}
       />
+      <section className="mx-auto max-w-3xl px-4 pt-16 text-center sm:px-6 sm:pt-20">
+        <p className="text-sm uppercase tracking-[0.3em] text-pink-600">
+          Washington, DC · Minneapolis
+        </p>
+        <h2 className="mt-3 font-display text-4xl leading-tight text-gray-900">
+          The Mobile Mocktail Cart
+        </h2>
+        <p className="mt-4 text-lg leading-relaxed text-gray-700">
+          Vintage-inspired, fully zero-proof service for weddings, parties, and brand events.
+          We bring the cart, the menu, and the hospitality. There is no alcohol.
+        </p>
+        <p className="mt-4 text-base leading-relaxed text-gray-700">
+          Minneapolis and the Twin Cities get the same cart as Washington, DC.
+          The menu is Blush Hour, Plus One, and Mirrorball, with a custom menu when the event needs one.
+          Community gatherings stay free, and a date shows up on{" "}
+          <Link href={link("events").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+            Community Events
+          </Link>{" "}
+          only when it is really booked.
+        </p>
+      </section>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-16 sm:pb-20 pt-12 sm:pt-16 md:pt-24">
         <m.div
           initial={{ opacity: 0, y: 20 }}
