@@ -1,42 +1,13 @@
 "use server"
 
 import { headers } from "next/headers"
-import { z } from "zod"
 import { Resend } from "resend"
 import { QuoteRequestEmail } from "@/emails/quote-request"
 import { QuoteConfirmationEmail } from "@/emails/quote-confirmation"
-import { ALLOWED_SERVICES, quoteNotificationEmail, serviceLabel } from "@/lib/quote"
+import { quoteNotificationEmail } from "@/lib/quote"
+import { fieldsForInquiry, parseInquiry, type InquiryFormState, type InquiryInput } from "@/lib/inquiry"
 import { isRateLimited } from "@/lib/rate-limit"
 import { saveQuoteSubmission } from "@/lib/db"
-
-const formSchema = z.object({
-  firstName: z.string().trim().min(1, "First name is required").max(80),
-  lastName: z.string().trim().min(1, "Last name is required").max(80),
-  phone: z.string().trim().min(7, "Phone number is required").max(30),
-  email: z.string().trim().email("Invalid email address").max(254),
-  services: z
-    .array(z.enum(ALLOWED_SERVICES))
-    .min(1, "Please select at least one service")
-    .max(ALLOWED_SERVICES.length)
-    .refine(
-      (services) => services.includes("mocktails") || services.includes("events"),
-      "Choose mocktail cart, community events, or both"
-    ),
-  eventType: z.string().trim().min(1, "Event type is required").max(120),
-  eventDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid event date"),
-  location: z.string().trim().min(1, "Location is required").max(200),
-  guestCount: z.string().regex(/^[1-9]\d{0,4}$/, "Guest count must be between 1 and 99999"),
-  referralSource: z.string().trim().max(200).optional().default(""),
-  additionalDetails: z.string().trim().max(2000).optional(),
-  website: z.string().optional(),
-})
-
-type FormData = z.infer<typeof formSchema>
-
-type FormState = {
-  error?: string | null
-  success?: boolean
-}
 
 function getClientKey(headerList: Headers) {
   const forwarded = headerList.get("x-forwarded-for")
@@ -95,9 +66,9 @@ async function sendEmailWithRetry(
 }
 
 export async function submitQuoteForm(
-  _prevState: FormState,
-  formData: FormData
-): Promise<FormState> {
+  _prevState: InquiryFormState,
+  input: InquiryInput,
+): Promise<InquiryFormState> {
   const requestId = `req_${Date.now()}_${Math.random().toString(36).substring(7)}`
   let dbSaved = false
   let emailSent = false
@@ -111,21 +82,21 @@ export async function submitQuoteForm(
       return { error: "Too many requests. Please try again in an hour.", success: false }
     }
 
-    const validatedFields = formSchema.safeParse(formData)
+    const parsed = parseInquiry(input)
 
-    if (!validatedFields.success) {
-      console.warn(`[${requestId}] Validation failed:`, validatedFields.error.flatten())
+    if (!parsed.ok) {
+      console.warn(`[${requestId}] Validation failed`)
       return { error: "Please fill out all required fields correctly.", success: false }
     }
 
-    const { website, ...data } = validatedFields.data
-
-    if (website?.trim()) {
+    if (parsed.inquiry.website?.trim()) {
       console.info(`[${requestId}] Honeypot triggered, silently ignoring`)
       return { success: true }
     }
 
-    console.info(`[${requestId}] Processing quote request from ${data.email}`)
+    const fields = fieldsForInquiry(parsed.inquiry)
+
+    console.info(`[${requestId}] Processing ${parsed.inquiry.kind} request from ${parsed.inquiry.email}`)
 
     const to = quoteNotificationEmail()
     const from = process.env.RESEND_FROM_EMAIL ?? "Pinkys Up <onboarding@resend.dev>"
@@ -145,9 +116,13 @@ export async function submitQuoteForm(
       const notificationResult = await sendEmailWithRetry(resend!, {
         from,
         to: [to],
-        subject: `New request from ${data.firstName} ${data.lastName} — ${data.services.map(serviceLabel).join(" + ")}`,
-        html: QuoteRequestEmail(data),
-        replyTo: data.email,
+        subject: fields.notification.subject,
+        html: QuoteRequestEmail({
+          ...fields.notification.email,
+          heading: fields.notification.heading,
+          showReferral: fields.notification.showReferral,
+        }),
+        replyTo: parsed.inquiry.email,
       })
 
       if (!notificationResult.success) {
@@ -161,15 +136,9 @@ export async function submitQuoteForm(
         if (sendGuestConfirmation) {
           const confirmationResult = await sendEmailWithRetry(resend!, {
             from,
-            to: [data.email],
-            subject: "Thank you for your quote request - PINKYS UP",
-            html: QuoteConfirmationEmail({
-              firstName: data.firstName,
-              lastName: data.lastName,
-              eventDate: data.eventDate,
-              eventType: data.eventType,
-              services: data.services,
-            }),
+            to: [parsed.inquiry.email],
+            subject: fields.notification.confirmationSubject,
+            html: QuoteConfirmationEmail(fields.notification.confirmation),
           })
 
           if (!confirmationResult.success) {
@@ -184,7 +153,7 @@ export async function submitQuoteForm(
     // Try to save to database (even if email failed)
     try {
       const dbResult = await saveQuoteSubmission({
-        ...data,
+        ...fields.record,
         emailSent,
         emailError,
       })

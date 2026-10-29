@@ -73,6 +73,12 @@ const destinations = {
     place: { kind: "page" },
     sitemap: { priority: 0.6, changeFrequency: "monthly" },
   },
+  gathering: {
+    path: "/gathering",
+    label: "Plan your gathering",
+    place: { kind: "page" },
+    sitemap: { priority: 0.8, changeFrequency: "monthly" },
+  },
 } as const satisfies Record<string, DestinationRecord>
 
 type Destinations = typeof destinations

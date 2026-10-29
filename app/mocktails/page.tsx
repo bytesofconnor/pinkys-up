@@ -24,10 +24,16 @@ export default function Page() {
         description="Zero-proof drinks for Washington, DC and Minneapolis, built for the cart."
         actions={[
           {
+            href: link("gathering").path,
+            event: "book_quote",
+            label: link("gathering").label,
+            variant: "primary",
+          },
+          {
             href: contactHref("mocktails"),
             event: "book_quote",
             label: "Book this menu",
-            variant: "primary",
+            variant: "secondary",
           },
         ]}
       />

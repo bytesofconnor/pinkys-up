@@ -14,7 +14,7 @@ import {
 } from "@/lib/events"
 import { JsonLd } from "@/components/json-ld"
 import { getEventSchema } from "@/lib/structured-data"
-import { contactHref } from "@/lib/destinations"
+import { contactHref, link } from "@/lib/destinations"
 
 export const metadata: Metadata = {
   title: "Free community wellness events in DC and Minneapolis",
@@ -108,6 +108,12 @@ export default async function EventsPage() {
               label: "Host or partner with us",
               variant: "primary",
             },
+            {
+              href: link("gathering").path,
+              event: "book_quote",
+              label: link("gathering").label,
+              variant: "secondary",
+            },
           ]}
         />
       )}
@@ -122,7 +128,7 @@ export default async function EventsPage() {
         </div>
         <UpcomingEvents events={upcomingEvents} />
         {upcomingEvents.length > 0 ? (
-          <p className="mt-10 text-center sm:mt-12">
+          <div className="mt-10 flex flex-col items-center gap-3 text-center sm:mt-12">
             <TrackedLink
               href={contactHref("events")}
               event="book_quote"
@@ -130,7 +136,14 @@ export default async function EventsPage() {
             >
               Host or partner with us
             </TrackedLink>
-          </p>
+            <TrackedLink
+              href={link("gathering").path}
+              event="book_quote"
+              className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+            >
+              {link("gathering").label}
+            </TrackedLink>
+          </div>
         ) : null}
       </section>
     </div>
