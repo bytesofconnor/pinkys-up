@@ -117,7 +117,11 @@ export async function submitQuoteForm(
         from,
         to: [to],
         subject: fields.notification.subject,
-        html: QuoteRequestEmail(fields.notification.email),
+        html: QuoteRequestEmail({
+          ...fields.notification.email,
+          heading: fields.notification.heading,
+          showReferral: fields.notification.showReferral,
+        }),
         replyTo: parsed.inquiry.email,
       })
 

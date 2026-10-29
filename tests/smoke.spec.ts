@@ -25,6 +25,10 @@ const pages = [
     path: "/contact",
     heading: "How can we help?",
   },
+  {
+    path: "/gathering",
+    heading: "Bring the cart to your gathering.",
+  },
 ] as const
 
 test("primary nav is home, community events, and mobile mocktails", async ({ page }, testInfo) => {

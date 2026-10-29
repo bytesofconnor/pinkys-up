@@ -13,6 +13,8 @@ interface QuoteEmailProps {
   services: string[]
   referralSource: string
   additionalDetails?: string
+  heading: string
+  showReferral: boolean
 }
 
 export function QuoteRequestEmail({
@@ -27,6 +29,8 @@ export function QuoteRequestEmail({
   services,
   referralSource,
   additionalDetails,
+  heading,
+  showReferral,
 }: QuoteEmailProps) {
   return `
     <!DOCTYPE html>
@@ -46,7 +50,7 @@ export function QuoteRequestEmail({
       <body>
         <div class="container">
           <div class="header">
-            <h1>New Quote Request from PINKYS UP</h1>
+            <h1>${escapeHtml(heading)}</h1>
           </div>
           
           <div class="section">
@@ -75,10 +79,16 @@ export function QuoteRequestEmail({
             </div>
           </div>
 
+          ${
+            showReferral
+              ? `
           <div class="section">
             <div class="label">How they found us:</div>
             <div class="value">${escapeHtml(referralSource)}</div>
           </div>
+        `
+              : ""
+          }
 
           ${
             additionalDetails

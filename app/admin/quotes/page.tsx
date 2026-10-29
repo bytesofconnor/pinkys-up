@@ -1,4 +1,5 @@
 import { getRecentQuoteSubmissions } from '@/lib/db'
+import { formatStoredEventDate, storedPhoneDisplay } from '@/lib/inquiry'
 import { serviceLabel } from '@/lib/quote'
 import { redirect } from 'next/navigation'
 import { isAdmin } from '@/lib/admin'
@@ -42,7 +43,10 @@ export default async function AdminQuotesPage({
           </div>
         ) : (
           <div className="space-y-4">
-            {quotes.map((quote) => (
+            {quotes.map((quote) => {
+              const dateLabel = formatStoredEventDate(quote.event_date)
+              const phone = storedPhoneDisplay(quote.phone)
+              return (
               <div
                 key={quote.id}
                 className="bg-white rounded-lg shadow-xs border border-gray-200 p-6 hover:shadow-md transition-shadow"
@@ -81,20 +85,20 @@ export default async function AdminQuotesPage({
                       </a>
                     </p>
                     <p className="text-gray-900">
-                      <a href={`tel:${quote.phone}`} className="text-blue-600 hover:underline">
-                        {quote.phone}
-                      </a>
+                      {phone.kind === "link" ? (
+                        <a href={phone.href} className="text-blue-600 hover:underline">
+                          {phone.text}
+                        </a>
+                      ) : (
+                        phone.text
+                      )}
                     </p>
                   </div>
 
                   <div>
                     <p className="text-gray-600 font-medium">Event Details</p>
                     <p className="text-gray-900">{quote.event_type}</p>
-                    <p className="text-gray-900">
-                      {new Date(quote.event_date).toLocaleDateString('en-US', {
-                        dateStyle: 'long',
-                      })}
-                    </p>
+                    <p className="text-gray-900">{dateLabel}</p>
                     <p className="text-gray-900">{quote.guest_count} guests</p>
                   </div>
 
@@ -141,7 +145,8 @@ export default async function AdminQuotesPage({
                   )}
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         )}
           </>
