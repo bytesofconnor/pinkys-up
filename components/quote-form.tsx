@@ -100,6 +100,7 @@ export function QuoteForm({
     
     try {
       const result = await submitQuoteForm({ error: null, success: false }, {
+        kind: "quote",
         ...formData,
         services: formData.services,
       });
