@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { MessageCircle, Copy, Check } from "lucide-react"
+import { whatsAppPhoneDisplay } from "@/lib/booking"
 
 type WhatsAppRSVPButtonProps = {
   href: string
@@ -22,7 +23,7 @@ export function WhatsAppRSVPButton({
   const [showFallback, setShowFallback] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  const whatsappNumber = "1-571-501-4766"
+  const whatsappNumber = whatsAppPhoneDisplay()
   const message = decodeURIComponent(href.split("?text=")[1] || "")
 
   const handleClick = (e: React.MouseEvent) => {

@@ -1,5 +1,5 @@
 import { TrackedLink } from "@/components/tracked-link"
-import { whatsAppMessageUrl } from "@/lib/booking"
+import { whatsAppUrl } from "@/lib/booking"
 import { contactHref } from "@/lib/destinations"
 
 export function EventsEmptyState() {
@@ -19,15 +19,16 @@ export function EventsEmptyState() {
         >
           Host or partner with us
         </TrackedLink>
-        <a
-          href={whatsAppMessageUrl("Hi Pinky's Up! Please let me know when the next community event is scheduled.")}
+        <TrackedLink
+          href={whatsAppUrl({ kind: "broadcast_join" })}
+          event="join_broadcast"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex min-h-11 items-center justify-center rounded-full border border-gray-900 px-6 text-sm font-medium tracking-wide text-gray-900 transition-colors hover:bg-gray-900 hover:text-white focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
         >
-          Ask to be notified
+          Get event updates on WhatsApp
           <span className="sr-only"> (opens WhatsApp)</span>
-        </a>
+        </TrackedLink>
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { whatsAppEventRegistrationUrl } from "@/lib/booking"
+import { whatsAppUrl } from "@/lib/booking"
 import eventsData from "@/data/events.json"
 import { eventsDatabaseConfigured, listPublishedEvents } from "@/lib/events-db"
 
@@ -56,11 +56,14 @@ export function getEventRegistrationHref(event: WellnessEvent) {
     return event.registrationUrl
   }
 
-  return whatsAppEventRegistrationUrl({
-    name: event.name,
-    location: event.location,
-    date: event.startsAt ? formatEventDate(event.startsAt, event.timeZone) : undefined,
-    time: event.startsAt ? formatEventTime(event.startsAt, event.timeZone) : undefined,
+  return whatsAppUrl({
+    kind: "event_rsvp",
+    event: {
+      name: event.name,
+      location: event.location,
+      date: event.startsAt ? formatEventDate(event.startsAt, event.timeZone) : undefined,
+      time: event.startsAt ? formatEventTime(event.startsAt, event.timeZone) : undefined,
+    },
   })
 }
 

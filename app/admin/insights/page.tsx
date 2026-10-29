@@ -13,6 +13,7 @@ const CLICK_LABELS: Record<string, string> = {
   see_all_events: "See all events",
   book_one_on_one: "Book a 1:1",
   explore_events: "Join a community event",
+  join_broadcast: "Join the WhatsApp broadcast list",
 }
 
 const PAGE_LABELS: Record<string, string> = {

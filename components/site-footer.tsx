@@ -6,6 +6,7 @@ import { MusicPlayer } from "./music-player"
 import { InstagramIcon } from "./icons/instagram"
 import { TikTokIcon } from "./icons/tiktok"
 import { WhatsAppIcon } from "./icons/whatsapp"
+import { whatsAppUrl } from "@/lib/booking"
 
 const socialLinks = [
   {
@@ -20,7 +21,7 @@ const socialLinks = [
   },
   {
     name: "WhatsApp",
-    href: "https://wa.me/15715014766",
+    href: whatsAppUrl({ kind: "bare_chat" }),
     icon: WhatsAppIcon,
   },
 ]
