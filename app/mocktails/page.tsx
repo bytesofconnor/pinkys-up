@@ -5,6 +5,9 @@ import Link from "next/link"
 import { motion as m } from "framer-motion"
 import { HeroSection } from "@/components/hero-section"
 import { MocktailIllustration } from "@/components/mocktail-illustration"
+import { SectionHeading } from "@/components/section-heading"
+import { TrackedLink } from "@/components/tracked-link"
+import { FALL_MENU, fallQuoteHref } from "@/lib/fall-menu"
 import { mocktails } from "@/lib/mocktails"
 import { contactHref, link } from "@/lib/destinations"
 
@@ -105,6 +108,39 @@ export default function Page() {
             </m.div>
           ))}
         </m.div>
+        <section className="mt-16 sm:mt-24">
+          <SectionHeading
+            as="h2"
+            align="left"
+            eyebrow="Minnesota fall"
+            title="Seasonal drafts"
+            description={`${FALL_MENU.length} drinks in progress for fall. Names may still change. Ask for the one you want on the cart.`}
+          />
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
+            {FALL_MENU.map((drink, index) => (
+              <m.div
+                key={drink.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="rounded-2xl border border-white/20 bg-white/30 p-5 backdrop-blur-md sm:rounded-[32px] sm:p-8"
+              >
+                <p className="mb-1.5 text-xs uppercase tracking-[0.24em] text-pink-600">
+                  Minnesota fall
+                </p>
+                <h3 className="font-display text-2xl text-gray-900 sm:text-3xl">{drink.name}</h3>
+                <p className="mt-3 text-sm text-gray-700 sm:text-base">{drink.description}</p>
+                <TrackedLink
+                  href={fallQuoteHref(drink)}
+                  event="book_quote"
+                  className="mt-5 inline-block font-medium text-[#9d174d] underline-offset-4 hover:underline"
+                >
+                  Ask for {drink.name}
+                </TrackedLink>
+              </m.div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

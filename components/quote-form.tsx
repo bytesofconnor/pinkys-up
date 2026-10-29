@@ -13,8 +13,10 @@ import { cn } from '@/lib/utils'
 
 export function QuoteForm({
   initialServices = [],
+  initialAdditionalDetails = '',
 }: {
   initialServices?: AllowedService[]
+  initialAdditionalDetails?: string
 }) {
   const [formState, setFormState] = useState<{ status: 'idle' | 'pending' | 'error' }>({ status: 'idle' });
   const [submitted, setSubmitted] = useState(false);
@@ -29,7 +31,7 @@ export function QuoteForm({
     guestCount: '',
     location: '',
     referralSource: '',
-    additionalDetails: '',
+    additionalDetails: initialAdditionalDetails,
     website: '',
     services: initialServices
   });
@@ -114,7 +116,7 @@ export function QuoteForm({
           location: '',
           guestCount: '',
           referralSource: '',
-          additionalDetails: '',
+          additionalDetails: initialAdditionalDetails,
           website: ''
         });
         setErrors({});
