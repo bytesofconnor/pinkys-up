@@ -6,6 +6,7 @@ import { UpcomingEvents } from "@/components/upcoming-events"
 import { SectionHeading } from "@/components/section-heading"
 import { TrackedLink } from "@/components/tracked-link"
 import { AboutPinkys } from "@/components/about-pinkys"
+import { whatsAppUrl } from "@/lib/booking"
 import { getUpcomingEvents } from "@/lib/events"
 import { link } from "@/lib/destinations"
 
@@ -42,7 +43,7 @@ export default async function Home() {
         </div>
         <UpcomingEvents events={upcomingEvents.slice(0, 2)} />
         {upcomingEvents.length > 0 ? (
-          <p className="mt-8 sm:mt-10 text-center">
+          <div className="mt-8 flex flex-col items-center gap-3 text-center sm:mt-10">
             <TrackedLink
               href={link("events").path}
               event="see_all_events"
@@ -50,7 +51,16 @@ export default async function Home() {
             >
               See all upcoming events
             </TrackedLink>
-          </p>
+            <TrackedLink
+              href={whatsAppUrl({ kind: "broadcast_join" })}
+              event="join_broadcast"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+            >
+              Get event updates on WhatsApp
+            </TrackedLink>
+          </div>
         ) : null}
       </section>
       <ServiceBars />

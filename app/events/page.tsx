@@ -14,6 +14,7 @@ import {
 } from "@/lib/events"
 import { JsonLd } from "@/components/json-ld"
 import { getEventSchema } from "@/lib/structured-data"
+import { whatsAppUrl } from "@/lib/booking"
 import { contactHref, link } from "@/lib/destinations"
 
 export const metadata: Metadata = {
@@ -109,6 +110,13 @@ export default async function EventsPage() {
               variant: "primary",
             },
             {
+              href: whatsAppUrl({ kind: "broadcast_join" }),
+              event: "join_broadcast",
+              label: "Get event updates on WhatsApp",
+              variant: "secondary",
+              external: true,
+            },
+            {
               href: link("gathering").path,
               event: "book_quote",
               label: link("gathering").label,
@@ -142,6 +150,15 @@ export default async function EventsPage() {
               className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
             >
               {link("gathering").label}
+            </TrackedLink>
+            <TrackedLink
+              href={whatsAppUrl({ kind: "broadcast_join" })}
+              event="join_broadcast"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[#9d174d] underline-offset-4 hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+            >
+              Get event updates on WhatsApp
             </TrackedLink>
           </div>
         ) : null}

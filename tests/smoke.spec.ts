@@ -49,6 +49,19 @@ test("primary nav is home, community events, and mobile mocktails", async ({ pag
   await expect(page.getByRole("link", { name: "Contact", exact: true }).first()).toBeVisible()
 })
 
+for (const path of ["/", "/events"] as const) {
+  test(`${path} links to the WhatsApp broadcast list`, async ({ page }) => {
+    await page.goto(path, { waitUntil: "domcontentloaded" })
+
+    const link = page.getByRole("link", { name: /Get event updates on WhatsApp/ }).first()
+    await expect(link).toHaveAttribute("href", /^https:\/\/wa\.me\/15715014766\?text=/)
+
+    const href = await link.getAttribute("href")
+    expect(href).toBeTruthy()
+    expect(new URL(href!).searchParams.get("text")).toContain("broadcast list")
+  })
+}
+
 for (const pageDef of pages) {
   test(`${pageDef.path} returns 200 and renders ${pageDef.heading}`, async ({
     page,

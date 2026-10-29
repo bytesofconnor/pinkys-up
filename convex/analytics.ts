@@ -8,7 +8,8 @@ const eventNameValidator = v.union(
   v.literal("see_menu"),
   v.literal("see_all_events"),
   v.literal("book_one_on_one"),
-  v.literal("explore_events")
+  v.literal("explore_events"),
+  v.literal("join_broadcast")
 )
 
 const MAX_EVENTS = 3000
@@ -91,6 +92,7 @@ export const summary = query({
       "see_all_events",
       "book_one_on_one",
       "explore_events",
+      "join_broadcast",
     ] as const
     const clicks = clickNames.map((name) => ({
       name,
