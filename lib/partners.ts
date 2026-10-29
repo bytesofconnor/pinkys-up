@@ -21,6 +21,12 @@ export function venueKindLabel(id: VenueKind): string {
   return venueKindLabels[id]
 }
 
+type PartnerReasonFields = {
+  readonly id: "popup-bar" | "community-events" | "co-promotion"
+  readonly title: string
+  readonly body: string
+}
+
 export const partnerReasons = [
   {
     id: "popup-bar",
@@ -37,16 +43,13 @@ export const partnerReasons = [
     title: "Co-promotion",
     body: "We tell our community about the night, and you tell yours.",
   },
-] as const
+] as const satisfies readonly [
+  PartnerReasonFields,
+  PartnerReasonFields,
+  PartnerReasonFields,
+]
 
 export type PartnerReason = (typeof partnerReasons)[number]
-
-const _threeReasons = partnerReasons satisfies readonly [
-  PartnerReason,
-  PartnerReason,
-  PartnerReason,
-]
-void _threeReasons
 
 export type Partner = {
   readonly id: string

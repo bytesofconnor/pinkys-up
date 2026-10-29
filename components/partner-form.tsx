@@ -138,7 +138,7 @@ export function PartnerForm() {
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="space-y-5 sm:space-y-8 bg-white p-4 sm:p-8 rounded-lg shadow-lg border border-gray-100"
+        className="flex flex-col gap-5 bg-white p-4 sm:gap-8 sm:p-8 rounded-lg shadow-lg border border-gray-100"
       >
         {errors.submit && (
           <div
@@ -189,7 +189,7 @@ export function PartnerForm() {
             </p>
           </motion.div>
         ) : (
-        <>
+        <div className="flex flex-col gap-5 sm:gap-8">
         <div className="absolute left-[-9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
           <label htmlFor="website">Website</label>
           <input
@@ -202,7 +202,7 @@ export function PartnerForm() {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => changeDraft({ website: event.target.value })}
           />
         </div>
-        <div className="mt-5 sm:mt-8">
+        <div>
           <Label htmlFor="contactName" className="mb-1.5 block">Your name</Label>
           <Input
             id="contactName"
@@ -334,7 +334,7 @@ export function PartnerForm() {
         <div className="sm:static sm:p-0 -mx-4 -mb-4 sm:mx-0 sm:mb-0 sticky bottom-0 bg-white p-4 border-t sm:border-t-0 border-gray-200 safe-bottom">
           <SubmitButton pending={phase.status === "pending"} />
         </div>
-        </>
+        </div>
         )}
       </form>
     </div>
