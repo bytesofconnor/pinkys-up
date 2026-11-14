@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/section-heading"
 import { contactHref, link } from "@/lib/destinations"
+import { DJ_SERVICE_PROSE } from "@/lib/quote"
 
 type CityCopy = {
   slug: "washington-dc" | "minneapolis"
@@ -21,7 +22,7 @@ const cities: Record<CityCopy["slug"], CityCopy> = {
       "PINKYS UP is a zero-proof mocktail cart for DC weddings, parties, and brand events — plus free community wellness gatherings.",
     paragraphs: [
       "If you are looking for a non-alcoholic bar in Washington, DC that still feels like hospitality, that is the cart. We bring the drinks, glassware, and service so guests who are not drinking are part of the night.",
-      "Bookings are for private events: weddings, birthday parties, office gatherings, and activations. There is no alcohol on the menu. Signature mocktails include Blush Hour, Plus One, and Mirrorball, with custom menus when you need them.",
+      `Bookings are for private events: weddings, birthday parties, office gatherings, and activations. There is no alcohol on the menu. Signature mocktails include Blush Hour, Plus One, and Mirrorball, with custom menus when you need them. ${DJ_SERVICE_PROSE}`,
       "PINKYS UP also hosts free wellness events in DC. Those dates live on the Events page. They are not ticketed parties with a hidden bar — they are community gatherings.",
     ],
     eventsLine: "See free DC-area gatherings on Events, or request a cart quote for your date.",
@@ -34,7 +35,7 @@ const cities: Record<CityCopy["slug"], CityCopy> = {
       "PINKYS UP brings a zero-proof mocktail bar to Minneapolis events and hosts free community wellness gatherings in the Twin Cities.",
     paragraphs: [
       "Minneapolis and the Twin Cities get the same cart as DC: vintage-inspired service, fully non-alcoholic drinks, and a menu built for people who want a real pour without alcohol.",
-      "Hire PINKYS UP for weddings, private parties, wellness pop-ups, and branded events. Tell us the neighborhood, guest count, and date on the quote form and Brenda will follow up.",
+      `Hire PINKYS UP for weddings, private parties, wellness pop-ups, and branded events. Tell us the neighborhood, guest count, and date on the quote form and Brenda will follow up. ${DJ_SERVICE_PROSE}`,
       "Community events in Minneapolis are free. When a date is on the calendar it appears on the Events page — we do not invent listings.",
     ],
     eventsLine: "See Twin Cities gatherings on Events, or book the cart for a private event.",

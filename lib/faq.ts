@@ -1,3 +1,5 @@
+import { DJ_SERVICE_PROSE } from "@/lib/quote"
+
 export type FaqItem = {
   question: string
   answer: string
@@ -28,6 +30,10 @@ export const faqs: FaqItem[] = [
     question: "What events is the mocktail cart for?",
     answer:
       "Weddings, rehearsal dinners, birthday parties, corporate and brand events, wellness pop-ups, and other private gatherings. If your people need a non-alcoholic bar that still feels like a celebration, that’s the cart.",
+  },
+  {
+    question: "Do you offer DJ service?",
+    answer: `Yes. ${DJ_SERVICE_PROSE}`,
   },
   {
     question: "Are PINKYS UP community events free?",

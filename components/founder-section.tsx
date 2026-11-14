@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { TrackedLink } from "@/components/tracked-link"
 import { link } from "@/lib/destinations"
+import { CONTACT } from "@/lib/site"
 
 export function FounderSection() {
   return (
@@ -23,7 +24,7 @@ export function FounderSection() {
             <div className="relative rounded-[32px] border border-white/20 bg-white/80 p-8">
               <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 <Link 
-                  href="https://www.instagram.com/stories/brendaaa_pereira/"
+                  href={CONTACT.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative"
