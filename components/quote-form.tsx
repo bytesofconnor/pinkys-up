@@ -243,18 +243,26 @@ export function QuoteForm({
           <Label className="text-gray-700 font-medium mb-1.5 block">Services Needed</Label>
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {SERVICE_CHECKBOXES.map((option) => (
-              <div key={option.id} className="flex min-h-[44px] items-center space-x-2">
-                <Checkbox
-                  id={option.id}
-                  name="services"
-                  value={option.id}
-                  className="h-5 w-5 border-2 border-gray-300 data-[state=checked]:border-pink-500 data-[state=checked]:bg-pink-500"
-                  checked={formData.services.includes(option.id)}
-                  onCheckedChange={() => toggleService(option.id)}
-                />
-                <Label htmlFor={option.id} className="cursor-pointer text-sm text-gray-600 sm:text-base">
-                  {option.title}
-                </Label>
+              <div key={option.id} className={cn(option.description && "col-span-2")}>
+                <div className="flex min-h-[44px] items-center space-x-2">
+                  <Checkbox
+                    id={option.id}
+                    name="services"
+                    value={option.id}
+                    aria-describedby={option.description ? `${option.id}-description` : undefined}
+                    className="h-5 w-5 border-2 border-gray-300 data-[state=checked]:border-pink-500 data-[state=checked]:bg-pink-500"
+                    checked={formData.services.includes(option.id)}
+                    onCheckedChange={() => toggleService(option.id)}
+                  />
+                  <Label htmlFor={option.id} className="cursor-pointer text-sm text-gray-600 sm:text-base">
+                    {option.title}
+                  </Label>
+                </div>
+                {option.description ? (
+                  <p id={`${option.id}-description`} className="pb-1 pl-7 text-sm leading-relaxed text-gray-500">
+                    {option.description}
+                  </p>
+                ) : null}
               </div>
             ))}
           </div>

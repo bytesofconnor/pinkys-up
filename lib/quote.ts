@@ -10,6 +10,12 @@ export const ALLOWED_SERVICES = [
 
 export type AllowedService = (typeof ALLOWED_SERVICES)[number]
 
+export const DJ_SERVICE_DESCRIPTION = "Curated playlists and vibe setting for the event."
+
+export const DJ_SERVICE_PROSE = `DJ service is ${
+  DJ_SERVICE_DESCRIPTION.charAt(0).toLowerCase() + DJ_SERVICE_DESCRIPTION.slice(1)
+}`
+
 export const SERVICE_OPTIONS: {
   id: AllowedService
   title: string
@@ -27,12 +33,16 @@ export const SERVICE_OPTIONS: {
   },
 ]
 
-export const SERVICE_CHECKBOXES: { id: AllowedService; title: string }[] = [
+export const SERVICE_CHECKBOXES: {
+  id: AllowedService
+  title: string
+  description?: string
+}[] = [
   { id: "bar", title: "Bar Service" },
   { id: "mixologist", title: "Mixologist" },
   { id: "glassware", title: "Glassware" },
   { id: "custom", title: "Custom Menu" },
-  { id: "dj", title: "DJ Service" },
+  { id: "dj", title: "DJ Service", description: DJ_SERVICE_DESCRIPTION },
 ]
 
 const SERVICE_LABELS: Record<string, string> = {

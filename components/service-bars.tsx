@@ -5,6 +5,7 @@ import Image from "next/image"
 import { motion } from 'framer-motion';
 import { TrackedLink } from "@/components/tracked-link"
 import { contactHref, link } from "@/lib/destinations"
+import { DJ_SERVICE_DESCRIPTION } from "@/lib/quote"
 
 export function ServiceBars() {
   return (
@@ -56,6 +57,10 @@ export function ServiceBars() {
                 <li className="flex items-center justify-center">
                   <span className="mr-2" aria-hidden="true">✦</span>
                   Custom menu creation
+                </li>
+                <li className="flex items-center justify-center">
+                  <span className="mr-2" aria-hidden="true">✦</span>
+                  {DJ_SERVICE_DESCRIPTION}
                 </li>
               </ul>
               <div className="flex flex-col items-center justify-center gap-3 pt-2 sm:flex-row">

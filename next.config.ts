@@ -51,6 +51,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/menu",
+        destination: "/mocktails",
+        permanent: true,
+      },
+      {
         source: "/gallery",
         destination: "/#bars",
         permanent: true,
