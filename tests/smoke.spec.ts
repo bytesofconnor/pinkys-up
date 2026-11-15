@@ -85,3 +85,32 @@ for (const pageDef of pages) {
     ).toBeVisible()
   })
 }
+
+test("bottom strip does not cover the last quote field", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile")
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto("/quote", { waitUntil: "domcontentloaded" })
+
+  const field = page.locator("form").locator("input, textarea, select, button").last()
+  await field.focus()
+
+  const overlap = await page.evaluate(() => {
+    const footer = document.querySelector("footer")?.getBoundingClientRect()
+    const active = document.activeElement
+    if (!footer || !(active instanceof HTMLElement) || active === document.body) {
+      return { y: -1, label: "missing" }
+    }
+    const box = active.getBoundingClientRect()
+    const x = Math.max(0, Math.min(box.right, footer.right) - Math.max(box.left, footer.left))
+    const y = Math.max(0, Math.min(box.bottom, footer.bottom) - Math.max(box.top, footer.top))
+    return {
+      y: x > 0 ? y : 0,
+      label: active.id || active.textContent?.trim() || active.tagName,
+      fieldBottom: box.bottom,
+      footerTop: footer.top,
+    }
+  })
+
+  expect(overlap.y, JSON.stringify(overlap)).toBe(0)
+})
