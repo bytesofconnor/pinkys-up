@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/section-heading"
+import { TrackedLink } from "@/components/tracked-link"
 import { contactHref, link } from "@/lib/destinations"
 import { DJ_SERVICE_PROSE } from "@/lib/quote"
 
@@ -65,6 +66,15 @@ export function CityLanding({ slug }: { slug: CityCopy["slug"] }) {
     <div className="min-h-screen bg-linear-to-br from-pink-50 via-white to-purple-50">
       <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-20">
         <SectionHeading as="h1" eyebrow={city.eyebrow} title={city.title} description={city.description} />
+        <div className="mt-6 flex justify-center sm:mt-8">
+          <TrackedLink
+            href={link("contact").path}
+            event="book_quote"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#9d174d] px-7 text-sm font-medium text-white transition-colors hover:bg-[#831843] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9d174d]"
+          >
+            Get a quote
+          </TrackedLink>
+        </div>
         <div className="mt-10 space-y-5 text-base leading-relaxed text-gray-700 sm:text-lg">
           {city.paragraphs.map((paragraph) => (
             <p key={paragraph.slice(0, 40)}>{paragraph}</p>
