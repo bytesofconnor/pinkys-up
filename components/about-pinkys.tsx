@@ -32,6 +32,18 @@ export function AboutPinkys() {
             <Link href={link("contact").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
               quote
             </Link>
+            . Weddings have their own pages for{" "}
+            <Link href={link("washingtonDcWeddings").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+              DC
+            </Link>
+            ,{" "}
+            <Link href={link("minneapolisWeddings").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+              Minneapolis
+            </Link>
+            , and a{" "}
+            <Link href={link("soberWeddingBar").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
+              sober wedding bar
+            </Link>
             . Menu, booking questions, and who we are:{" "}
             <Link href={link("faq").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
               FAQ

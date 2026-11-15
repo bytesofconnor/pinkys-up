@@ -1,19 +1,8 @@
-import { JsonLd } from "@/components/json-ld"
-import { CityLanding, generateCityMetadata } from "@/components/city-landing"
-import { getBreadcrumbSchema } from "@/lib/structured-data"
+import { LandingDocument } from "@/components/service-landing"
+import { landingMetadata } from "@/lib/landings"
 
-export const metadata = generateCityMetadata("minneapolis")
+export const metadata = landingMetadata("minneapolis")
 
 export default function MinneapolisPage() {
-  return (
-    <>
-      <JsonLd
-        data={getBreadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Minneapolis", path: "/minneapolis" },
-        ])}
-      />
-      <CityLanding slug="minneapolis" />
-    </>
-  )
+  return <LandingDocument id="minneapolis" />
 }

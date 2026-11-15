@@ -47,17 +47,32 @@ export default function FaqPage() {
             </div>
           ))}
         </dl>
-        <p className="mt-14 text-center text-sm text-gray-600">
-          Ready to book?{" "}
-          <Link href={link("contact").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
-            Request a quote
-          </Link>{" "}
-          or see{" "}
-          <Link href={link("events").path} className="font-medium text-[#9d174d] underline-offset-4 hover:underline">
-            upcoming events
-          </Link>
-          .
-        </p>
+        <nav aria-label="Related" className="mt-14">
+          <h2 className="font-display text-2xl text-gray-900">Where to go next</h2>
+          <ul className="mt-4 space-y-3 text-base text-gray-700 sm:text-lg">
+            {(
+              [
+                "washingtonDc",
+                "minneapolis",
+                "washingtonDcWeddings",
+                "minneapolisWeddings",
+                "soberWeddingBar",
+                "mocktails",
+                "contact",
+                "events",
+              ] as const
+            ).map((id) => (
+              <li key={id}>
+                <Link
+                  href={link(id).path}
+                  className="font-medium text-[#9d174d] underline-offset-4 hover:underline"
+                >
+                  {link(id).label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </div>
   )

@@ -74,6 +74,27 @@ const destinations = {
     directoryOrder: 2,
     sitemap: { priority: 0.8, changeFrequency: "monthly" },
   },
+  washingtonDcWeddings: {
+    path: "/washington-dc/weddings",
+    label: "DC weddings",
+    place: { kind: "page" },
+    directoryOrder: 7,
+    sitemap: { priority: 0.8, changeFrequency: "monthly" },
+  },
+  minneapolisWeddings: {
+    path: "/minneapolis/weddings",
+    label: "Minneapolis weddings",
+    place: { kind: "page" },
+    directoryOrder: 8,
+    sitemap: { priority: 0.8, changeFrequency: "monthly" },
+  },
+  soberWeddingBar: {
+    path: "/sober-wedding-bar",
+    label: "Sober wedding bar",
+    place: { kind: "page" },
+    directoryOrder: 9,
+    sitemap: { priority: 0.8, changeFrequency: "monthly" },
+  },
   oneOnOne: {
     path: "/1-1",
     label: "1:1",

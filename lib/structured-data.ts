@@ -6,10 +6,11 @@ import type {
   FAQPage,
   Menu,
   Person,
+  Service,
   WebSite,
   BreadcrumbList,
 } from "schema-dts"
-import { faqs } from "@/lib/faq"
+import { faqs, type FaqItem } from "@/lib/faq"
 import { mocktails } from "@/lib/mocktails"
 import { CONTACT, SITE_NAME, SITE_URL } from "@/lib/site"
 
@@ -18,25 +19,20 @@ const image = `${SITE_URL}/opengraph-image`
 
 const sameAs = [CONTACT.instagram, CONTACT.tiktok]
 
-function cityBusiness(
-  name: string,
-  locality: string,
-  region: string,
-  url: string
-): LocalBusiness {
+function cityBusiness(name: string, locality: string, region: string, url: string) {
   return {
-    "@type": "LocalBusiness",
+    "@type": "LocalBusiness" as const,
     name,
     url,
     image,
     telephone: CONTACT.phone,
     email: CONTACT.email,
-    priceRange: "$$",
+    priceRange: "$$" as const,
     address: {
-      "@type": "PostalAddress",
+      "@type": "PostalAddress" as const,
       addressLocality: locality,
       addressRegion: region,
-      addressCountry: "US",
+      addressCountry: "US" as const,
     },
     areaServed: `${locality}, ${region}`,
   }
@@ -47,14 +43,14 @@ export function getSiteGraph() {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
-    alternateName: ["Pinky's Up", "Pinkys Up"],
+    alternateName: ["Pinkies Up", "Pinky's Up", "Pinkys Up"],
     url: SITE_URL,
     logo,
     image,
     email: CONTACT.email,
     telephone: CONTACT.phone,
     description:
-      "Zero-proof mocktail cart and free community wellness gatherings in Washington, DC and Minneapolis.",
+      "Pinkies Up is Brenda Pereira Vargas's zero-proof mocktail cart in Washington, DC and Minneapolis. PINKYS UP also hosts free community wellness gatherings.",
     founder: { "@id": `${SITE_URL}/#brenda` },
     sameAs,
     areaServed: ["Washington, DC", "Minneapolis, MN"],
@@ -109,11 +105,11 @@ export function getSiteGraph() {
   }
 }
 
-export function getFaqSchema(): WithContext<FAQPage> {
+export function getFaqSchema(items: readonly FaqItem[] = faqs): WithContext<FAQPage> {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((item) => ({
+    mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
@@ -121,6 +117,37 @@ export function getFaqSchema(): WithContext<FAQPage> {
         text: item.answer,
       },
     })),
+  }
+}
+
+export function getLocalBusinessSchema(
+  name: string,
+  locality: string,
+  region: string,
+  url: string
+): WithContext<LocalBusiness> {
+  return {
+    "@context": "https://schema.org",
+    ...cityBusiness(name, locality, region, url),
+  }
+}
+
+export function getServiceSchema(input: {
+  name: string
+  description: string
+  url: string
+  areaServed: readonly string[]
+}): WithContext<Service> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: input.name,
+    serviceType: "Mobile zero-proof mocktail bar",
+    description: input.description,
+    url: input.url,
+    provider: { "@id": `${SITE_URL}/#organization` },
+    areaServed: [...input.areaServed],
+    brand: { "@id": `${SITE_URL}/#organization` },
   }
 }
 
