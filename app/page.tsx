@@ -8,22 +8,28 @@ import { TrackedLink } from "@/components/tracked-link"
 import { AboutPinkys } from "@/components/about-pinkys"
 import { whatsAppUrl } from "@/lib/booking"
 import { getUpcomingEvents } from "@/lib/events"
-import { link } from "@/lib/destinations"
+import { contactHref, link } from "@/lib/destinations"
 
 export const metadata: Metadata = {
   title: {
-    absolute: "PINKYS UP | Mocktail Cart & Wellness Events in DC and Minneapolis",
+    absolute: "Pinkies Up, zero-proof mocktail cart in DC and Minneapolis",
   },
   description:
-    "Mobile zero-proof mocktail bar for weddings and private events in Washington, DC and Minneapolis, plus free community wellness gatherings. Book PINKYS UP.",
+    "Pinkies Up is Brenda Pereira Vargas's zero-proof mocktail cart for weddings and private events in Washington, DC and Minneapolis. Community gatherings are listed when a date is booked.",
   alternates: {
     canonical: "https://www.pinkysup.social",
   },
   openGraph: {
-    title: "PINKYS UP | Mocktail Cart & Wellness Events in DC and Minneapolis",
+    title: "Pinkies Up, zero-proof mocktail cart in DC and Minneapolis",
     description:
-      "Zero-proof mocktail cart for events, and free wellness gatherings, in Washington, DC and Minneapolis.",
+      "Book the PINKYS UP cart for weddings and private events in Washington, DC and Minneapolis. Community dates appear when they are booked.",
     url: "https://www.pinkysup.social",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pinkies Up, zero-proof mocktail cart in DC and Minneapolis",
+    description:
+      "Book the PINKYS UP cart for weddings and private events in Washington, DC and Minneapolis. Community dates appear when they are booked.",
   },
 }
 
@@ -32,7 +38,27 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen">
-      <HeroSection imageSrc="/park.png" objectPosition="center 58%" soften="barely" />
+      <HeroSection
+        imageSrc="/park.png"
+        objectPosition="center 58%"
+        soften="barely"
+        description="Book the zero-proof mocktail cart for weddings and private events in Washington, DC and Minneapolis."
+        actions={[
+          {
+            href: contactHref("mocktails"),
+            event: "book_quote",
+            label: "Book the cart",
+            variant: "primary",
+          },
+          {
+            href: link("events").path,
+            event: "explore_events",
+            label: "Join a community event",
+            variant: "secondary",
+          },
+        ]}
+      />
+      <ServiceBars />
       <section className="container max-w-5xl px-4 sm:px-6 py-16 sm:py-24">
         <div className="mb-10 sm:mb-14">
           <SectionHeading
@@ -63,7 +89,6 @@ export default async function Home() {
           </div>
         ) : null}
       </section>
-      <ServiceBars />
       <AboutPinkys />
       <FounderSection />
     </div>

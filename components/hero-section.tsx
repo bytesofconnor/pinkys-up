@@ -21,7 +21,7 @@ export function HeroSection({
   align = "center",
   eyebrow = "Washington, DC · Minneapolis",
   title = "Move. Connect. Celebrate.",
-  description = "Two ways in: free community gatherings, or book the mocktail cart for your people.",
+  description = "Book the zero-proof mocktail cart for weddings and private events in Washington, DC and Minneapolis.",
   soften = "none",
   actions,
   children,
@@ -41,15 +41,15 @@ export function HeroSection({
 
   const links = actions ?? [
     {
-      href: link("events").path,
-      event: "explore_events",
-      label: "Join a community event",
-      variant: "primary" as const,
-    },
-    {
       href: contactHref("mocktails"),
       event: "book_quote",
       label: "Book the cart",
+      variant: "primary" as const,
+    },
+    {
+      href: link("events").path,
+      event: "explore_events",
+      label: "Join a community event",
       variant: "secondary" as const,
     },
   ]
